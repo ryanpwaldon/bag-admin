@@ -3,16 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "sudo vue-cli-service serve:custom",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@shopify/app-bridge": "^1.27.2",
+    "@shopify/app-bridge-utils": "^1.27.2",
     "@tailwindcss/ui": "^0.6.2",
     "@types/yup": "^0.29.7",
     "@vee-validate/i18n": "^4.0.0-beta.0",
     "@vee-validate/rules": "^4.0.0-beta.0",
+    "axios": "^0.20.0",
     "core-js": "^3.6.5",
+    "https-localhost": "^4.6.2",
     "tailwindcss": "^1.8.10",
     "vee-validate": "^4.0.0-beta.1",
     "vue": "^3.0.0-0",
@@ -59,5 +63,10 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "vuePlugins": {
+    "service": [
+      "config.js"
+    ]
+  }
 }

@@ -1,6 +1,10 @@
 <template>
-  <span class="inline-flex rounded-md shadow-sm">
-    <button :type="type" class="inline-flex items-center transition duration-150 ease-in-out border" :class="[sizeClasses, themeClasses]">
+  <span class="inline-flex rounded-md shadow-sm" :class="[full && 'w-full']">
+    <button
+      :type="type"
+      class="inline-flex items-center justify-center transition duration-150 ease-in-out border"
+      :class="[sizeClasses, themeClasses, full && 'w-full']"
+    >
       {{ text }}
     </button>
   </span>
@@ -26,6 +30,10 @@ export default defineComponent({
     theme: {
       type: String,
       default: 'blue'
+    },
+    full: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props) {

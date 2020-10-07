@@ -1,0 +1,10 @@
+import app from '@/main'
+import axios from 'axios'
+
+export const client = axios.create({ baseURL: process.env.VUE_APP_SERVER_URL })
+
+client.interceptors.request.use(async config => {
+  const token = (app.$shopify && (await app.$shopify.getSessionToken())) || null
+  config.headers.Authorization = `Bearer ${token}`
+  return config
+})

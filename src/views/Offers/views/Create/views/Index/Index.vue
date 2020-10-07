@@ -1,30 +1,33 @@
 <template>
-  <BaseHeading />
-  <Form @submit="handleSubmit" class="grid gap-4">
-    <BaseCard title="Offer type" description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.">
-      <BaseInputRadio
-        name="type"
-        initial-value="1"
-        :fields="[
-          { label: 'Minimum spend', value: '1' },
-          { label: 'Product add-on', value: '2' },
-          { label: 'Product upgrade', value: '3' }
-        ]"
-      />
-      <template #footer>
-        <div class="grid grid-flow-col gap-4 ml-auto">
-          <router-link to="/offers">
-            <BaseButton text="Cancel" theme="white" />
-          </router-link>
-          <BaseButton text="Next →" type="submit" />
-        </div>
-      </template>
-    </BaseCard>
-  </Form>
+  <BaseLayout>
+    <BaseHeading />
+    <Form @submit="handleSubmit" class="grid gap-4">
+      <BaseCard title="Offer type" description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.">
+        <BaseInputRadio
+          name="type"
+          initial-value="1"
+          :fields="[
+            { label: 'Minimum spend', value: '1' },
+            { label: 'Product add-on', value: '2' },
+            { label: 'Product upgrade', value: '3' }
+          ]"
+        />
+        <template #footer>
+          <div class="grid grid-flow-col gap-4 ml-auto">
+            <router-link to="/offers">
+              <BaseButton text="Cancel" theme="white" />
+            </router-link>
+            <BaseButton text="Next →" type="submit" />
+          </div>
+        </template>
+      </BaseCard>
+    </Form>
+  </BaseLayout>
 </template>
 
 <script lang="ts">
 import { Form } from 'vee-validate'
+import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
 import BaseHeading from '@/components/BaseHeading/BaseHeading.vue'
 import BaseInputRadio from '@/components/BaseInputRadio/BaseInputRadio.vue'
@@ -34,6 +37,7 @@ export default defineComponent({
   name: 'Create',
   components: {
     Form,
+    BaseLayout,
     BaseCard,
     BaseHeading,
     BaseInputRadio,

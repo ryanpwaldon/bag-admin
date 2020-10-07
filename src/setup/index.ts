@@ -1,1 +1,5 @@
-import '@/setup/vee-validate'
+import setupVeeValidate from '@/setup/functions/setupVeeValidate'
+
+export default () => {
+  setupVeeValidate()
+}
