@@ -8,7 +8,7 @@
       <BaseCard class="mt-8">
         <Form @submit="handleSubmit">
           <BaseInputText label="Shop origin" name="shopOrigin" placeholder="your-shop.myshopify.com" />
-          <BaseButton text="Sign in" type="submit" :full="true" class="mt-6" />
+          <BaseButton class="w-full mt-6" type="submit" text="Sign in" />
         </Form>
       </BaseCard>
     </div>

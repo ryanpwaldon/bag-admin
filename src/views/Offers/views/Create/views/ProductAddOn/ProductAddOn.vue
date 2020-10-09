@@ -2,36 +2,40 @@
   <BaseLayout>
     <BaseHeading />
     <Form @submit="submit">
-      <BaseCard title="Product add-on" description="Push customers to add related products to their cart before checking out">
+      <BaseCard title="Product suggestion" description="Suggest a product based on the items already added to cart">
         <div class="grid grid-cols-12 gap-6">
           <BaseInputText
-            type="number"
-            name="product"
-            rules="required|numeric"
-            label="Set a price target"
-            placeholder="$50.00"
-            description="Customers must spend at least this amount to recieve their discount"
-            class="col-span-12 sm:col-span-8"
-          />
-          <BaseInputRadio
-            title="Select a discount type"
-            name="discount type"
-            initial-value="percentage"
-            :fields="[
-              { label: 'Percentage', value: 'percentage' },
-              { label: 'Fixed amount', value: 'fixedAmount' },
-              { label: 'Free shipping', value: 'freeShipping' }
-            ]"
-            class="col-span-12 sm:col-span-8"
+            name="title"
+            rules="required|alpha"
+            label="Title"
+            placeholder="Add a pencil"
+            description="The title of the offer card."
+            class="col-span-12 sm:col-span-6"
           />
           <BaseInputText
-            type="number"
-            name="discount"
-            rules="required|numeric|min_value:1|max_value:99"
-            label="Discount (percentage off total order)"
-            placeholder="5%"
-            description="The discount the customer will receive in return for reaching the price target"
-            class="col-span-12 sm:col-span-8"
+            name="subtitle"
+            rules="required|alpha"
+            label="Subtitle"
+            placeholder="Faber Casel 2B"
+            description="The subtitle of the offer card."
+            class="col-span-12 sm:col-span-6"
+          />
+          <BaseInputProducts
+            class="col-span-12"
+            name="product"
+            label="Product"
+            rules="required|array_single"
+            description="The product you would like to dynamically display to the user."
+            button-text="Add a product"
+          />
+          <BaseInputProducts
+            class="col-span-12"
+            name="triggers"
+            label="Trigger products"
+            rules="required"
+            description="Trigger products determine whether the product suggestion will be displayed to the user. The product suggestion will only be displayed if at least on of the trigger products are currently in the user's cart."
+            button-text="Add trigger products"
+            :multi="true"
           />
         </div>
         <template #footer>
@@ -53,7 +57,7 @@ import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
 import BaseHeading from '@/components/BaseHeading/BaseHeading.vue'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
-import BaseInputRadio from '@/components/BaseInputRadio/BaseInputRadio.vue'
+import BaseInputProducts from '@/components/BaseInputProducts/BaseInputProducts.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
@@ -64,7 +68,7 @@ export default defineComponent({
     BaseCard,
     BaseHeading,
     BaseInputText,
-    BaseInputRadio,
+    BaseInputProducts,
     BaseButton
   },
   methods: {

@@ -1,11 +1,12 @@
 <template>
-  <span class="inline-flex rounded-md shadow-sm" :class="[full && 'w-full']">
+  <span class="inline-flex rounded-md shadow-sm">
     <button
       :type="type"
-      class="inline-flex items-center justify-center transition duration-150 ease-in-out border"
-      :class="[sizeClasses, themeClasses, full && 'w-full']"
+      class="inline-flex items-center w-full transition duration-150 ease-in-out border"
+      :class="[sizeClasses, themeClasses, $slots.icon ? 'justify-between' : 'justify-center']"
     >
       {{ text }}
+      <slot name="icon" />
     </button>
   </span>
 </template>
@@ -30,10 +31,6 @@ export default defineComponent({
     theme: {
       type: String,
       default: 'blue'
-    },
-    full: {
-      type: Boolean,
-      default: false
     }
   },
   setup(props) {

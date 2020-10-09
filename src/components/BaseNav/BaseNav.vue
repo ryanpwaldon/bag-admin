@@ -27,33 +27,12 @@
                   id="user-menu"
                   aria-label="User menu"
                   aria-haspopup="true"
-                  @click="dropdownIsOpen = !dropdownIsOpen"
+                  @click.stop="dropdownIsOpen = !dropdownIsOpen"
                 >
                   <div class="w-8 h-8 bg-gray-100 rounded-full shadow-inner" />
                 </button>
               </div>
-              <transition
-                enter-active-class="transition duration-100 ease-out"
-                enter-from-class="transform scale-95 opacity-0"
-                enter-to-class="transform scale-100 opacity-100"
-                leave-active-class="transition duration-75 ease-in"
-                leave-from-class="transform scale-100 opacity-100"
-                leave-to-class="transform scale-95 opacity-0"
-              >
-                <div v-show="dropdownIsOpen" class="absolute right-0 w-48 mt-2 origin-top-right rounded-md shadow-lg">
-                  <div class="py-1 bg-white rounded-md shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                    <router-link
-                      v-for="(route, i) in secondaryRoutes"
-                      :key="i"
-                      :to="route.path"
-                      class="block px-4 py-2 text-sm text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100"
-                      role="menuitem"
-                    >
-                      {{ route.meta.title }}
-                    </router-link>
-                  </div>
-                </div>
-              </transition>
+              <BaseDropdown v-model="dropdownIsOpen" :links="secondaryRoutes.map(route => ({ title: route.meta.title, path: route.path }))" />
             </div>
           </div>
         </div>
@@ -101,8 +80,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { RouteLocationNormalized } from 'vue-router'
+import BaseDropdown from '../BaseDropdown/BaseDropdown.vue'
 export default defineComponent({
   name: 'BaseNav',
+  components: {
+    BaseDropdown
+  },
   data: () => ({
     mobileNavIsOpen: false,
     dropdownIsOpen: false

@@ -13,4 +13,8 @@ export default () => {
   defineRule('max_value', max_value)
   defineRule('numeric', numeric)
   defineRule('alpha_num', alpha_num)
+  defineRule('array_single', value => {
+    if (!value || value.length <= 1) return true
+    return 'This field cannot include more than 1 item'
+  })
 }
