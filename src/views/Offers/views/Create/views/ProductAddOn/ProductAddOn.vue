@@ -26,7 +26,6 @@
             label="Product"
             rules="required|array_single"
             description="The product you would like to dynamically display to the user."
-            button-text="Add a product"
           />
           <BaseInputProducts
             class="col-span-12"
@@ -34,7 +33,6 @@
             label="Trigger products"
             rules="required"
             description="Trigger products determine whether the product suggestion will be displayed to the user. The product suggestion will only be displayed if at least on of the trigger products are currently in the user's cart."
-            button-text="Add trigger products"
             :multi="true"
           />
         </div>

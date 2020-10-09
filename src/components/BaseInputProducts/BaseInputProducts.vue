@@ -16,7 +16,7 @@
           />
         </BaseProductFetcher>
       </Suspense>
-      <BaseButton @click="handleSelection({ mode: 'add' })" class="h-20" :text="buttonText" theme="white" v-if="value.length < 1 || multi">
+      <BaseButton @click="handleSelection({ mode: 'add' })" class="h-20" text="Add" theme="white" v-if="value.length < 1 || multi">
         <template #icon>
           <svg class="w-5 h-5 ml-3 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
             <path
@@ -64,10 +64,6 @@ export default defineComponent({
     multi: {
       type: Boolean,
       default: false
-    },
-    buttonText: {
-      type: String,
-      required: true
     },
     initialValue: {
       type: Array,
