@@ -3,6 +3,7 @@ import authGuard from './guards/authGuard'
 import roleGuard from './guards/roleGuard'
 
 type RouteRecordRawWithRequiredMeta = RouteRecordRaw & {
+  name: string
   children?: Array<RouteRecordRawWithRequiredMeta>
   meta: Meta
 }
@@ -15,46 +16,56 @@ interface Meta {
 const routes: Array<RouteRecordRawWithRequiredMeta> = [
   {
     path: '/',
+    name: 'home',
     component: () => import('@/views/Home/Home.vue'),
     meta: { title: 'Home', breadcrumb: 'Home' }
   },
   {
     path: '/login',
+    name: 'login',
     component: () => import('@/views/Login/Login.vue'),
     meta: { title: 'Login', breadcrumb: 'Login' }
   },
   {
     path: '/offers',
+    name: 'offers',
     component: () => import('@/views/Offers/Offers.vue'),
     meta: { title: 'Offers', breadcrumb: 'Offers' },
     children: [
       {
         path: '',
+        name: 'offers',
         component: () => import('@/views/Offers/views/Index/Index.vue'),
         meta: { title: 'Offers', breadcrumb: 'Offers' }
       },
       {
         path: 'offer',
+        name: 'offer',
         component: () => import('@/views/Offers/views/Offer/Offer.vue'),
-        meta: { title: 'Offer', breadcrumb: 'Offer' }
+        meta: { title: 'Offer', breadcrumb: 'Offer' },
+        props: true
       },
       {
         path: 'create',
+        name: 'createOffer',
         component: () => import('@/views/Offers/views/Create/Create.vue'),
         meta: { title: 'Create an Offer', breadcrumb: 'Create' },
         children: [
           {
             path: '',
+            name: 'create-offer',
             component: () => import('@/views/Offers/views/Create/views/Index/Index.vue'),
             meta: { title: 'Create', breadcrumb: 'Create' }
           },
           {
             path: 'minimum-spend',
+            name: 'create-minimum-spend',
             component: () => import('@/views/Offers/views/Create/views/MinimumSpend/MinimumSpend.vue'),
             meta: { title: 'Create', breadcrumb: 'Minimum Spend' }
           },
           {
             path: 'product-add-on',
+            name: 'create-product-add-on',
             component: () => import('@/views/Offers/views/Create/views/ProductAddOn/ProductAddOn.vue'),
             meta: { title: 'Create', breadcrumb: 'Product Add-on' }
           }
@@ -64,21 +75,25 @@ const routes: Array<RouteRecordRawWithRequiredMeta> = [
   },
   {
     path: '/cart',
+    name: 'cart',
     component: () => import('@/views/Cart/Cart.vue'),
     meta: { title: 'Cart', breadcrumb: 'Cart' }
   },
   {
     path: '/account',
+    name: 'account',
     component: () => import('@/views/Home/Home.vue'),
     meta: { title: 'Account', breadcrumb: 'Account' }
   },
   {
     path: '/help',
+    name: 'help',
     component: () => import('@/views/Home/Home.vue'),
     meta: { title: 'Help', breadcrumb: 'Help' }
   },
   {
     path: '/:path(.*)*',
+    name: 'not-found',
     redirect: '/',
     meta: { title: '404 – Not Found', breadcrumb: '404 – Not Found' }
   }

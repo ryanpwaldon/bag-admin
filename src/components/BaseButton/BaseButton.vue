@@ -3,18 +3,23 @@
     <button
       :type="type"
       class="inline-flex items-center w-full transition duration-150 ease-in-out border"
-      :class="[sizeClasses, themeClasses, $slots.icon ? 'justify-between' : 'justify-center']"
+      :class="[sizeClasses, themeClasses, $slots.icon ? 'justify-between' : 'justify-center', loading && 'cursor-not-allowed pointer-events-none']"
     >
-      {{ text }}
-      <slot name="icon" />
+      <BaseSpinner v-if="loading" class="w-4 h-4 mr-1 -ml-1" />
+      {{ loading ? 'Loading' : text }}
+      <slot name="icon" v-if="!loading" />
     </button>
   </span>
 </template>
 
 <script lang="ts">
+import BaseSpinner from '@/components/BaseSpinner/BaseSpinner.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'BaseButton',
+  components: {
+    BaseSpinner
+  },
   props: {
     text: {
       type: String,
@@ -31,6 +36,10 @@ export default defineComponent({
     theme: {
       type: String,
       default: 'blue'
+    },
+    loading: {
+      type: Boolean,
+      required: false
     }
   },
   setup(props) {

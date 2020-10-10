@@ -1,19 +1,23 @@
 import { client } from '@/services/api/client'
 
 export default {
-  async findAll(filters) {
+  async create(data: object) {
+    return (await client({ url: `/offer`, method: 'post', data })).data
+  },
+
+  async findAll(filters: object) {
     return (await client({ url: `/offer`, method: 'get', params: filters })).data
   },
 
-  async findOneById(id) {
+  async findOneById(id: string) {
     return (await client({ url: `/offer/${id}`, method: 'get' })).data
   },
 
-  async updateOneById(id, data) {
+  async updateOneById(id: string, data: object) {
     return (await client({ url: `/offer/${id}`, method: 'put', data })).data
   },
 
-  async deleteOneById(id) {
+  async deleteOneById(id: string) {
     return (await client({ url: `/offer/${id}`, method: 'delete' })).data
   }
 }

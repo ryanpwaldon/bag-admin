@@ -14,6 +14,15 @@ export default defineComponent({
   components: {
     BaseLayout,
     BaseHeading
+  },
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+  mounted() {
+    console.log(this.id)
   }
 })
 </script>
