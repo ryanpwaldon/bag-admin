@@ -18,11 +18,12 @@
             <tbody class="bg-white divide-y divide-gray-200">
               <tr v-for="(item, i) in items" :key="i">
                 <td v-for="{ id } in props" :key="id" class="px-6 py-4 whitespace-no-wrap">
-                  <slot :name="prop.id" :item="item" />
+                  <slot :name="id" :item="item" />
                 </td>
               </tr>
             </tbody>
           </table>
+          <slot name="pagination" />
         </div>
       </div>
     </div>

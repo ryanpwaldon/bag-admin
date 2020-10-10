@@ -5,8 +5,8 @@ export default {
     return (await client({ url: `/offer`, method: 'post', data })).data
   },
 
-  async findAll(filters: object) {
-    return (await client({ url: `/offer`, method: 'get', params: filters })).data
+  async findAll(page: number, itemsPerPage: number, filters?: object) {
+    return (await client({ url: `/offer`, method: 'get', params: { page, itemsPerPage, filters } })).data
   },
 
   async findOneById(id: string) {

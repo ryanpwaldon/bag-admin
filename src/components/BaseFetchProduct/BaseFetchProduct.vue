@@ -1,12 +1,12 @@
 <template>
-  <slot :title="title" :image="image" />
+  <slot :item="item" />
 </template>
 
 <script lang="ts">
 import productService from '@/services/api/services/productService'
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'BaseEntityPopulator',
+  name: 'BaseFetchProduct',
   props: {
     id: {
       type: String,
@@ -15,7 +15,11 @@ export default defineComponent({
   },
   async setup(props) {
     const data = await productService.findOne(props.id)
-    return { title: data.title, image: data.featuredImage.originalSrc }
+    const item = {
+      title: data.title,
+      image: data.featuredImage.originalSrc
+    }
+    return { item }
   }
 })
 </script>

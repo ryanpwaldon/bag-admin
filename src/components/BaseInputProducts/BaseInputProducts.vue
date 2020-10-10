@@ -6,15 +6,15 @@
     </p>
     <div class="grid grid-cols-1 row-gap-4 col-gap-6 mt-4 sm:grid-cols-2">
       <Suspense v-for="id in value" :key="id">
-        <BaseProductFetcher :id="id" v-slot="{ title, image }">
+        <BaseFetchProduct :id="id" v-slot="{ product }">
           <BaseProduct
-            :title="title"
+            :title="product.title"
             subtitle="Product"
-            :image="image"
+            :image="product.image"
             @change="handleSelection({ mode: 'change', id })"
             @remove="handleRemove(id)"
           />
-        </BaseProductFetcher>
+        </BaseFetchProduct>
       </Suspense>
       <BaseButton @click="handleSelection({ mode: 'add' })" class="h-20" text="Add" theme="white" v-if="value.length < 1 || multi">
         <template #icon>
@@ -35,13 +35,13 @@
 import { useField } from 'vee-validate'
 import { defineComponent } from 'vue'
 import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
-import BaseProductFetcher from '@/components/BaseProductFetcher/BaseProductFetcher.vue'
+import BaseFetchProduct from '@/components/BaseFetchProduct/BaseFetchProduct.vue'
 import BaseButton from '../BaseButton/BaseButton.vue'
 export default defineComponent({
   name: 'BaseInputProducts',
   components: {
     BaseProduct,
-    BaseProductFetcher,
+    BaseFetchProduct,
     BaseButton
   },
   props: {
