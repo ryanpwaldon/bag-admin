@@ -1,9 +1,9 @@
 <template>
-  <span class="inline-flex rounded-md shadow-sm">
+  <span class="inline-flex rounded-md shadow-sm" :class="[(loading || disabled) && 'cursor-not-allowed pointer-events-none']">
     <button
       :type="type"
       class="inline-flex items-center w-full transition duration-150 ease-in-out border"
-      :class="[sizeClasses, themeClasses, $slots.icon ? 'justify-between' : 'justify-center', loading && 'cursor-not-allowed pointer-events-none']"
+      :class="[sizeClasses, themeClasses, $slots.icon ? 'justify-between' : 'justify-center', disabled && 'opacity-50']"
     >
       <BaseSpinner v-if="loading" class="w-4 h-4 mr-1 -ml-1" />
       {{ loading ? 'Loading' : text }}
@@ -40,18 +40,24 @@ export default defineComponent({
     loading: {
       type: Boolean,
       required: false
+    },
+    disabled: {
+      type: Boolean,
+      required: false
     }
   },
-  setup(props) {
-    return {
-      sizeClasses: ({
+  computed: {
+    sizeClasses(): string {
+      return ({
         xs: 'rounded px-2.5 py-1.5 text-xs font-medium leading-4',
         sm: 'rounded-md px-3 py-2 text-sm font-medium leading-4',
         md: 'rounded-md px-4 py-2 text-sm font-medium leading-5',
         lg: 'rounded-md px-4 py-2 text-base font-medium leading-6',
         xl: 'rounded-md px-6 py-3 text-base font-medium leading-6'
-      } as { [key: string]: string })[props.size],
-      themeClasses: ({
+      } as { [key: string]: string })[this.size]
+    },
+    themeClasses(): string {
+      return ({
         indigo:
           'text-white bg-indigo-600 border-transparent hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700',
         blue:
@@ -60,7 +66,7 @@ export default defineComponent({
           'text-gray-700 bg-white border-gray-300 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50',
         naked:
           'text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50'
-      } as { [key: string]: string })[props.theme]
+      } as { [key: string]: string })[this.theme]
     }
   }
 })

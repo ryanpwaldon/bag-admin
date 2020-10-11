@@ -7,7 +7,7 @@
     leave-from-class="transform scale-100 opacity-100"
     leave-to-class="transform scale-95 opacity-0"
   >
-    <div v-show="modelValue" class="absolute right-0 z-10 w-48 mt-2 origin-top-right rounded-md shadow-lg">
+    <div v-show="open" class="absolute right-0 z-10 w-48 mt-2 origin-top-right rounded-md shadow-lg">
       <div class="py-1 bg-white rounded-md shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
         <component
           :is="link.path ? 'router-link' : 'button'"
@@ -35,19 +35,19 @@ interface Link {
 
 export default defineComponent({
   props: {
+    open: {
+      type: Boolean,
+      required: false
+    },
     links: {
       type: Array as PropType<Link[]>,
       required: true
-    },
-    modelValue: {
-      type: Boolean,
-      required: false
     }
   },
   watch: {
-    modelValue(modelValue) {
-      const action = () => this.$emit('update:modelValue', false)
-      if (modelValue) window.addEventListener('click', action, { once: true })
+    open(open) {
+      const action = () => this.$emit('update:open', false)
+      if (open) window.addEventListener('click', action, { once: true })
       else window.removeEventListener('click', action)
     }
   }

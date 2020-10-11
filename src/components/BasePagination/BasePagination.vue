@@ -11,35 +11,26 @@
         results
       </p>
     </div>
-    <div class="flex justify-between flex-1 sm:justify-end sm:grid sm:gap-3">
-      <button
-        v-for="button in [
-          { name: 'Previous', id: 'previous' },
-          { name: 'Next', id: 'next' }
-        ]"
-        class="relative inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700"
-        @click="handlePaginate(button.id)"
-        :key="button.id"
-      >
-        {{ button.name }}
-      </button>
+    <div class="flex justify-between flex-1 sm:justify-end sm:grid sm:gap-3 sm:grid-flow-col">
+      <BaseButton text="Previous" theme="white" :disabled="!hasPrevPage" @click="$emit('update:page', page - 1)" />
+      <BaseButton text="Next" theme="white" :disabled="!hasNextPage" @click="$emit('update:page', page + 1)" />
     </div>
   </nav>
 </template>
 
 <script lang="ts">
+import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
+  components: {
+    BaseButton
+  },
   props: {
+    total: {
+      type: Number,
+      required: true
+    },
     page: {
-      type: Number,
-      required: true
-    },
-    first: {
-      type: Number,
-      required: true
-    },
-    last: {
       type: Number,
       required: true
     },
@@ -47,14 +38,23 @@ export default defineComponent({
       type: Number,
       required: true
     },
-    total: {
+    limit: {
       type: Number,
       required: true
     }
   },
-  methods: {
-    handlePaginate(direction: 'previous' | 'next') {
-      this.$emit('paginate', direction === 'previous' ? this.page - 1 : this.page + 1)
+  computed: {
+    first(): number {
+      return this.limit * (this.page - 1) + 1
+    },
+    last(): number {
+      return Math.min(this.limit * this.page, this.total)
+    },
+    hasPrevPage(): boolean {
+      return this.page > 1
+    },
+    hasNextPage(): boolean {
+      return this.page < Math.ceil(this.total / this.limit)
     }
   }
 })

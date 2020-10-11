@@ -15,7 +15,7 @@
           />
           <BaseInputText
             name="subtitle"
-            rules="required|alpha_spaces"
+            rules="required"
             label="Subtitle"
             placeholder="Faber Casel 2B"
             description="The subtitle of the offer card."

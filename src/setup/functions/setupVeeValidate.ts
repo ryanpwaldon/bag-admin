@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { defineRule, configure } from 'vee-validate'
-import { required, email, min_value, max_value, numeric, alpha_num, alpha, alpha_spaces } from '@vee-validate/rules'
+import { required, email, min_value, max_value, numeric, alpha_num, alpha_spaces } from '@vee-validate/rules'
 import { localize } from '@vee-validate/i18n'
 import en from '@vee-validate/i18n/dist/locale/en.json'
 

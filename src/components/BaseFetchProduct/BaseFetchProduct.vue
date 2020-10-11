@@ -1,5 +1,5 @@
 <template>
-  <slot :item="item" />
+  <slot :product="product" />
 </template>
 
 <script lang="ts">
@@ -15,11 +15,11 @@ export default defineComponent({
   },
   async setup(props) {
     const data = await productService.findOne(props.id)
-    const item = {
+    const product = {
       title: data.title,
       image: data.featuredImage.originalSrc
     }
-    return { item }
+    return { product }
   }
 })
 </script>

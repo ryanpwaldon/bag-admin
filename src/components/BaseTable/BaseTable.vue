@@ -15,7 +15,14 @@
                 </th>
               </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
+            <tbody v-if="loading" class="bg-white divide-y divide-gray-200">
+              <tr v-for="n in 3" :key="n">
+                <td v-for="i in props.length" :key="i" class="px-6 py-4 whitespace-no-wrap">
+                  <div class="w-full h-6 bg-gray-100 rounded-full animate-pulse" />
+                </td>
+              </tr>
+            </tbody>
+            <tbody v-else class="bg-white divide-y divide-gray-200">
               <tr v-for="(item, i) in items" :key="i">
                 <td v-for="{ id } in props" :key="id" class="px-6 py-4 whitespace-no-wrap">
                   <slot :name="id" :item="item" />
@@ -47,6 +54,10 @@ export default defineComponent({
     items: {
       type: Array,
       default: () => []
+    },
+    loading: {
+      type: Boolean,
+      required: false
     }
   }
 })

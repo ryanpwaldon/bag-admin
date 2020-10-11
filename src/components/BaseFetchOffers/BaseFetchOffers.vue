@@ -1,29 +1,44 @@
 <template>
-  <slot :items="items" :total="total" :first="first" :last="last" :pages="pages" :page="page" />
+  <slot :items="docs" :total="total" :pages="pages" :loading="loading" />
 </template>
 
 <script lang="ts">
 import offerService from '@/services/api/services/offerService'
-import { defineComponent } from 'vue'
+import { defineComponent, watchEffect } from 'vue'
 export default defineComponent({
-  name: 'BaseFetchProduct',
+  name: 'BaseFetchOffers',
   props: {
     filters: {
       type: Object,
-      required: false
+      default: () => ({})
     },
-    pageInput: {
+    page: {
       type: Number,
       required: true
     },
-    itemsPerPage: {
+    limit: {
       type: Number,
-      default: 2
+      required: true
     }
   },
-  async setup(props) {
-    const { items, total, first, last, pages, page } = await offerService.findAll(props.pageInput, props.itemsPerPage, props.filters)
-    return { items, total: parseInt(total), first: parseInt(first), last: parseInt(last), pages: parseInt(pages), page: parseInt(page) }
+  created() {
+    watchEffect(this.fetchData)
+  },
+  data: () => ({
+    loading: false,
+    docs: [],
+    total: 0,
+    pages: 0
+  }),
+  methods: {
+    async fetchData() {
+      this.loading = true
+      const { docs, total, pages } = await offerService.findAll(this.filters, this.page, this.limit)
+      this.docs = docs
+      this.total = total
+      this.pages = pages
+      this.loading = false
+    }
   }
 })
 </script>

@@ -17,7 +17,7 @@
           </svg>
         </button>
         <BaseDropdown
-          v-model="dropdownIsOpen"
+          v-model:open="dropdownIsOpen"
           :links="[
             {
               title: 'Change',

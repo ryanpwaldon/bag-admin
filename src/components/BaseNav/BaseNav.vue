@@ -32,7 +32,7 @@
                   <div class="w-8 h-8 bg-gray-100 rounded-full shadow-inner" />
                 </button>
               </div>
-              <BaseDropdown v-model="dropdownIsOpen" :links="secondaryRoutes.map(route => ({ title: route.meta.title, path: route.path }))" />
+              <BaseDropdown v-model:open="dropdownIsOpen" :links="secondaryRoutes.map(route => ({ title: route.meta.title, path: route.path }))" />
             </div>
           </div>
         </div>
