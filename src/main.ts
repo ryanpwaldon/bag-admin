@@ -3,12 +3,14 @@ import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
 import setup from '@/setup'
-import VueShopify from '@/plugins/vue-shopify'
+import shopify from '@/plugins/shopify'
+import dayjs from '@/plugins/dayjs'
 import '@/assets/styles/index.css'
 
 setup()
 export default createApp(App)
   .use(store)
   .use(router)
-  .use(VueShopify)
+  .use(shopify)
+  .use(dayjs)
   .mount('#app')

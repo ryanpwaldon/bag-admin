@@ -10,7 +10,7 @@
     <BaseFetchOffers :page="page" :limit="limit" v-slot="{ items, total, pages, loading }">
       <BaseTable :props="props" :items="items" :loading="loading">
         <template #name="{ item }">
-          <div class="flex items-center w-full">
+          <div class="flex items-center">
             <div class="flex-shrink-0 w-10 h-10">
               <img
                 class="w-10 h-10 rounded-full"
@@ -31,12 +31,22 @@
         <template #status="{ item }">
           <BaseBadge :text="item.active ? 'Active' : 'Inactive'" :theme="item.active ? 'green' : 'gray'" />
         </template>
+        <template #created="{ item }">
+          <div class="text-sm font-medium leading-5 text-gray-900">
+            {{ $dayjs(item.createdAt).format('Do MMM') }}
+          </div>
+          <div class="text-sm leading-5 text-gray-500">
+            {{ $dayjs(item.createdAt).from() }}
+          </div>
+        </template>
         <template #edit="{ item }">
-          <router-link
-            class="text-sm font-medium leading-5 text-right text-blue-600 hover:text-blue-900"
-            :to="{ name: 'offer', params: { id: item.id } }"
-            >Edit →</router-link
-          >
+          <div class="flex justify-end">
+            <router-link
+              class="text-sm font-medium leading-5 text-right text-blue-600 transition duration-150 ease-in-out hover:text-blue-400"
+              :to="{ name: 'offer', params: { id: item.id } }"
+              >→</router-link
+            >
+          </div>
         </template>
         <template #pagination>
           <BasePagination :total="total" v-model:page="page" :pages="pages" :limit="limit" />
@@ -72,6 +82,7 @@ export default defineComponent({
     props: [
       { name: 'Name', id: 'name' },
       { name: 'Status', id: 'status' },
+      { name: 'Created', id: 'created' },
       { name: '', id: 'edit' }
     ]
   })
