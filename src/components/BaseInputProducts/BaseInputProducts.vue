@@ -6,11 +6,11 @@
     </p>
     <div class="grid grid-cols-1 row-gap-4 col-gap-6 mt-4 sm:grid-cols-2">
       <Suspense v-for="id in value" :key="id">
-        <BaseFetchProduct :id="id" v-slot="{ product }">
+        <BaseFetchProduct :id="id" v-slot="{ item }">
           <BaseProduct
-            :title="product.title"
+            :title="item.title"
             subtitle="Product"
-            :image="product.image"
+            :image="item.image"
             @change="handleSelection({ mode: 'change', id })"
             @remove="handleRemove(id)"
           />

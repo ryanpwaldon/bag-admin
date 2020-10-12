@@ -2,18 +2,15 @@ import { createRouter, createWebHistory, NavigationGuard, RouteRecordRaw } from 
 import authGuard from './guards/authGuard'
 import roleGuard from './guards/roleGuard'
 
-type RouteRecordRawWithRequiredMeta = RouteRecordRaw & {
-  name: string
-  children?: Array<RouteRecordRawWithRequiredMeta>
-  meta: Meta
+type ExtendedRouteRecordRaw = RouteRecordRaw & {
+  children?: Array<ExtendedRouteRecordRaw>
+  meta: {
+    title: string
+    breadcrumb: string
+  }
 }
 
-interface Meta {
-  title: string
-  breadcrumb: string
-}
-
-const routes: Array<RouteRecordRawWithRequiredMeta> = [
+const routes: Array<ExtendedRouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
@@ -28,7 +25,6 @@ const routes: Array<RouteRecordRawWithRequiredMeta> = [
   },
   {
     path: '/offers',
-    name: 'offers',
     component: () => import('@/views/Offers/Offers.vue'),
     meta: { title: 'Offers', breadcrumb: 'Offers' },
     children: [
@@ -39,15 +35,27 @@ const routes: Array<RouteRecordRawWithRequiredMeta> = [
         meta: { title: 'Offers', breadcrumb: 'Offers' }
       },
       {
-        path: 'offer',
-        name: 'offer',
+        path: ':id',
         component: () => import('@/views/Offers/views/Offer/Offer.vue'),
         meta: { title: 'Offer', breadcrumb: 'Offer' },
-        props: true
+        props: true,
+        children: [
+          {
+            path: '',
+            name: 'offer',
+            component: () => import('@/views/Offers/views/Offer/views/Index/Index.vue'),
+            meta: { title: 'Offer', breadcrumb: 'Offer' }
+          },
+          {
+            path: 'edit',
+            name: 'offer-edit',
+            component: () => import('@/views/Offers/views/Offer/views/Edit/Edit.vue'),
+            meta: { title: 'Edit', breadcrumb: 'Edit' }
+          }
+        ]
       },
       {
         path: 'create',
-        name: 'createOffer',
         component: () => import('@/views/Offers/views/Create/Create.vue'),
         meta: { title: 'Create an Offer', breadcrumb: 'Create' },
         children: [

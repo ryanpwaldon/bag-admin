@@ -17,7 +17,7 @@
     </nav>
     <nav class="items-center hidden text-sm font-medium leading-5 sm:flex">
       <template v-for="(breadcrumb, i) in routes" :key="i">
-        <router-link :to="breadcrumb.path" class="text-gray-500 transition duration-150 ease-in-out hover:text-gray-700">
+        <router-link :to="{ name: breadcrumb.name }" class="text-gray-500 transition duration-150 ease-in-out hover:text-gray-700">
           {{ breadcrumb.meta.breadcrumb }}
         </router-link>
         <svg v-if="i !== routes.length - 1" class="flex-shrink-0 w-5 h-5 mx-2 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
@@ -34,16 +34,16 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { RouteLocationMatched } from 'vue-router'
+import { RouteLocation } from 'vue-router'
 export default defineComponent({
   name: 'BaseBreadcrumbs',
   computed: {
     routes() {
-      return this.$route.matched.reduce((routes: RouteLocationMatched[], route, i) => {
-        if (i === 0) return [route]
-        if (route.path !== routes[routes.length - 1].path) routes.push(route)
+      const routes = this.$route.matched.reduce((routes: (RouteLocation & { href: string })[], route, i) => {
+        if (i === 0 || route.path !== routes[routes.length - 1].path) routes.push(this.$router.resolve(route))
         return routes
       }, [])
+      return routes
     }
   }
 })

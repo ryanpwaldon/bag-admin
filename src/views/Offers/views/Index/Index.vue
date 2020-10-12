@@ -11,12 +11,12 @@
       <BaseTable :props="props" :items="items" :loading="loading">
         <template #name="{ item }">
           <div class="flex items-center">
-            <div class="flex-shrink-0 w-10 h-10">
-              <img
-                class="w-10 h-10 rounded-full"
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60"
-                alt=""
-              />
+            <div class="relative flex-shrink-0 w-10 h-10">
+              <Suspense>
+                <BaseFetchProduct :id="item.productId" v-slot="{ item: product }">
+                  <div class="flex-shrink-0 w-full h-full bg-center bg-cover rounded-md" :style="{ backgroundImage: `url(${product.image})` }" />
+                </BaseFetchProduct>
+              </Suspense>
             </div>
             <div class="ml-4">
               <div class="text-sm font-medium leading-5 text-gray-900">
@@ -39,7 +39,7 @@
             {{ $dayjs(item.createdAt).from() }}
           </div>
         </template>
-        <template #edit="{ item }">
+        <template #arrow="{ item }">
           <div class="flex justify-end">
             <router-link
               class="text-sm font-medium leading-5 text-right text-blue-600 transition duration-150 ease-in-out hover:text-blue-400"
@@ -64,6 +64,7 @@ import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseTable from '@/components/BaseTable/BaseTable.vue'
 import BasePagination from '@/components/BasePagination/BasePagination.vue'
 import BaseFetchOffers from '@/components/BaseFetchOffers/BaseFetchOffers.vue'
+import BaseFetchProduct from '@/components/BaseFetchProduct/BaseFetchProduct.vue'
 import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
 export default defineComponent({
   name: 'Offers',
@@ -73,6 +74,7 @@ export default defineComponent({
     BaseButton,
     BaseTable,
     BaseFetchOffers,
+    BaseFetchProduct,
     BasePagination,
     BaseBadge
   },
@@ -83,7 +85,7 @@ export default defineComponent({
       { name: 'Name', id: 'name' },
       { name: 'Status', id: 'status' },
       { name: 'Created', id: 'created' },
-      { name: '', id: 'edit' }
+      { name: '', id: 'arrow' }
     ]
   })
 })
