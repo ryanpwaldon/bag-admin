@@ -12,6 +12,10 @@ export default defineComponent({
       type: Object,
       default: () => ({})
     },
+    sort: {
+      type: String,
+      default: '-createdAt'
+    },
     page: {
       type: Number,
       required: true
@@ -33,7 +37,7 @@ export default defineComponent({
   methods: {
     async fetchData() {
       this.loading = true
-      const { docs, total, pages } = await offerService.findAll(this.filters, this.page, this.limit)
+      const { docs, total, pages } = await offerService.findAll(this.filters, this.sort, this.page, this.limit)
       this.docs = docs
       this.total = total
       this.pages = pages
