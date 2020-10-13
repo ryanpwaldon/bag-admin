@@ -8842,9 +8842,9 @@ vary@^1, vary@~1.1.2:
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
 vee-validate@^4.0.0-beta.1:
-  version "4.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-4.0.0-beta.1.tgz#31bbc6792bcb7ac2f0fb07fdb4039b21fd8e55e7"
-  integrity sha512-oJ70GVu9VXV8vbRk6myQiKPT2fpXPtDNZGjsogoDEtVXXE4U+lMxonlH7BCiSstApmCuKrNoxObxE4l1wNTlWw==
+  version "4.0.0-beta.8"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-4.0.0-beta.8.tgz#3ab27d0706096a100d313b70cb1f3bdf1ed84c13"
+  integrity sha512-cnX6+kUadFRxyiLbr92nELp69NCo2/cZUSlXQtYQIZ0p6QB/xY/JywSwJlzPEcr9Tooy+FSK2HRnWGigiK1eDA==
 
 vendors@^1.0.0:
   version "1.0.4"

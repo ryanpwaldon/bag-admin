@@ -1,6 +1,6 @@
 <template>
   <BaseLayout>
-    <BaseHeading />
+    <BaseHeader />
     <Form @submit="submit">
       <BaseCard title="Product suggestion" description="Suggest a product based on the items already added to cart">
         <div class="grid grid-cols-12 gap-6">
@@ -62,7 +62,7 @@
 import { Form } from 'vee-validate'
 import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
-import BaseHeading from '@/components/BaseHeading/BaseHeading.vue'
+import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
 import BaseInputHidden from '@/components/BaseInputHidden/BaseInputHidden.vue'
 import BaseInputProducts from '@/components/BaseInputProducts/BaseInputProducts.vue'
@@ -76,7 +76,7 @@ export default defineComponent({
     Form,
     BaseLayout,
     BaseCard,
-    BaseHeading,
+    BaseHeader,
     BaseInputText,
     BaseInputProducts,
     BaseInputHidden,
@@ -89,6 +89,7 @@ export default defineComponent({
   methods: {
     /* eslint-disable-next-line */
     async submit(data: any) {
+      console.log(data)
       data.productId = data.productId[0]
       this.loading = true
       const offer = await offerService.create(data).catch(() => null)

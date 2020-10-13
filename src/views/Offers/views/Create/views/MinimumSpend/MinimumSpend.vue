@@ -1,6 +1,6 @@
 <template>
   <BaseLayout>
-    <BaseHeading />
+    <BaseHeader />
     <Form @submit="submit">
       <BaseCard title="Minimum spend" description="Push customers to spend a minimum amount before checking out">
         <div class="grid grid-cols-12 gap-6">
@@ -51,7 +51,7 @@
 import { Form } from 'vee-validate'
 import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
-import BaseHeading from '@/components/BaseHeading/BaseHeading.vue'
+import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
 import BaseInputRadio from '@/components/BaseInputRadio/BaseInputRadio.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
@@ -62,7 +62,7 @@ export default defineComponent({
     Form,
     BaseLayout,
     BaseCard,
-    BaseHeading,
+    BaseHeader,
     BaseInputText,
     BaseInputRadio,
     BaseButton

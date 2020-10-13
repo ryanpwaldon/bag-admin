@@ -33,7 +33,7 @@ export default defineComponent({
     },
     rules: {
       type: String,
-      default: 'required'
+      required: false
     },
     label: {
       type: String,

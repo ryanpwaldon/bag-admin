@@ -1,6 +1,6 @@
 <template>
   <BaseLayout>
-    <BaseHeading />
+    <BaseHeader />
     <Form @submit="handleSubmit" class="grid gap-4">
       <BaseCard title="Offer type" description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.">
         <BaseInputRadio
@@ -29,7 +29,7 @@
 import { Form } from 'vee-validate'
 import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
-import BaseHeading from '@/components/BaseHeading/BaseHeading.vue'
+import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseInputRadio from '@/components/BaseInputRadio/BaseInputRadio.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { defineComponent } from 'vue'
@@ -39,7 +39,7 @@ export default defineComponent({
     Form,
     BaseLayout,
     BaseCard,
-    BaseHeading,
+    BaseHeader,
     BaseInputRadio,
     BaseButton
   },

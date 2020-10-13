@@ -1,27 +1,67 @@
 <template>
   <BaseLayout>
-    <BaseHeading>
+    <BaseHeader>
       <template #actions>
         <router-link :to="{ name: 'offer-edit' }">
           <BaseButton text="Edit" />
         </router-link>
       </template>
-    </BaseHeading>
-    <div class="border-4 border-gray-200 border-dashed rounded-lg h-96" />
+    </BaseHeader>
+    <BaseFetchOffer :id="id" v-slot="{ item }">
+      <Suspense v-if="item">
+        <BaseFetchProduct :id="item.productId" v-slot="{ item: product }">
+          <div class="grid grid-flow-row gap-6" v-if="item">
+            <BaseHeaderCard :image="product.image" :title="item.title" :subtitle="item.subtitle" />
+            <BaseList title="Details" :labels="listLabels">
+              <template #status>
+                <BaseBadge :text="item.active ? 'Active' : 'Inactive'" :theme="item.active ? 'green' : 'gray'" />
+              </template>
+              <template #created>
+                {{ $dayjs(item.createdAt).format('Do MMMM YYYY') }}
+              </template>
+              <template #product>
+                <BaseProduct :title="product.title" subtitle="Product" :image="product.image" />
+              </template>
+              <template #triggers>
+                <div class="space-y-6">
+                  <Suspense v-for="(triggerId, i) in item.triggers" :key="i">
+                    <BaseFetchProduct :id="triggerId" v-slot="{ item: product }">
+                      <BaseProduct :title="product.title" subtitle="Product" :image="product.image" />
+                    </BaseFetchProduct>
+                  </Suspense>
+                </div>
+              </template>
+            </BaseList>
+          </div>
+        </BaseFetchProduct>
+      </Suspense>
+    </BaseFetchOffer>
   </BaseLayout>
 </template>
 
 <script lang="ts">
 import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
-import BaseHeading from '@/components/BaseHeading/BaseHeading.vue'
+import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import BaseHeaderCard from '@/components/BaseHeaderCard/BaseHeaderCard.vue'
+import BaseFetchOffer from '@/components/BaseFetchOffer/BaseFetchOffer.vue'
+import BaseFetchProduct from '@/components/BaseFetchProduct/BaseFetchProduct.vue'
+import BaseList from '@/components/BaseList/BaseList.vue'
+import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
+import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'Offer',
   components: {
     BaseLayout,
-    BaseHeading,
-    BaseButton
+    BaseHeader,
+    BaseButton,
+    BaseHeaderCard,
+    BaseFetchOffer,
+    BaseFetchProduct,
+    BaseList,
+    BaseBadge,
+    BaseProduct
   },
   props: {
     id: {
@@ -29,6 +69,14 @@ export default defineComponent({
       required: true
     }
   },
+  data: () => ({
+    listLabels: [
+      { name: 'Status', id: 'status' },
+      { name: 'Created', id: 'created' },
+      { name: 'Product', id: 'product' },
+      { name: 'Triggers', id: 'triggers' }
+    ]
+  }),
   mounted() {
     console.log(this.id)
   }

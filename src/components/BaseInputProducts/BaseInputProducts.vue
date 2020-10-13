@@ -7,13 +7,17 @@
     <div class="grid grid-cols-1 row-gap-4 col-gap-6 mt-4 sm:grid-cols-2">
       <Suspense v-for="id in value" :key="id">
         <BaseFetchProduct :id="id" v-slot="{ item }">
-          <BaseProduct
-            :title="item.title"
-            subtitle="Product"
-            :image="item.image"
-            @change="handleSelection({ mode: 'change', id })"
-            @remove="handleRemove(id)"
-          />
+          <BaseProduct :title="item.title" subtitle="Product" :image="item.image">
+            <template #footer>
+              <BaseDotsButton
+                class="flex-shrink-0 mr-2"
+                :links="[
+                  { title: 'Change', action: () => handleSelection({ mode: 'change', id }) },
+                  { title: 'Remove', action: () => handleRemove(id) }
+                ]"
+              />
+            </template>
+          </BaseProduct>
         </BaseFetchProduct>
       </Suspense>
       <BaseButton @click="handleSelection({ mode: 'add' })" class="h-20" text="Add" theme="white" v-if="value.length < 1 || multi">
@@ -37,12 +41,14 @@ import { defineComponent } from 'vue'
 import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
 import BaseFetchProduct from '@/components/BaseFetchProduct/BaseFetchProduct.vue'
 import BaseButton from '../BaseButton/BaseButton.vue'
+import BaseDotsButton from '../BaseDotsButton/BaseDotsButton.vue'
 export default defineComponent({
   name: 'BaseInputProducts',
   components: {
     BaseProduct,
     BaseFetchProduct,
-    BaseButton
+    BaseButton,
+    BaseDotsButton
   },
   props: {
     name: {

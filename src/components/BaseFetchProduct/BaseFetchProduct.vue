@@ -14,10 +14,8 @@ export default defineComponent({
     }
   },
   async setup(props) {
-    console.log(props.id)
     const data = await productService.findOne(props.id)
     const item = { title: data.title, image: data.featuredImage.originalSrc }
-    console.log(item)
     return { item }
   }
 })

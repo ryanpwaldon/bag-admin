@@ -1,12 +1,12 @@
 <template>
   <BaseLayout>
-    <BaseHeading>
+    <BaseHeader>
       <template #actions>
         <router-link to="/offers/create">
           <BaseButton text="Create" />
         </router-link>
       </template>
-    </BaseHeading>
+    </BaseHeader>
     <BaseFetchOffers :page="page" :limit="limit" v-slot="{ items, total, pages, loading }">
       <BaseTable :props="props" :items="items" :loading="loading">
         <template #name="{ item }">
@@ -59,7 +59,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
-import BaseHeading from '@/components/BaseHeading/BaseHeading.vue'
+import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseTable from '@/components/BaseTable/BaseTable.vue'
 import BasePagination from '@/components/BasePagination/BasePagination.vue'
@@ -70,7 +70,7 @@ export default defineComponent({
   name: 'Offers',
   components: {
     BaseLayout,
-    BaseHeading,
+    BaseHeader,
     BaseButton,
     BaseTable,
     BaseFetchOffers,
@@ -83,8 +83,8 @@ export default defineComponent({
     limit: 10,
     props: [
       { name: 'Name', id: 'name' },
-      { name: 'Status', id: 'status' },
       { name: 'Created', id: 'created' },
+      { name: 'Status', id: 'status' },
       { name: '', id: 'arrow' }
     ]
   })

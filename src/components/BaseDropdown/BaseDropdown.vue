@@ -27,7 +27,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 
-interface Link {
+export interface Link {
   title: string
   path: string
   action: Function
