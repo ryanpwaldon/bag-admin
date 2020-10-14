@@ -6,7 +6,7 @@
         <BaseFetchProduct :id="item.productId" v-slot="{ item: product }">
           <div class="grid grid-flow-row gap-8">
             <BaseHeaderCard :image="product.image" :title="item.title" :subtitle="item.subtitle" />
-            <BaseOfferForm :data="item" :submit="handleSubmit" />
+            <BaseFormOffer :data="item" :submit="handleSubmit" />
           </div>
         </BaseFetchProduct>
       </Suspense>
@@ -18,7 +18,7 @@
 import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseHeaderCard from '@/components/BaseHeaderCard/BaseHeaderCard.vue'
-import BaseOfferForm from '@/components/BaseOfferForm/BaseOfferForm.vue'
+import BaseFormOffer from '@/components/BaseFormOffer/BaseFormOffer.vue'
 import BaseFetchOffer from '@/components/BaseFetchOffer/BaseFetchOffer.vue'
 import BaseFetchProduct from '@/components/BaseFetchProduct/BaseFetchProduct.vue'
 import offerService, { Offer } from '@/services/api/services/offerService'
@@ -29,7 +29,7 @@ export default defineComponent({
     BaseLayout,
     BaseHeader,
     BaseHeaderCard,
-    BaseOfferForm,
+    BaseFormOffer,
     BaseFetchOffer,
     BaseFetchProduct
   },

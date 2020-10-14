@@ -1,12 +1,15 @@
-import { createRouter, createWebHistory, NavigationGuard, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, NavigationGuard, RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
+import { OfferType } from '../services/api/services/offerService'
 import authGuard from './guards/authGuard'
 import roleGuard from './guards/roleGuard'
+
+export type Breadcrumb = string | ((route: RouteLocationNormalizedLoaded) => string)
 
 type ExtendedRouteRecordRaw = RouteRecordRaw & {
   children?: Array<ExtendedRouteRecordRaw>
   meta: {
     title: string
-    breadcrumb: string
+    breadcrumb: Breadcrumb
   }
 }
 
@@ -66,16 +69,20 @@ const routes: Array<ExtendedRouteRecordRaw> = [
             meta: { title: 'Create', breadcrumb: 'Create' }
           },
           {
-            path: 'minimum-spend',
-            name: 'create-minimum-spend',
-            component: () => import('@/views/Offers/views/Create/views/MinimumSpend/MinimumSpend.vue'),
-            meta: { title: 'Create', breadcrumb: 'Minimum Spend' }
-          },
-          {
-            path: 'product-add-on',
-            name: 'create-product-add-on',
-            component: () => import('@/views/Offers/views/Create/views/ProductAddOn/ProductAddOn.vue'),
-            meta: { title: 'Create', breadcrumb: 'Product Add-on' }
+            path: ':type',
+            name: 'create-offer-type',
+            component: () => import('@/views/Offers/views/Create/views/Type/Type.vue'),
+            meta: {
+              title: 'Create',
+              breadcrumb: route => {
+                return ({
+                  [OfferType.ProductAddOn]: 'Product recommendation',
+                  [OfferType.ProductUpgrade]: 'Product upgrade',
+                  [OfferType.MinimumSpend]: 'Minimum spend'
+                } as { [key: string]: string })[route.params.type as string]
+              }
+            },
+            props: true
           }
         ]
       }

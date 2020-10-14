@@ -3,15 +3,7 @@
     <BaseHeader />
     <Form @submit="handleSubmit" class="grid gap-4">
       <BaseCard title="Offer type" description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.">
-        <BaseInputRadio
-          name="type"
-          initial-value="1"
-          :fields="[
-            { label: 'Minimum spend', value: '1' },
-            { label: 'Product add-on', value: '2' },
-            { label: 'Product upgrade', value: '3' }
-          ]"
-        />
+        <BaseInputRadio name="type" :fields="fields" />
         <template #footer>
           <div class="grid grid-flow-col gap-4 ml-auto">
             <router-link to="/offers">
@@ -33,6 +25,7 @@ import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseInputRadio from '@/components/BaseInputRadio/BaseInputRadio.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { defineComponent } from 'vue'
+import { OfferType } from '@/services/api/services/offerService'
 export default defineComponent({
   name: 'Create',
   components: {
@@ -43,11 +36,16 @@ export default defineComponent({
     BaseInputRadio,
     BaseButton
   },
+  data: () => ({
+    fields: [
+      { label: 'Product recommendation', value: OfferType.ProductAddOn },
+      { label: 'Product upgrade', value: OfferType.ProductUpgrade },
+      { label: 'Minimum spend', value: OfferType.MinimumSpend }
+    ]
+  }),
   methods: {
-    handleSubmit({ type }: { type: string }) {
-      if (type === '1') this.$router.push('/offers/create/minimum-spend')
-      if (type === '2') this.$router.push('/offers/create/product-add-on')
-      if (type === '3') this.$router.push('/offers/create/product-upgrade')
+    handleSubmit({ type }: { type: OfferType }) {
+      this.$router.push({ name: 'create-offer-type', params: { type } })
     }
   }
 })

@@ -38,7 +38,7 @@ export default defineComponent({
   props: {
     initialValue: {
       type: String,
-      default: ''
+      required: false
     },
     title: {
       type: String,
