@@ -1,5 +1,23 @@
 import { client } from '@/services/api/client'
 
+export enum OfferType {
+  MinimumSpend = 'minimumSpend',
+  ProductAddOn = 'productAddOn',
+  ProductUpgrade = 'productUpgrade'
+}
+
+export type Offer = {
+  user: string
+  type: OfferType
+  active: boolean
+  activeFor: number
+  discountId: string
+  title: string
+  subtitle: string
+  triggers: string[]
+  productId: string
+}
+
 export default {
   async create(data: object) {
     return (await client({ url: `/offer`, method: 'post', data })).data

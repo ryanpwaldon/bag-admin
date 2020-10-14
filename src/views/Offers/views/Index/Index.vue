@@ -29,7 +29,7 @@
           </div>
         </template>
         <template #status="{ item }">
-          <BaseBadge :text="item.active ? 'Active' : 'Inactive'" :theme="item.active ? 'green' : 'gray'" />
+          <BaseBadge :text="item.active ? 'Live' : 'Paused'" :theme="item.active ? 'green' : 'yellow'" />
         </template>
         <template #created="{ item }">
           <div class="text-sm font-medium leading-5 text-gray-900">

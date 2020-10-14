@@ -1,6 +1,5 @@
 import { createStore } from 'vuex'
-import { User } from '@/types'
-import userService from '@/services/api/services/userService'
+import userService, { User } from '@/services/api/services/userService'
 
 export default createStore({
   state: {

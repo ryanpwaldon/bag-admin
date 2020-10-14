@@ -3,10 +3,17 @@ import { Redirect } from '@shopify/app-bridge/actions'
 import { ResourcePicker } from '@shopify/app-bridge/actions'
 import { getSessionToken } from '@shopify/app-bridge-utils'
 import { ResourceType } from '@shopify/app-bridge/actions/Navigation/Redirect'
-import getShopOriginFromUrl from '@/utils/getShopOriginFromUrl'
-import store from '@/store'
-import { App } from 'vue'
 import { ProductOptions, Options } from '@shopify/app-bridge/actions/ResourcePicker'
+import getShopOriginFromUrl from '@/utils/getShopOriginFromUrl'
+import { App } from 'vue'
+import store from '@/store'
+
+declare module '@vue/runtime-core' {
+  interface ComponentCustomProperties {
+    // eslint-disable-next-line
+    $shopify: any
+  }
+}
 
 export default {
   install: (app: App) => {

@@ -14,7 +14,10 @@
             <BaseHeaderCard :image="product.image" :title="item.title" :subtitle="item.subtitle" />
             <BaseList title="Details" :labels="listLabels">
               <template #status>
-                <BaseBadge :text="item.active ? 'Active' : 'Inactive'" :theme="item.active ? 'green' : 'gray'" />
+                <BaseBadge :text="item.active ? 'Active' : 'Paused'" :theme="item.active ? 'green' : 'yellow'" />
+              </template>
+              <template #type>
+                {{ getOfferTypeDisplayText(item.type) }}
               </template>
               <template #created>
                 {{ $dayjs(item.createdAt).format('Do MMMM YYYY') }}
@@ -23,7 +26,7 @@
                 <BaseProduct :title="product.title" subtitle="Product" :image="product.image" />
               </template>
               <template #triggers>
-                <div class="space-y-6">
+                <div class="space-y-4">
                   <Suspense v-for="(triggerId, i) in item.triggers" :key="i">
                     <BaseFetchProduct :id="triggerId" v-slot="{ item: product }">
                       <BaseProduct :title="product.title" subtitle="Product" :image="product.image" />
@@ -49,6 +52,7 @@ import BaseFetchProduct from '@/components/BaseFetchProduct/BaseFetchProduct.vue
 import BaseList from '@/components/BaseList/BaseList.vue'
 import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
 import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
+import { OfferType } from '@/services/api/services/offerService'
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'Offer',
@@ -71,14 +75,19 @@ export default defineComponent({
   },
   data: () => ({
     listLabels: [
+      { name: 'Type', id: 'type' },
       { name: 'Status', id: 'status' },
-      { name: 'Created', id: 'created' },
       { name: 'Product', id: 'product' },
-      { name: 'Triggers', id: 'triggers' }
+      { name: 'Triggers', id: 'triggers' },
+      { name: 'Created', id: 'created' }
     ]
   }),
-  mounted() {
-    console.log(this.id)
+  methods: {
+    getOfferTypeDisplayText(type: OfferType) {
+      if (type === OfferType.ProductAddOn) return 'Product Recommendation'
+      if (type === OfferType.MinimumSpend) return 'Minimum Spend'
+      if (type === OfferType.ProductUpgrade) return 'Product Upgrade'
+    }
   }
 })
 </script>
