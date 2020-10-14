@@ -2,8 +2,8 @@
   <span class="inline-flex rounded-md shadow-sm" :class="[(loading || disabled) && 'cursor-not-allowed pointer-events-none']">
     <button
       :type="type"
-      class="inline-flex items-center w-full transition duration-150 ease-in-out border"
       :class="[sizeClasses, themeClasses, $slots.icon ? 'justify-between' : 'justify-center', disabled && 'opacity-50']"
+      class="inline-flex items-center w-full transition duration-150 ease-in-out border focus:outline-none"
     >
       <BaseSpinner v-if="loading" class="w-4 h-4 mr-1 -ml-1" />
       {{ loading ? 'Loading' : text }}
@@ -59,13 +59,12 @@ export default defineComponent({
     themeClasses(): string {
       return ({
         indigo:
-          'text-white bg-indigo-600 border-transparent hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700',
-        blue:
-          'text-white bg-blue-600 border-transparent hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700',
+          'text-white bg-indigo-600 border-transparent hover:bg-indigo-500 focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700',
+        blue: 'text-white bg-blue-600 border-transparent hover:bg-blue-500 focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700',
         white:
-          'text-gray-700 bg-white border-gray-300 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50',
-        naked:
-          'text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50'
+          'text-gray-700 bg-white border-gray-300 hover:text-gray-500 focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50',
+        naked: 'text-gray-700 hover:text-gray-500 focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50',
+        red: 'text-white bg-red-600 border-transparent hover:bg-red-500 focus:border-red-700 focus:shadow-outline-red'
       } as { [key: string]: string })[this.theme]
     }
   }
