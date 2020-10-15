@@ -8,7 +8,7 @@
       </template>
     </BaseHeader>
     <BaseFetchOffers :page="page" :limit="limit" v-slot="{ items, total, pages, loading }">
-      <BaseTable :props="props" :items="items" :loading="loading">
+      <BaseTable :props="props" :items="items" :loading="loading" :get-item-link="item => ({ name: 'offer', params: { id: item.id } })">
         <template #name="{ item }">
           <div class="flex items-center">
             <div class="relative flex-shrink-0 w-10 h-10">
@@ -39,14 +39,8 @@
             {{ $dayjs(item.createdAt).from() }}
           </div>
         </template>
-        <template #arrow="{ item }">
-          <div class="flex justify-end">
-            <router-link
-              class="text-sm font-medium leading-5 text-right text-blue-600 transition duration-150 ease-in-out hover:text-blue-400"
-              :to="{ name: 'offer', params: { id: item.id } }"
-              >→</router-link
-            >
-          </div>
+        <template #arrow>
+          <div class="self-end text-sm font-medium leading-5 text-blue-600">→</div>
         </template>
         <template #pagination>
           <BasePagination :total="total" v-model:page="page" :pages="pages" :limit="limit" />
