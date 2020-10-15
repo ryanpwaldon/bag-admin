@@ -8,36 +8,32 @@
       </template>
     </BaseHeader>
     <BaseFetchOffer :id="id" v-slot="{ item }">
-      <Suspense v-if="item">
-        <BaseFetchProduct :id="item.productId" v-slot="{ item: product }">
-          <div class="grid grid-flow-row gap-6" v-if="item">
-            <BaseHeaderCard :image="product.image" :title="item.title" :subtitle="item.subtitle" />
-            <BaseList title="Details" :labels="listLabels">
-              <template #status>
-                <BaseBadge :text="item.active ? 'Active' : 'Paused'" :theme="item.active ? 'green' : 'yellow'" />
-              </template>
-              <template #type>
-                {{ getOfferTypeDisplayText(item.type) }}
-              </template>
-              <template #created>
-                {{ $dayjs(item.createdAt).format('Do MMMM YYYY') }}
-              </template>
-              <template #product>
-                <BaseProduct :title="product.title" subtitle="Product" :image="product.image" />
-              </template>
-              <template #triggers>
-                <div class="space-y-4">
-                  <Suspense v-for="(triggerId, i) in item.triggers" :key="i">
-                    <BaseFetchProduct :id="triggerId" v-slot="{ item: product }">
-                      <BaseProduct :title="product.title" subtitle="Product" :image="product.image" />
-                    </BaseFetchProduct>
-                  </Suspense>
-                </div>
-              </template>
-            </BaseList>
-          </div>
-        </BaseFetchProduct>
-      </Suspense>
+      <BaseFetchProduct :id="item.productId" v-slot="{ item: product }">
+        <div class="grid grid-flow-row gap-6">
+          <BaseHeaderCard :image="product.image" :title="item.title" :subtitle="item.subtitle" />
+          <BaseList title="Details" :labels="listLabels">
+            <template #status>
+              <BaseBadge :text="item.active ? 'Active' : 'Paused'" :theme="item.active ? 'green' : 'yellow'" />
+            </template>
+            <template #type>
+              {{ getOfferTypeDisplayText(item.type) }}
+            </template>
+            <template #created>
+              {{ $dayjs(item.createdAt).format('Do MMMM YYYY') }}
+            </template>
+            <template #product>
+              <BaseProduct :image="product.image" :title="product.title" type="Product" />
+            </template>
+            <template #triggers>
+              <div class="space-y-4">
+                <BaseFetchProduct v-for="(id, i) in item.triggers" :key="i" :id="id" v-slot="{ item: product }">
+                  <BaseProduct :image="product.image" :title="product.title" type="Product" />
+                </BaseFetchProduct>
+              </div>
+            </template>
+          </BaseList>
+        </div>
+      </BaseFetchProduct>
     </BaseFetchOffer>
   </BaseLayout>
 </template>

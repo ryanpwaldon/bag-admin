@@ -2,15 +2,13 @@
   <BaseLayout>
     <BaseHeader />
     <BaseFetchOffer :id="id" v-slot="{ item }">
-      <Suspense v-if="item">
-        <BaseFetchProduct :id="item.productId" v-slot="{ item: product }">
-          <div class="grid grid-flow-row gap-8">
-            <BaseHeaderCard :image="product.image" :title="item.title" :subtitle="item.subtitle" />
-            <BaseFormOffer :data="item" :submit="handleSubmit" />
-            <BaseFormDelete :submit="handleDelete" />
-          </div>
-        </BaseFetchProduct>
-      </Suspense>
+      <BaseFetchProduct :id="item.productId" v-slot="{ item: product }">
+        <div class="grid grid-flow-row gap-8">
+          <BaseHeaderCard :title="item.title" :subtitle="item.subtitle" :image="product.image" />
+          <BaseFormOffer :data="item" :submit="handleSubmit" />
+          <BaseFormDelete :submit="handleDelete" />
+        </div>
+      </BaseFetchProduct>
     </BaseFetchOffer>
   </BaseLayout>
 </template>

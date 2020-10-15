@@ -5,21 +5,19 @@
       {{ errorMessage || description }}
     </p>
     <div class="grid grid-cols-1 row-gap-4 col-gap-6 mt-4 sm:grid-cols-2">
-      <Suspense v-for="id in ids" :key="id">
-        <BaseFetchProduct :id="id" v-slot="{ item }">
-          <BaseProduct :title="item.title" subtitle="Product" :image="item.image">
-            <template #footer>
-              <BaseDotsButton
-                class="flex-shrink-0 mr-2"
-                :links="[
-                  { title: 'Change', action: () => handleSelection({ mode: 'change', id }) },
-                  { title: 'Remove', action: () => handleRemove(id) }
-                ]"
-              />
-            </template>
-          </BaseProduct>
-        </BaseFetchProduct>
-      </Suspense>
+      <BaseFetchProduct v-for="id in ids" :key="id" :id="id" v-slot="{ item }">
+        <BaseProduct :title="item.title" :image="item.image" type="Product">
+          <template #footer>
+            <BaseDotsButton
+              class="flex-shrink-0 mr-2"
+              :links="[
+                { title: 'Change', action: () => handleSelection({ mode: 'change', id }) },
+                { title: 'Remove', action: () => handleRemove(id) }
+              ]"
+            />
+          </template>
+        </BaseProduct>
+      </BaseFetchProduct>
       <BaseButton @click="handleSelection({ mode: 'add' })" class="h-20" text="Add" theme="white" v-if="!value || multi">
         <template #icon>
           <svg class="w-5 h-5 ml-3 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">

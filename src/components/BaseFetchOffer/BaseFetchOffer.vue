@@ -1,10 +1,10 @@
 <template>
-  <slot :item="item" :loading="loading" />
+  <slot v-if="item" :item="item" />
 </template>
 
 <script lang="ts">
 import offerService from '@/services/api/services/offerService'
-import { defineComponent, ref, watchEffect } from 'vue'
+import { defineComponent, Ref, ref, watchEffect } from 'vue'
 export default defineComponent({
   name: 'BaseFetchOffer',
   props: {
@@ -14,15 +14,13 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const loading = ref(true)
-    const item = ref(null)
+    const item: Ref<object | null> = ref(null)
     const fetchData = async () => {
-      loading.value = true
+      item.value = null
       item.value = await offerService.findOneById(props.id)
-      loading.value = false
     }
     watchEffect(fetchData)
-    return { item, loading }
+    return { item }
   }
 })
 </script>

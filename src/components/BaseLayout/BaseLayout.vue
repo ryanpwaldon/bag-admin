@@ -1,6 +1,6 @@
 <template>
   <BaseNav />
-  <main class="max-w-5xl px-4 pt-6 pb-4 mx-auto sm:pt-8 sm:px-6 sm:pb-8 lg:px-8">
+  <main class="max-w-5xl px-4 pt-6 pb-16 mx-auto sm:pt-8 sm:px-6 lg:px-8">
     <slot />
   </main>
 </template>
