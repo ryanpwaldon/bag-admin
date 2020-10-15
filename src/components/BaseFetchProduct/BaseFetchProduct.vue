@@ -1,5 +1,6 @@
 <template>
-  <slot v-if="item" :item="item" />
+  <slot :item="item" v-if="item" />
+  <slot name="loader" v-else />
 </template>
 
 <script lang="ts">
@@ -17,8 +18,7 @@ export default defineComponent({
     const item: Ref<object | null> = ref(null)
     const fetchData = async () => {
       item.value = null
-      const data = await productService.findOne(props.id)
-      item.value = { title: data.title, image: data.featuredImage.originalSrc }
+      item.value = await productService.findOne(props.id)
     }
     watchEffect(fetchData)
     return { item }

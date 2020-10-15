@@ -24,7 +24,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'BaseSelectionCard',
   props: {
     image: {
       type: String,
@@ -36,12 +35,11 @@ export default defineComponent({
     },
     type: {
       type: String,
-      required: true
-    }
-  },
-  computed: {
-    loading(): boolean {
-      return !this.image && !this.title
+      required: false
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   }
 })

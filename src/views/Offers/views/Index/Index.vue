@@ -12,11 +12,11 @@
         <template #name="{ item }">
           <div class="flex items-center">
             <div class="relative flex-shrink-0 w-10 h-10">
-              <Suspense>
-                <BaseFetchProduct :id="item.productId" v-slot="{ item: product }">
+              <BaseFetchProduct :id="item.productId">
+                <template #content="{ item: product }">
                   <div class="flex-shrink-0 w-full h-full bg-center bg-cover rounded-md" :style="{ backgroundImage: `url(${product.image})` }" />
-                </BaseFetchProduct>
-              </Suspense>
+                </template>
+              </BaseFetchProduct>
             </div>
             <div class="ml-4">
               <div class="text-sm font-medium leading-5 text-gray-900">

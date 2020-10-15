@@ -27,7 +27,7 @@ export default {
     return (await client({ url: `/offer`, method: 'get', params: { query, sort, page, limit } })).data
   },
 
-  async findOneById(id: string) {
+  async findOneById(id: string): Promise<Offer> {
     return (await client({ url: `/offer/${id}`, method: 'get' })).data
   },
 

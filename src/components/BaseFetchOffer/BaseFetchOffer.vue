@@ -1,5 +1,6 @@
 <template>
-  <slot v-if="item" :item="item" />
+  <slot :item="item" v-if="item" />
+  <slot name="loader" v-else />
 </template>
 
 <script lang="ts">

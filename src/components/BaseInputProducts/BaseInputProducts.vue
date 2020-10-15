@@ -5,18 +5,21 @@
       {{ errorMessage || description }}
     </p>
     <div class="grid grid-cols-1 row-gap-4 col-gap-6 mt-4 sm:grid-cols-2">
-      <BaseFetchProduct v-for="id in ids" :key="id" :id="id" v-slot="{ item }">
-        <BaseProduct :title="item.title" :image="item.image" type="Product">
-          <template #footer>
-            <BaseDotsButton
-              class="flex-shrink-0 mr-2"
-              :links="[
-                { title: 'Change', action: () => handleSelection({ mode: 'change', id }) },
-                { title: 'Remove', action: () => handleRemove(id) }
-              ]"
-            />
-          </template>
-        </BaseProduct>
+      <BaseFetchProduct v-for="id in ids" :key="id" :id="id">
+        <template #loader><BaseProduct :loading="true"/></template>
+        <template #default="{ item }">
+          <BaseProduct :title="item.title" :image="item.image" type="Product">
+            <template #footer>
+              <BaseDotsButton
+                class="flex-shrink-0 mr-2"
+                :links="[
+                  { title: 'Change', action: () => handleSelection({ mode: 'change', id }) },
+                  { title: 'Remove', action: () => handleRemove(id) }
+                ]"
+              />
+            </template>
+          </BaseProduct>
+        </template>
       </BaseFetchProduct>
       <BaseButton @click="handleSelection({ mode: 'add' })" class="h-20" text="Add" theme="white" v-if="!value || multi">
         <template #icon>
