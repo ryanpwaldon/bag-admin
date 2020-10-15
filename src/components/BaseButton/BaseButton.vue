@@ -16,7 +16,6 @@
 import BaseSpinner from '@/components/BaseSpinner/BaseSpinner.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'BaseButton',
   components: {
     BaseSpinner
   },

@@ -31,7 +31,6 @@ import BaseFormDelete from '@/components/BaseFormDelete/BaseFormDelete.vue'
 import offerService, { Offer } from '@/services/api/services/offerService'
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'Edit',
   components: {
     BaseLayout,
     BaseHeader,

@@ -9,7 +9,6 @@
 import { defineComponent } from 'vue'
 import BaseNav from '@/components/BaseNav/BaseNav.vue'
 export default defineComponent({
-  name: 'BaseLayout',
   components: {
     BaseNav
   }

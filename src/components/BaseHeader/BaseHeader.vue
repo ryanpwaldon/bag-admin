@@ -18,7 +18,6 @@
 import { defineComponent } from 'vue'
 import BaseBreadcrumbs from '@/components/BaseBreadcrumbs/BaseBreadcrumbs.vue'
 export default defineComponent({
-  name: 'BaseHeader',
   components: {
     BaseBreadcrumbs
   }

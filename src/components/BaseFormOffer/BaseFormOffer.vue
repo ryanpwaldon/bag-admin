@@ -64,7 +64,6 @@ import { Offer, OfferType } from '@/services/api/services/offerService'
 import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
-  name: 'BaseFormOffer',
   components: {
     Form,
     BaseCard,

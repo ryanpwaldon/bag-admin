@@ -25,7 +25,6 @@
 import { useField } from 'vee-validate'
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'BaseInputToggle',
   props: {
     name: {
       type: String,

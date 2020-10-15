@@ -17,7 +17,6 @@ import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'Cart',
   components: {
     BaseLayout,
     BaseHeader,

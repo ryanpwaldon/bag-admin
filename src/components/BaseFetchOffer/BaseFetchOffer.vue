@@ -7,7 +7,6 @@
 import offerService from '@/services/api/services/offerService'
 import { defineComponent, Ref, ref, watchEffect } from 'vue'
 export default defineComponent({
-  name: 'BaseFetchOffer',
   props: {
     id: {
       type: String,

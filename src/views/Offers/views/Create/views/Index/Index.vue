@@ -27,7 +27,6 @@ import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { defineComponent } from 'vue'
 import { OfferType } from '@/services/api/services/offerService'
 export default defineComponent({
-  name: 'Create',
   components: {
     Form,
     BaseLayout,

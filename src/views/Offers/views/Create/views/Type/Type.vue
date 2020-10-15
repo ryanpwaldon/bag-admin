@@ -12,7 +12,6 @@ import BaseFormOffer from '@/components/BaseFormOffer/BaseFormOffer.vue'
 import offerService, { Offer, OfferType } from '@/services/api/services/offerService'
 import { defineComponent, PropType } from 'vue'
 export default defineComponent({
-  name: 'Type',
   components: {
     BaseFormOffer,
     BaseHeader,

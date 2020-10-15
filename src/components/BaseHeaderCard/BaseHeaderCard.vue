@@ -23,7 +23,6 @@
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'BaseButton',
   components: {
     BaseCard
   },

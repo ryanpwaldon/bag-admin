@@ -37,7 +37,6 @@ import { Breadcrumb } from '@/router'
 import { defineComponent } from 'vue'
 import { RouteLocation, RouteLocationNormalizedLoaded } from 'vue-router'
 export default defineComponent({
-  name: 'BaseBreadcrumbs',
   computed: {
     routes() {
       const routes = this.$route.matched.reduce((routes: (RouteLocation & { href: string })[], route, i) => {

@@ -26,7 +26,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'BaseList',
   props: {
     title: {
       type: String,

@@ -44,7 +44,6 @@ import BaseFetchProduct from '@/components/BaseFetchProduct/BaseFetchProduct.vue
 import BaseButton from '../BaseButton/BaseButton.vue'
 import BaseDotsButton from '../BaseDotsButton/BaseDotsButton.vue'
 export default defineComponent({
-  name: 'BaseInputProducts',
   components: {
     BaseProduct,
     BaseFetchProduct,

@@ -10,7 +10,6 @@ import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'Home',
   components: {
     BaseLayout,
     BaseHeader

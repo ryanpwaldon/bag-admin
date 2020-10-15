@@ -15,7 +15,6 @@ import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { Offer } from '@/services/api/services/offerService'
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'BaseFormDelete',
   components: {
     Form,
     BaseCard,

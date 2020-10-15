@@ -57,7 +57,6 @@ import BaseFetchProduct from '@/components/BaseFetchProduct/BaseFetchProduct.vue
 import { OfferType } from '@/services/api/services/offerService'
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'Offer',
   components: {
     BaseLayout,
     BaseHeader,

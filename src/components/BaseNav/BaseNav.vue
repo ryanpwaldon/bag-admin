@@ -82,7 +82,6 @@ import { defineComponent } from 'vue'
 import { RouteLocationNormalized } from 'vue-router'
 import BaseDropdown from '../BaseDropdown/BaseDropdown.vue'
 export default defineComponent({
-  name: 'BaseNav',
   components: {
     BaseDropdown
   },

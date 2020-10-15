@@ -7,7 +7,6 @@
 import productService from '@/services/api/services/productService'
 import { defineComponent, Ref, ref, watchEffect } from 'vue'
 export default defineComponent({
-  name: 'BaseFetchProduct',
   props: {
     id: {
       type: String,

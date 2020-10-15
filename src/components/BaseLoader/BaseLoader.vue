@@ -24,7 +24,6 @@
 import { defineComponent } from 'vue'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
 export default defineComponent({
-  name: 'BaseSkeletonLoader',
   components: {
     BaseCard
   }
