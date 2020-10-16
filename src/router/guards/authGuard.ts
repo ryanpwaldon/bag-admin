@@ -1,4 +1,4 @@
-import store from '@/store'
+import store from '@/store/store'
 import { RouteLocationNormalized } from 'vue-router'
 import getShopOriginFromUrl from '../../utils/getShopOriginFromUrl'
 import installationService from '@/services/api/services/installationService'

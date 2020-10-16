@@ -1,5 +1,5 @@
 import app from '@/main'
-import store from '@/store'
+import store from '@/store/store'
 
 export default {
   async install(shopOrigin: string) {

@@ -6,7 +6,7 @@ import { ResourceType } from '@shopify/app-bridge/actions/Navigation/Redirect'
 import { ProductOptions, Options } from '@shopify/app-bridge/actions/ResourcePicker'
 import getShopOriginFromUrl from '@/utils/getShopOriginFromUrl'
 import { App } from 'vue'
-import store from '@/store'
+import store from '@/store/store'
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
