@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { Breadcrumb } from '@/router'
+import { Breadcrumb } from '@/router/router'
 import { defineComponent } from 'vue'
 import { RouteLocation, RouteLocationNormalizedLoaded } from 'vue-router'
 export default defineComponent({
