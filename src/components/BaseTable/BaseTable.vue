@@ -23,11 +23,15 @@
               </tr>
             </tbody>
             <tbody v-else class="bg-white divide-y divide-gray-200">
-              <tr v-for="(item, i) in items" :key="i" class="h-1 hover:bg-gray-50">
-                <td v-for="{ id } in props" :key="id" class="h-1">
-                  <router-link :to="getItemLink(item)" class="flex flex-col items-start justify-center w-full h-full px-6 py-4 whitespace-no-wrap">
-                    <slot :name="id" :item="item" />
-                  </router-link>
+              <tr
+                :key="i"
+                v-for="(item, i) in items"
+                class="hover:bg-gray-50"
+                :class="link && 'cursor-pointer'"
+                @click="link && $router.push(link(item))"
+              >
+                <td v-for="{ id } in props" :key="id" class="px-6 py-4 whitespace-no-wrap">
+                  <slot :name="id" :item="item" />
                 </td>
               </tr>
             </tbody>
@@ -41,7 +45,6 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { RouteLocation } from 'vue-router'
 
 interface Prop {
   id: string
@@ -58,9 +61,9 @@ export default defineComponent({
       type: Array,
       default: () => []
     },
-    getItemLink: {
-      type: Function as PropType<(data: unknown) => RouteLocation>,
-      required: true
+    link: {
+      type: Function,
+      required: false
     },
     loading: {
       type: Boolean,

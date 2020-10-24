@@ -8,12 +8,12 @@
       </template>
     </BaseHeader>
     <BaseFetchOffers :page="page" :limit="limit" v-slot="{ items, total, pages, loading }">
-      <BaseTable :props="props" :items="items" :loading="loading" :get-item-link="item => ({ name: 'offer', params: { id: item.id } })">
+      <BaseTable :props="props" :items="items" :loading="loading" :link="item => ({ name: 'offer', params: { id: item.id } })">
         <template #name="{ item }">
           <div class="flex items-center">
             <div class="relative flex-shrink-0 w-10 h-10">
               <BaseFetchProduct :id="item.productId">
-                <template #content="{ item: product }">
+                <template #default="{ item: product }">
                   <div class="flex-shrink-0 w-full h-full bg-center bg-cover rounded-md" :style="{ backgroundImage: `url(${product.image})` }" />
                 </template>
               </BaseFetchProduct>
