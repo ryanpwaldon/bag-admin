@@ -17,17 +17,17 @@
         description="Cart is disabled on your storefront by default. Turn it on to start using Cartable on your storefront."
         :complete="false"
       >
-        Turn on
+        <BaseButton text="Turn on" />
       </BaseTask>
       <BaseTask
         title="Create a cross sell offer"
         description="Cross sell offers encourage customers to spend more. Create as many as you’d like (the more the merrier)."
-        :complete="true"
+        :complete="false"
       >
-        Create
+        <BaseButton text="Create →" />
       </BaseTask>
       <BaseTask title="Need help?" description="Get in touch via the messenger." :complete="false">
-        Talk to us
+        <BaseButton text="Talk to us →" />
       </BaseTask>
     </div>
   </BaseLayout>
@@ -37,12 +37,14 @@
 import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseTask from '@/components/BaseTask/BaseTask.vue'
+import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
   components: {
     BaseLayout,
     BaseHeader,
-    BaseTask
+    BaseTask,
+    BaseButton
   }
 })
 </script>
