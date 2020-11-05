@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, NavigationGuard, RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
-import { OfferType } from '../services/api/services/offerService'
 import authGuard from './guards/authGuard'
 import roleGuard from './guards/roleGuard'
 
@@ -38,26 +37,6 @@ const routes: Array<ExtendedRouteRecordRaw> = [
         meta: { title: 'Offers', breadcrumb: 'Offers' }
       },
       {
-        path: ':id',
-        component: () => import('@/views/Offers/views/Offer/Offer.vue'),
-        meta: { title: 'Offer', breadcrumb: 'Offer' },
-        props: true,
-        children: [
-          {
-            path: '',
-            name: 'offer',
-            component: () => import('@/views/Offers/views/Offer/views/Index/Index.vue'),
-            meta: { title: 'Offer', breadcrumb: 'Offer' }
-          },
-          {
-            path: 'edit',
-            name: 'offer-edit',
-            component: () => import('@/views/Offers/views/Offer/views/Edit/Edit.vue'),
-            meta: { title: 'Edit', breadcrumb: 'Edit' }
-          }
-        ]
-      },
-      {
         path: 'create',
         component: () => import('@/views/Offers/views/Create/Create.vue'),
         meta: { title: 'Create an Offer', breadcrumb: 'Create' },
@@ -66,23 +45,16 @@ const routes: Array<ExtendedRouteRecordRaw> = [
             path: '',
             name: 'create-offer',
             component: () => import('@/views/Offers/views/Create/views/Index/Index.vue'),
-            meta: { title: 'Create', breadcrumb: 'Create' }
+            meta: { title: 'Create an offer', breadcrumb: 'Create' }
           },
           {
-            path: ':type',
-            name: 'create-offer-type',
-            component: () => import('@/views/Offers/views/Create/views/Type/Type.vue'),
+            path: 'cross-sell',
+            name: 'create-cross-sell',
+            component: () => import('@/views/Offers/views/Create/views/CrossSell/CrossSell.vue'),
             meta: {
-              title: 'Create',
-              breadcrumb: route => {
-                return ({
-                  [OfferType.ProductAddOn]: 'Product recommendation',
-                  [OfferType.ProductUpgrade]: 'Product upgrade',
-                  [OfferType.MinimumSpend]: 'Minimum spend'
-                } as { [key: string]: string })[route.params.type as string]
-              }
-            },
-            props: true
+              title: 'Create a cross sell offer',
+              breadcrumb: 'Cross Sell'
+            }
           }
         ]
       }

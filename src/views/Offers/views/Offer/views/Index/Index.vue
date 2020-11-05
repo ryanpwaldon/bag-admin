@@ -54,7 +54,7 @@ import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
 import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
 import BaseFetchOffer from '@/components/BaseFetchOffer/BaseFetchOffer.vue'
 import BaseFetchProduct from '@/components/BaseFetchProduct/BaseFetchProduct.vue'
-import { OfferType } from '@/services/api/services/offerService'
+import { OfferType } from '@/types/offer-type'
 import { defineComponent } from 'vue'
 export default defineComponent({
   components: {
@@ -86,9 +86,9 @@ export default defineComponent({
   }),
   methods: {
     getOfferTypeDisplayText(type: OfferType) {
-      if (type === OfferType.ProductAddOn) return 'Product Recommendation'
-      if (type === OfferType.MinimumSpend) return 'Minimum Spend'
-      if (type === OfferType.ProductUpgrade) return 'Product Upgrade'
+      if (type === OfferType.CrossSell) return 'Product Recommendation'
+      if (type === OfferType.Discount) return 'Minimum Spend'
+      if (type === OfferType.UpSell) return 'Product Upgrade'
     }
   }
 })

@@ -1,40 +1,58 @@
-import set from 'lodash/set'
-import merge from 'lodash/merge'
-import isEqual from 'lodash/isEqual'
-import isPlainObject from 'lodash/isPlainObject'
-import { ValidationError, ObjectSchema } from 'yup'
-import { computed, Ref, ref } from 'vue'
+/* eslint @typescript-eslint/no-explicit-any: 0 */
 
-export const cloneKeys = <T>(target: T) => {
-  return Object.entries(target).reduce((clone: { [key: string]: object | undefined }, [key, value]) => {
-    clone[key] = isPlainObject(value) ? cloneKeys(value) : undefined
-    return clone
-  }, {})
+import { ObjectSchema, Schema } from 'yup'
+import { computed, ComputedRef, Ref, ref, watch } from 'vue'
+
+type Field = {
+  initial: any
+  value: Ref<any>
+  error: Ref<string | undefined>
+  modified: ComputedRef<boolean>
+  validate: () => void
+}
+
+const createFields = <T extends object>(schema: ObjectSchema<T>) => {
+  return Object.entries(schema.fields).reduce((fields, item) => {
+    const [key, schema] = item as [keyof T, Schema<any>]
+    const initial = schema.cast(schema.default())
+    const value = ref(initial)
+    const modified = computed(() => value.value !== initial)
+    const error = ref(undefined)
+    const validate = async () => {
+      try {
+        await schema.validate(value.value)
+        error.value = undefined
+      } catch (err) {
+        error.value = err.message
+      }
+    }
+    watch(value, validate)
+    fields[key] = { initial, value, modified, validate, error }
+    return fields
+  }, {} as Record<keyof T, Field>)
+}
+
+const validateAll = async (fields: Record<string, Field>) => {
+  const fieldEntries = Object.entries(fields)
+  const fieldValues = fieldEntries.map(entry => entry[1])
+  await Promise.all(fieldValues.map(field => field.validate()))
+  const errors = fieldValues.map(field => field.error.value)
+  return errors.every(value => !value)
 }
 
 export default <T extends object>(schema: ObjectSchema<T>) => {
-  const defaults = merge(schema.default(), schema.cast(schema.default()))
-  const values = ref({ ...defaults }) as Ref<T>
-  const errors = ref(cloneKeys(values.value))
-  const modified = computed(() => !isEqual(defaults, values.value))
-  const udpateError = (path: string, message?: string) => set(errors.value, path, message)
-  const updateValue = async <T>(path: string, value: T) => {
-    set(values.value, path, value)
-    await schema
-      .validateAt(path, values.value)
-      .then(() => udpateError(path, undefined))
-      .catch((error: ValidationError) => udpateError(path, error.message))
+  const fields = createFields(schema)
+  const getValues = () => {
+    const fieldEntries: [string, Field][] = Object.entries(fields)
+    return fieldEntries.reduce((values, [key, field]) => {
+      values[key] = field.value.value
+      return values
+    }, {} as Record<string, any>)
   }
   const handleSubmit = (callback: Function) => async (e: Event) => {
     e.preventDefault()
-    const valid = await schema
-      .validate(values.value, { abortEarly: false })
-      .then(() => true)
-      .catch((error: ValidationError) => {
-        error.inner.forEach(({ path, message }) => udpateError(path, message))
-        return false
-      })
-    if (valid) callback(values.value, defaults)
+    const isValid = await validateAll(fields)
+    if (isValid) callback()
   }
-  return { values, defaults, errors, modified, updateValue, handleSubmit }
+  return { fields, getValues, handleSubmit }
 }

@@ -1,8 +1,8 @@
 <template>
   <div>
     <label :for="name" class="block text-base font-medium leading-6 text-gray-700">{{ label }}</label>
-    <p class="max-w-xl text-sm" :class="[errorMessage ? 'text-red-600' : 'text-gray-500']" v-if="errorMessage || description">
-      {{ errorMessage || description }}
+    <p class="max-w-xl text-sm" :class="[error ? 'text-red-600' : 'text-gray-500']" v-if="error || description">
+      {{ error || description }}
     </p>
     <div class="grid grid-cols-1 row-gap-4 col-gap-6 mt-4 sm:grid-cols-2">
       <BaseFetchProduct v-for="id in ids" :key="id" :id="id">
@@ -21,7 +21,7 @@
           </BaseProduct>
         </template>
       </BaseFetchProduct>
-      <BaseButton @click="handleSelection({ mode: 'add' })" class="h-20" text="Add" theme="white" v-if="!value || multi">
+      <BaseButton @click="handleSelection({ mode: 'add' })" class="h-20" text="Select a product" theme="white" v-if="!modelValue || multi">
         <template #icon>
           <svg class="w-5 h-5 ml-3 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
             <path
@@ -37,12 +37,11 @@
 </template>
 
 <script lang="ts">
-import { useField } from 'vee-validate'
 import { defineComponent } from 'vue'
 import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
 import BaseFetchProduct from '@/components/BaseFetchProduct/BaseFetchProduct.vue'
-import BaseButton from '../BaseButton/BaseButton.vue'
 import BaseDotsButton from '../BaseDotsButton/BaseDotsButton.vue'
+import BaseButton from '../BaseButton/BaseButton.vue'
 export default defineComponent({
   components: {
     BaseProduct,
@@ -51,58 +50,59 @@ export default defineComponent({
     BaseDotsButton
   },
   props: {
+    label: {
+      type: String,
+      required: false
+    },
+    description: {
+      type: String,
+      required: false
+    },
     name: {
       type: String,
       required: true
     },
-    label: {
-      type: String,
-      required: true
-    },
-    description: {
-      type: String,
-      required: true
-    },
-    initialValue: {
+    modelValue: {
       type: [String, Array],
       required: true
     },
-    rules: {
+    error: {
       type: String,
-      required: true
+      required: false
     }
   },
-  setup(props) {
-    const multi = Array.isArray(props.initialValue)
-    const { value, errorMessage, handleChange } = useField(props.name, props.rules, { initialValue: props.initialValue })
-    return { value, errorMessage, handleChange, multi }
-  },
   computed: {
+    multi(): boolean {
+      return Array.isArray(this.modelValue)
+    },
     ids(): string[] {
-      if (!this.value) return []
-      return this.multi ? this.value : [this.value]
+      if (!this.modelValue) return []
+      return this.multi ? (this.modelValue as string[]) : [this.modelValue as string]
     }
   },
   methods: {
+    async updateValue(value: string | string[] | undefined) {
+      this.$emit('update:modelValue', value)
+    },
     async handleRemove(id: string) {
-      if (!this.multi) return this.handleChange(undefined)
-      const ids = [...this.value]
+      if (!this.multi) return this.updateValue(undefined)
+      const ids = [...(this.modelValue as string[])]
       ids.splice(ids.indexOf(id), 1)
-      this.handleChange(ids)
+      this.updateValue(ids)
     },
     async handleSelection({ id, mode }: { id?: string; mode: 'add' | 'change' }) {
       const selectMultiple = this.multi && mode === 'add'
       this.$shopify.productPicker.update({ selectMultiple })
       const selection = await this.$shopify.productPicker.open()
       if (!selection.length) return
-      if (!this.multi) return this.handleChange(selection[0].id)
-      const ids = [...this.value]
+      if (!this.multi) return this.updateValue(selection[0].id)
+      const ids = [...this.modelValue]
       const insertIndex = mode === 'add' ? ids.length : ids.indexOf(id)
       const deleteCount = mode === 'add' ? 0 : 1
       const newIds = selection.map(({ id }: { id: string }) => id)
       ids.splice(insertIndex, deleteCount, ...newIds)
       const idsWithRemovedDuplicates = [...new Set(ids)]
-      this.handleChange(idsWithRemovedDuplicates)
+      this.updateValue(idsWithRemovedDuplicates as string[])
     }
   }
 })

@@ -16,6 +16,6 @@ export interface User {
 
 export default {
   async findMe() {
-    return (await client({ url: `/user/me`, method: 'get' })).data
+    return (await client({ url: `/user`, method: 'get' })).data
   }
 }

@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts">
-import offerService from '@/services/api/services/offerService'
+// import offerService from '@/services/api/services/offerService'
 import { defineComponent, Ref, ref, watchEffect } from 'vue'
 export default defineComponent({
   props: {
@@ -13,11 +13,11 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  setup() {
     const item: Ref<object | null> = ref(null)
     const fetchData = async () => {
       item.value = null
-      item.value = await offerService.findOneById(props.id)
+      // item.value = await offerService.findOneById(props.id)
     }
     watchEffect(fetchData)
     return { item }

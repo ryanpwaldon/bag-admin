@@ -6,18 +6,18 @@
         <p class="max-w-xl text-sm leading-5 text-gray-500" v-if="description">{{ description }}</p>
       </div>
       <div class="grid gap-4">
-        <div class="flex items-center" v-for="(field, i) in fields" :key="i">
+        <div class="flex items-center" v-for="(option, i) in options" :key="i">
           <input
             class="w-4 h-4 text-blue-600 transition duration-150 ease-in-out form-radio"
-            :name="name"
-            :id="field.value"
-            :value="field.value"
             type="radio"
-            :checked="value === field.value"
-            @input="handleChange"
+            :name="name"
+            :id="option.value"
+            :value="option.value"
+            :checked="modelValue === option.value"
+            @input="$emit('update:modelValue', $event.target.value)"
           />
-          <label :for="field.value" class="ml-3">
-            <span class="block text-sm font-medium leading-5 text-gray-700">{{ field.label }}</span>
+          <label :for="option.value" class="ml-3">
+            <span class="block text-sm font-medium leading-5 text-gray-700">{{ option.label }}</span>
           </label>
         </div>
       </div>
@@ -26,20 +26,15 @@
 </template>
 
 <script lang="ts">
-import { useField } from 'vee-validate'
 import { defineComponent, PropType } from 'vue'
 
-interface Field {
+interface RadioOption {
   label: string
   value: string
 }
 
 export default defineComponent({
   props: {
-    initialValue: {
-      type: String,
-      required: false
-    },
     title: {
       type: String,
       required: false
@@ -48,18 +43,18 @@ export default defineComponent({
       type: String,
       required: false
     },
-    fields: {
-      type: Array as PropType<Field[]>,
+    modelValue: {
+      type: String,
+      required: false
+    },
+    options: {
+      type: Array as PropType<RadioOption[]>,
       required: true
     },
     name: {
       type: String,
       required: true
     }
-  },
-  setup(props) {
-    const { value, errorMessage, handleChange } = (useField as Function)(props.name, undefined, { initialValue: props.initialValue })
-    return { value, errorMessage, handleChange }
   }
 })
 </script>

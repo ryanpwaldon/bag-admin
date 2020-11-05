@@ -1,34 +1,28 @@
 <template>
   <BaseLayout>
     <BaseHeader />
-    <Form @submit="handleSubmit" class="grid gap-4">
+    <div class="grid gap-4">
       <BaseCard title="Offer type" description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.">
-        <BaseInputRadio name="type" :fields="fields" />
+        <BaseInputRadio name="offer type" v-model="selected" :options="radioOptions" />
         <template #footer>
-          <div class="grid grid-flow-col gap-4 ml-auto">
-            <router-link to="/offers">
-              <BaseButton text="Cancel" theme="white" />
-            </router-link>
-            <BaseButton text="Next →" type="submit" />
-          </div>
+          <BaseButton text="Next" @click="handleNext" />
         </template>
       </BaseCard>
-    </Form>
+    </div>
   </BaseLayout>
 </template>
 
 <script lang="ts">
-import { Form } from 'vee-validate'
 import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseInputRadio from '@/components/BaseInputRadio/BaseInputRadio.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import { defineComponent } from 'vue'
-import { OfferType } from '@/services/api/services/offerService'
+import { OfferType } from '@/types/offer-type'
+
 export default defineComponent({
   components: {
-    Form,
     BaseLayout,
     BaseCard,
     BaseHeader,
@@ -36,15 +30,18 @@ export default defineComponent({
     BaseButton
   },
   data: () => ({
-    fields: [
-      { label: 'Product recommendation', value: OfferType.ProductAddOn },
-      { label: 'Product upgrade', value: OfferType.ProductUpgrade },
-      { label: 'Minimum spend', value: OfferType.MinimumSpend }
+    selected: OfferType.CrossSell,
+    radioOptions: [
+      { label: 'Cross sell', value: OfferType.CrossSell },
+      { label: 'Up sell', value: OfferType.UpSell },
+      { label: 'Discount', value: OfferType.Discount }
     ]
   }),
   methods: {
-    handleSubmit({ type }: { type: OfferType }) {
-      this.$router.push({ name: 'create-offer-type', params: { type } })
+    handleNext() {
+      if (this.selected === OfferType.CrossSell) this.$router.push({ name: 'create-cross-sell' })
+      if (this.selected === OfferType.UpSell) this.$router.push({ name: 'create-up-sell' })
+      if (this.selected === OfferType.Discount) this.$router.push({ name: 'create-discount' })
     }
   }
 })

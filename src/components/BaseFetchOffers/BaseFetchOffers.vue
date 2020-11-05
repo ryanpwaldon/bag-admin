@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import offerService from '@/services/api/services/offerService'
+// import offerService from '@/services/api/services/offerService'
 import { defineComponent, watchEffect } from 'vue'
 export default defineComponent({
   props: {
@@ -35,12 +35,12 @@ export default defineComponent({
   }),
   methods: {
     async fetchData() {
-      this.loading = true
-      const { docs, total, pages } = await offerService.findAll(this.filters, this.sort, this.page, this.limit)
-      this.docs = docs
-      this.total = total
-      this.pages = pages
-      this.loading = false
+      // this.loading = true
+      // const { docs, total, pages } = await offerService.findAll(this.filters, this.sort, this.page, this.limit)
+      // this.docs = docs
+      // this.total = total
+      // this.pages = pages
+      // this.loading = false
     }
   }
 })
