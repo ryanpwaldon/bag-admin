@@ -1,40 +1,25 @@
-import { createRouter, createWebHistory, NavigationGuard, RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, NavigationGuard, RouteRecordRaw } from 'vue-router'
 import authGuard from './guards/authGuard'
 import roleGuard from './guards/roleGuard'
 
-export type Breadcrumb = string | ((route: RouteLocationNormalizedLoaded) => string)
-
-type ExtendedRouteRecordRaw =
-  | (RouteRecordRaw & {
-      children?: Array<ExtendedRouteRecordRaw>
-      meta: {
-        title: string
-        breadcrumb: Breadcrumb
-      }
-    })
-  | {
-      path: string
-      redirect: string | object
-    }
-
-const routes: Array<ExtendedRouteRecordRaw> = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
     component: () => import('@/views/Home/Home.vue'),
-    meta: { title: 'Home', breadcrumb: 'Home' }
+    meta: { title: 'Home' }
   },
   {
     path: '/login',
     name: 'login',
     component: () => import('@/views/Login/Login.vue'),
-    meta: { title: 'Login', breadcrumb: 'Login' }
+    meta: { title: 'Login' }
   },
   {
     path: '/offers',
     name: 'offers',
     component: () => import('@/views/Offers/Offers.vue'),
-    meta: { title: 'Offers', breadcrumb: 'Offers' },
+    meta: { title: 'Offers' },
     children: [
       {
         path: '',
@@ -44,51 +29,51 @@ const routes: Array<ExtendedRouteRecordRaw> = [
         path: 'cross-sells',
         name: 'cross-sells',
         component: () => import('@/views/Offers/views/CrossSells/CrossSells.vue'),
-        meta: { title: 'Cross sells', breadcrumb: 'Cross sells' }
+        meta: { title: 'Offers' }
       }
     ]
   },
   {
     path: '/offers/create',
+    name: 'create-offer',
     component: () => import('@/views/Offers/views/Create/Create.vue'),
-    meta: { title: 'Create an Offer', breadcrumb: 'Create' }
+    meta: { title: 'Create an offer' }
   },
   {
     path: '/offers/cross-sells/create',
     name: 'create-cross-sell',
     component: () => import('@/views/Offers/views/CrossSells/views/Create/Create.vue'),
-    meta: { title: 'Create a cross sell offer', breadcrumb: 'Cross Sell' }
+    meta: { title: 'Create a cross sell offer' }
   },
   {
     path: '/offers/cross-sells/:id',
     name: 'cross-sell',
     component: () => import('@/views/Offers/views/CrossSells/views/CrossSell/CrossSell.vue'),
-    meta: { title: 'Cross sell details', breadcrumb: 'Details' },
+    meta: { title: 'Offer details', breadcrumbs: ['cross-sells'] },
     props: true
   },
   {
     path: '/cart',
     name: 'cart',
     component: () => import('@/views/Cart/Cart.vue'),
-    meta: { title: 'Cart', breadcrumb: 'Cart' }
+    meta: { title: 'Cart' }
   },
   {
     path: '/account',
     name: 'account',
     component: () => import('@/views/Home/Home.vue'),
-    meta: { title: 'Account', breadcrumb: 'Account' }
+    meta: { title: 'Account' }
   },
   {
     path: '/help',
     name: 'help',
     component: () => import('@/views/Home/Home.vue'),
-    meta: { title: 'Help', breadcrumb: 'Help' }
+    meta: { title: 'Help' }
   },
   {
     path: '/:path(.*)*',
     name: 'not-found',
-    redirect: '/',
-    meta: { title: '404 – Not Found', breadcrumb: '404 – Not Found' }
+    redirect: '/'
   }
 ]
 
