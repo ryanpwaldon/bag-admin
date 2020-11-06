@@ -1,19 +1,16 @@
 <template>
-  <BaseLayout>
-    <BaseHeader />
-    <div class="grid gap-4">
-      <BaseCard title="Offer type" description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.">
-        <BaseInputRadio name="offer type" v-model="selected" :options="radioOptions" />
-        <template #footer>
-          <BaseButton text="Next" @click="handleNext" />
-        </template>
-      </BaseCard>
-    </div>
-  </BaseLayout>
+  <BaseHeader />
+  <div class="grid gap-4">
+    <BaseCard title="Offer type" description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.">
+      <BaseInputRadio name="offer type" v-model="selected" :options="radioOptions" />
+      <template #footer>
+        <BaseButton text="Next" @click="handleNext" />
+      </template>
+    </BaseCard>
+  </div>
 </template>
 
 <script lang="ts">
-import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseInputRadio from '@/components/BaseInputRadio/BaseInputRadio.vue'
@@ -23,7 +20,6 @@ import { OfferType } from '@/types/offer-type'
 
 export default defineComponent({
   components: {
-    BaseLayout,
     BaseCard,
     BaseHeader,
     BaseInputRadio,

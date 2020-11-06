@@ -1,22 +1,19 @@
 <template>
-  <BaseLayout>
-    <BaseHeader>
-      <template #actions>
-        <router-link to="/offers/create">
-          <BaseButton text="Preview" />
-        </router-link>
-      </template>
-    </BaseHeader>
-    <form>
-      <BaseTask title="Status" description="Turn this on to use the cart on your storefront.">
-        Hello
-      </BaseTask>
-    </form>
-  </BaseLayout>
+  <BaseHeader>
+    <template #actions>
+      <router-link to="/offers/create">
+        <BaseButton text="Preview" />
+      </router-link>
+    </template>
+  </BaseHeader>
+  <form>
+    <BaseTask title="Status" description="Turn this on to use the cart on your storefront.">
+      Hello
+    </BaseTask>
+  </form>
 </template>
 
 <script lang="ts">
-import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseTask from '@/components/BaseTask/BaseTask.vue'
@@ -25,7 +22,6 @@ import BaseTask from '@/components/BaseTask/BaseTask.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
   components: {
-    BaseLayout,
     BaseHeader,
     BaseButton,
     BaseTask

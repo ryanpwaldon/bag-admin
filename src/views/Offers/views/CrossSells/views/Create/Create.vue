@@ -1,58 +1,55 @@
 <template>
-  <BaseLayout>
-    <BaseHeader />
-    <form @submit="handleSubmit" class="grid gap-4">
-      <BaseCard>
-        <div class="grid grid-cols-12 gap-6">
-          <BaseInputProducts
-            label="Product"
-            description="The product you would like to cross-sell."
-            name="productId"
-            v-model="fields.productId.value.value"
-            :error="fields.productId.error.value"
-            class="col-span-full"
-          />
-          <div class="h-px -mx-6 bg-gray-300 col-span-full" />
-          <div class="col-span-full">
-            <p class="text-base font-medium leading-6 text-gray-700">Copy</p>
-            <p class="max-w-xl text-sm text-gray-500">Use persuasive language to entice the user into to purchasing your product.</p>
-          </div>
-          <BaseInputText
-            name="title"
-            label="Title"
-            v-model="fields.title.value.value"
-            :error="fields.title.error.value"
-            placeholder="Add a pencil"
-            class="col-span-full sm:col-span-6"
-          />
-          <BaseInputText
-            name="subtitle"
-            label="Subtitle"
-            v-model="fields.subtitle.value.value"
-            :error="fields.subtitle.error.value"
-            placeholder="Faber Casel 2B"
-            class="col-span-full sm:col-span-6"
-          />
-          <div class="h-px -mx-6 bg-gray-300 col-span-full" />
-          <BaseInputProducts
-            name="triggerProductIds"
-            label="Trigger products"
-            description="This offer will only be visible to the customer if they have added at least one trigger product to their cart."
-            v-model="fields.triggerProductIds.value.value"
-            :error="fields.triggerProductIds.error.value"
-            class="col-span-full"
-          />
+  <BaseHeader />
+  <form @submit="handleSubmit" class="grid gap-4">
+    <BaseCard>
+      <div class="grid grid-cols-12 gap-6">
+        <BaseInputProducts
+          label="Product"
+          description="The product you would like to cross-sell."
+          name="productId"
+          v-model="fields.productId.value.value"
+          :error="fields.productId.error.value"
+          class="col-span-full"
+        />
+        <div class="h-px -mx-6 bg-gray-300 col-span-full" />
+        <div class="col-span-full">
+          <p class="text-base font-medium leading-6 text-gray-700">Copy</p>
+          <p class="max-w-xl text-sm text-gray-500">Use persuasive language to entice the user into to purchasing your product.</p>
         </div>
-        <template #footer>
-          <BaseButton class="ml-auto" text="Create" type="submit" />
-        </template>
-      </BaseCard>
-    </form>
-  </BaseLayout>
+        <BaseInputText
+          name="title"
+          label="Title"
+          v-model="fields.title.value.value"
+          :error="fields.title.error.value"
+          placeholder="Add a pencil"
+          class="col-span-full sm:col-span-6"
+        />
+        <BaseInputText
+          name="subtitle"
+          label="Subtitle"
+          v-model="fields.subtitle.value.value"
+          :error="fields.subtitle.error.value"
+          placeholder="Faber Casel 2B"
+          class="col-span-full sm:col-span-6"
+        />
+        <div class="h-px -mx-6 bg-gray-300 col-span-full" />
+        <BaseInputProducts
+          name="triggerProductIds"
+          label="Trigger products"
+          description="This offer will only be visible to the customer if they have added at least one trigger product to their cart."
+          v-model="fields.triggerProductIds.value.value"
+          :error="fields.triggerProductIds.error.value"
+          class="col-span-full"
+        />
+      </div>
+      <template #footer>
+        <BaseButton class="ml-auto" text="Create" type="submit" />
+      </template>
+    </BaseCard>
+  </form>
 </template>
 
 <script lang="ts">
-import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
@@ -83,7 +80,6 @@ const schema = object({
 
 export default defineComponent({
   components: {
-    BaseLayout,
     BaseHeader,
     BaseCard,
     BaseInputText,
