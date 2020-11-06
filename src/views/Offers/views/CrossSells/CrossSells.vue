@@ -1,5 +1,5 @@
 <template>
-  <BaseTable :props="props" :items="items" :link="item => ({ name: 'cross-sell', params: { id: item.id } })">
+  <BaseTable :loading="loading" :props="props" :items="items" :link="item => ({ name: 'cross-sell', params: { id: item.id } })">
     <template #name="{ item }">
       <div class="text-sm font-medium leading-5 text-gray-900">{{ item.product.title }}</div>
     </template>
