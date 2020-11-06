@@ -10,7 +10,7 @@
         <template #default="{ item }">
           <BaseProduct :title="item.title" :image="item.image" type="Product">
             <template #footer>
-              <BaseDotsButton
+              <BaseMenuButton
                 class="flex-shrink-0 mr-2"
                 :links="[
                   { title: 'Change', action: () => handleSelection({ mode: 'change', id }) },
@@ -40,14 +40,14 @@
 import { defineComponent } from 'vue'
 import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
 import BaseFetchProduct from '@/components/BaseFetchProduct/BaseFetchProduct.vue'
-import BaseDotsButton from '../BaseDotsButton/BaseDotsButton.vue'
+import BaseMenuButton from '../BaseMenuButton/BaseMenuButton.vue'
 import BaseButton from '../BaseButton/BaseButton.vue'
 export default defineComponent({
   components: {
     BaseProduct,
     BaseFetchProduct,
     BaseButton,
-    BaseDotsButton
+    BaseMenuButton
   },
   props: {
     label: {
