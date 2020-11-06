@@ -60,6 +60,13 @@ const routes: Array<ExtendedRouteRecordRaw> = [
     meta: { title: 'Create a cross sell offer', breadcrumb: 'Cross Sell' }
   },
   {
+    path: '/offers/cross-sells/:id',
+    name: 'cross-sell',
+    component: () => import('@/views/Offers/views/CrossSells/views/CrossSell/CrossSell.vue'),
+    meta: { title: 'Cross sell details', breadcrumb: 'Details' },
+    props: true
+  },
+  {
     path: '/cart',
     name: 'cart',
     component: () => import('@/views/Cart/Cart.vue'),
