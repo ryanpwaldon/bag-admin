@@ -1,15 +1,16 @@
 import { client } from '@/services/api/client'
 
 export type CrossSell = {
+  id: string
   user: string
   active: boolean
   activeFor: number
-  discountId: string
   title: string
   subtitle: string
-  triggers: string[]
+  triggerProductIds: string[]
   productId: string
   product: any
+  createdAt: Date
 }
 
 export default {

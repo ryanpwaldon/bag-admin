@@ -1,6 +1,6 @@
 <template>
   <BaseTable :loading="loading" :props="props" :items="items" :link="item => ({ name: 'cross-sell', params: { id: item.id } })">
-    <template #name="{ item }">
+    <template #product="{ item }">
       <div class="text-sm font-medium leading-5 text-gray-900">{{ item.product.title }}</div>
     </template>
     <template #title="{ item }">
@@ -37,7 +37,7 @@ export default defineComponent({
     const pages = ref(null as number | null)
     const items = ref([] as CrossSell[])
     const props = [
-      { name: 'Name', id: 'name' },
+      { name: 'Product', id: 'product' },
       { name: 'Title', id: 'title' },
       { name: 'Status', id: 'status' },
       { name: '', id: 'link' }

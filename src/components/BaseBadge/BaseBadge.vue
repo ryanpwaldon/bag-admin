@@ -14,7 +14,7 @@ export default defineComponent({
     },
     shape: {
       type: String,
-      default: 'sm-basic'
+      default: 'sm-rounded'
     },
     theme: {
       type: String,

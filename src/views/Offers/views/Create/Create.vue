@@ -4,7 +4,7 @@
     <BaseCard title="Offer type" description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.">
       <BaseInputRadio name="offer type" v-model="selected" :options="radioOptions" />
       <template #footer>
-        <BaseButton text="Next" @click="handleNext" />
+        <BaseButton class="ml-auto" text="Next" @click="handleNext" />
       </template>
     </BaseCard>
   </div>

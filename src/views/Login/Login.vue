@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col justify-center min-h-screen px-4 py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <img class="w-auto h-12 mx-auto" src="@/assets/img/logo.svg" alt="Logo" />
+      <Logo class="w-auto h-12 mx-auto" />
       <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900">
         Sign in to your account
       </h2>
@@ -17,12 +17,14 @@
 
 <script>
 import { Form } from 'vee-validate'
+import Logo from '@/icons/Logo.vue'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
 import installationService from '@/services/api/services/installationService'
 export default {
   components: {
+    Logo,
     Form,
     BaseCard,
     BaseButton,

@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <div class="flex-shrink-0">
-            <img class="w-8 h-8" src="@/assets/img/logo.svg" alt="Logo" />
+            <Logo class="w-8 h-8" />
           </div>
           <div class="hidden md:block">
             <div class="flex items-baseline ml-10 space-x-4">
@@ -81,8 +81,10 @@
 import { defineComponent } from 'vue'
 import { RouteLocationNormalized } from 'vue-router'
 import BaseDropdown from '../BaseDropdown/BaseDropdown.vue'
+import Logo from '@/icons/Logo.vue'
 export default defineComponent({
   components: {
+    Logo,
     BaseDropdown
   },
   data: () => ({
