@@ -1,7 +1,7 @@
 <template>
   <nav class="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6">
-    <div class="hidden sm:block">
-      <p class="text-sm leading-5 text-gray-700">
+    <div class="hidden w-full sm:block">
+      <p v-if="!loading" class="text-sm leading-5 text-gray-700">
         Showing
         <span class="font-medium">{{ first }}</span>
         to
@@ -26,15 +26,19 @@ export default defineComponent({
     BaseButton
   },
   props: {
+    loading: {
+      type: Boolean,
+      required: false
+    },
     total: {
       type: Number,
-      required: true
-    },
-    page: {
-      type: Number,
-      required: true
+      default: 0
     },
     pages: {
+      type: Number,
+      default: 0
+    },
+    page: {
       type: Number,
       required: true
     },
@@ -51,9 +55,11 @@ export default defineComponent({
       return Math.min(this.limit * this.page, this.total)
     },
     hasPrevPage(): boolean {
+      if (this.loading) return false
       return this.page > 1
     },
     hasNextPage(): boolean {
+      if (this.loading) return false
       return this.page < Math.ceil(this.total / this.limit)
     }
   }
