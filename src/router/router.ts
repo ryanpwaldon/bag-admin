@@ -4,13 +4,18 @@ import roleGuard from './guards/roleGuard'
 
 export type Breadcrumb = string | ((route: RouteLocationNormalizedLoaded) => string)
 
-type ExtendedRouteRecordRaw = RouteRecordRaw & {
-  children?: Array<ExtendedRouteRecordRaw>
-  meta: {
-    title: string
-    breadcrumb: Breadcrumb
-  }
-}
+type ExtendedRouteRecordRaw =
+  | (RouteRecordRaw & {
+      children?: Array<ExtendedRouteRecordRaw>
+      meta: {
+        title: string
+        breadcrumb: Breadcrumb
+      }
+    })
+  | {
+      path: string
+      redirect: string | object
+    }
 
 const routes: Array<ExtendedRouteRecordRaw> = [
   {
@@ -27,38 +32,32 @@ const routes: Array<ExtendedRouteRecordRaw> = [
   },
   {
     path: '/offers',
+    name: 'offers',
     component: () => import('@/views/Offers/Offers.vue'),
     meta: { title: 'Offers', breadcrumb: 'Offers' },
     children: [
       {
         path: '',
-        name: 'offers',
-        component: () => import('@/views/Offers/views/Index/Index.vue'),
-        meta: { title: 'Offers', breadcrumb: 'Offers' }
+        redirect: { name: 'cross-sells' }
       },
       {
-        path: 'create',
-        component: () => import('@/views/Offers/views/Create/Create.vue'),
-        meta: { title: 'Create an Offer', breadcrumb: 'Create' },
-        children: [
-          {
-            path: '',
-            name: 'create-offer',
-            component: () => import('@/views/Offers/views/Create/views/Index/Index.vue'),
-            meta: { title: 'Create an offer', breadcrumb: 'Create' }
-          },
-          {
-            path: 'cross-sell',
-            name: 'create-cross-sell',
-            component: () => import('@/views/Offers/views/Create/views/CrossSell/CrossSell.vue'),
-            meta: {
-              title: 'Create a cross sell offer',
-              breadcrumb: 'Cross Sell'
-            }
-          }
-        ]
+        path: 'cross-sells',
+        name: 'cross-sells',
+        component: () => import('@/views/Offers/views/CrossSells/CrossSells.vue'),
+        meta: { title: 'Cross sells', breadcrumb: 'Cross sells' }
       }
     ]
+  },
+  {
+    path: '/offers/create',
+    component: () => import('@/views/Offers/views/Create/Create.vue'),
+    meta: { title: 'Create an Offer', breadcrumb: 'Create' }
+  },
+  {
+    path: '/offers/cross-sells/create',
+    name: 'create-cross-sell',
+    component: () => import('@/views/Offers/views/CrossSells/views/Create/Create.vue'),
+    meta: { title: 'Create a cross sell offer', breadcrumb: 'Cross Sell' }
   },
   {
     path: '/cart',

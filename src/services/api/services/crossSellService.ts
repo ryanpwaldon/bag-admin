@@ -9,6 +9,7 @@ export type CrossSell = {
   subtitle: string
   triggers: string[]
   productId: string
+  product: any
 }
 
 export default {
@@ -16,7 +17,7 @@ export default {
     return (await client({ url: `/cross-sell`, method: 'post', data })).data
   },
 
-  async findAll(query: object, sort: string, page: number, limit: number) {
+  async findAll({ query, sort, page, limit }: { query?: object; sort?: string; page: number; limit: number }) {
     return (await client({ url: `/cross-sell`, method: 'get', params: { query, sort, page, limit } })).data
   },
 
