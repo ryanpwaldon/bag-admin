@@ -1,10 +1,10 @@
 <template>
   <div>
-    <label :for="name" class="block text-base font-medium leading-6 text-gray-700">{{ label }}</label>
-    <p class="max-w-xl text-sm" :class="[error ? 'text-red-600' : 'text-gray-500']" v-if="error || description">
+    <label v-if="label" :for="name" class="block text-base font-medium leading-6 text-gray-700">{{ label }}</label>
+    <p class="max-w-xl mb-4 text-sm" :class="[error ? 'text-red-600' : 'text-gray-500']" v-if="error || description">
       {{ error || description }}
     </p>
-    <div class="grid grid-cols-1 row-gap-4 col-gap-6 mt-4 sm:grid-cols-2">
+    <div class="grid grid-cols-1 row-gap-4 col-gap-6 sm:grid-cols-2">
       <BaseFetchProduct v-for="id in ids" :key="id" :id="id">
         <template #loader><BaseProduct :loading="true"/></template>
         <template #default="{ item }">

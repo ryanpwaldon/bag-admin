@@ -37,6 +37,7 @@
         <template v-if="activeTab === 'Edit'">
           <StatusForm v-model:item="item" />
           <CopyForm v-model:item="item" />
+          <TriggersForm v-model:item="item" />
         </template>
       </div>
     </div>
@@ -51,6 +52,7 @@ import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
 import BaseStats from '@/components/BaseStats/BaseStats.vue'
 import StatusForm from './components/StatusForm/StatusForm.vue'
 import CopyForm from './components/CopyForm/CopyForm.vue'
+import TriggersForm from './components/TriggersForm/TriggersForm.vue'
 import BaseSidebarTabs, { Tab } from '@/components/BaseSidebarTabs/BaseSidebarTabs.vue'
 import crossSellService, { CrossSell } from '@/services/api/services/crossSellService'
 import Calendar from '@/icons/Calendar.vue'
@@ -73,6 +75,7 @@ export default defineComponent({
     BaseSidebarTabs,
     StatusForm,
     CopyForm,
+    TriggersForm,
     BaseCard,
     Calendar,
     BaseStats,
