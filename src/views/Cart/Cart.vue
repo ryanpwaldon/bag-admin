@@ -6,43 +6,43 @@
       </router-link>
     </template>
   </BaseHeader>
-  <form>
-    <BaseTask title="Status" description="Turn this on to use the cart on your storefront.">
-      Hello
-    </BaseTask>
-  </form>
+  <BaseCard>
+    <BaseInputToggleHorizontal
+      label="Status"
+      description="Turn this on to enable the cart on your storefront."
+      v-model="fields.active.value.value"
+      :error="fields.active.error.value"
+      :class="loading && 'pointer-events-none'"
+      class="w-full"
+    />
+  </BaseCard>
 </template>
 
 <script lang="ts">
+import BaseCard from '@/components/BaseCard/BaseCard.vue'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
-import BaseTask from '@/components/BaseTask/BaseTask.vue'
-// import useForm from '@/composables/useForm'
-// import { boolean, object } from 'yup'
-import { defineComponent } from 'vue'
+import BaseInputToggleHorizontal from '@/components/BaseInputToggleHorizontal/BaseInputToggleHorizontal.vue'
+import { defineComponent, ref, watch } from 'vue'
+import useForm from '@/composables/useForm'
+import { boolean, object } from 'yup'
 export default defineComponent({
   components: {
+    BaseCard,
     BaseHeader,
     BaseButton,
-    BaseTask
+    BaseInputToggleHorizontal
+  },
+  setup() {
+    const loading = ref(false)
+    const schema = object({ active: boolean().default(false) }).defined()
+    const { fields, getValues } = useForm(schema)
+    watch(fields.active.value, async () => {
+      loading.value = true
+      console.log(getValues())
+      loading.value = false
+    })
+    return { fields, loading }
   }
-  // setup() {
-  //   const { values, updateValue, errors, handleSubmit } = useForm(
-  //     object({
-  //       quantity: boolean()
-  //         .typeError('Quantity must be a number.')
-  //         .required('Quantity is required.')
-  //     }).defined()
-  //   )
-  //   const onSubmit = () => {
-  //     console.log(values.value)
-  //   }
-  //   return {
-  //     values,
-  //     errors,
-  //     updateValue,
-  //     handleSubmit: handleSubmit(onSubmit)
-  //   }
-  // }
 })
 </script>
