@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts">
-import productService from '@/services/api/services/productService'
+import adminProductService from '@/services/api/services/adminProductService'
 import { defineComponent, Ref, ref, watchEffect } from 'vue'
 export default defineComponent({
   props: {
@@ -17,7 +17,7 @@ export default defineComponent({
     const item: Ref<object | null> = ref(null)
     const fetchData = async () => {
       item.value = null
-      item.value = await productService.findOne(props.id)
+      item.value = await adminProductService.findOne(props.id)
     }
     watchEffect(fetchData)
     return { item }

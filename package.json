@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@shopify/admin-graphql-api-utilities": "^0.1.1",
     "@shopify/app-bridge": "^1.27.2",
     "@shopify/app-bridge-utils": "^1.27.2",
     "@tailwindcss/ui": "^0.6.2",

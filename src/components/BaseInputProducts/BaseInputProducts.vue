@@ -8,7 +8,7 @@
       <BaseFetchProduct v-for="id in ids" :key="id" :id="id">
         <template #loader><BaseProduct :loading="true"/></template>
         <template #default="{ item }">
-          <BaseProduct :title="item.title" :image="item.image" type="Product">
+          <BaseProduct :title="item.title" :image="item.featuredImage.originalSrc" type="Product">
             <template #footer>
               <BaseMenuButton
                 class="flex-shrink-0 mr-2"
