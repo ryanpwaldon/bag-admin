@@ -25,7 +25,7 @@
     <div class="grid gap-6 mt-6 lg:grid-cols-12">
       <BaseSidebarTabs :tabs="tabs" v-model:activeTab="activeTab" class="lg:col-span-3" />
       <div class="grid gap-6 lg:col-span-9">
-        <div v-if="activeTab === 'Overview'">
+        <template v-if="activeTab === 'Overview'">
           <BaseStats
             :stats="[
               { label: 'Total income', value: '$29.00' },
@@ -33,10 +33,11 @@
               { label: 'Impressions', value: '2093' }
             ]"
           />
-        </div>
-        <div v-if="activeTab === 'Edit'">
+        </template>
+        <template v-if="activeTab === 'Edit'">
+          <StatusForm v-model:item="item" />
           <CopyForm v-model:item="item" />
-        </div>
+        </template>
       </div>
     </div>
   </div>
@@ -48,6 +49,7 @@ import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
 import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
 import BaseStats from '@/components/BaseStats/BaseStats.vue'
+import StatusForm from './components/StatusForm/StatusForm.vue'
 import CopyForm from './components/CopyForm/CopyForm.vue'
 import BaseSidebarTabs, { Tab } from '@/components/BaseSidebarTabs/BaseSidebarTabs.vue'
 import crossSellService, { CrossSell } from '@/services/api/services/crossSellService'
@@ -69,6 +71,7 @@ export default defineComponent({
     BaseLoader,
     BaseBadge,
     BaseSidebarTabs,
+    StatusForm,
     CopyForm,
     BaseCard,
     Calendar,
