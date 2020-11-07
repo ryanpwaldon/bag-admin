@@ -14,7 +14,7 @@
       <component
         :is="tab.icon"
         :class="tab.name === activeTab ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500'"
-        class="flex-shrink-0 w-5 h-5 mr-3 -ml-1 transition duration-150 ease-in-out"
+        class="flex-shrink-0 w-5 h-5 mr-2 -ml-1 transition duration-150 ease-in-out"
       />
       <span>{{ tab.name }}</span>
     </div>
