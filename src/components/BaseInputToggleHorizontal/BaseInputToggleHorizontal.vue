@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-between">
     <span class="flex flex-col flex-grow" id="toggleLabel">
-      <span class="text-base font-medium leading-6 text-gray-900">{{ label }}</span>
+      <span class="text-base font-medium leading-6 text-gray-700">{{ label }}</span>
       <span class="text-sm leading-normal text-gray-500">{{ description }}</span>
     </span>
     <span
