@@ -46,11 +46,27 @@ const routes: RouteRecordRaw[] = [
     meta: { title: 'Create a cross sell offer' }
   },
   {
-    path: '/offers/cross-sells/:id/',
+    path: '/offers/cross-sells/:id',
     name: 'cross-sell',
     component: () => import('@/views/Offers/views/CrossSells/views/CrossSell/CrossSell.vue'),
     meta: { title: 'Offer details', breadcrumbs: ['cross-sells'] },
-    props: true
+    props: true,
+    children: [
+      {
+        path: '',
+        redirect: { name: 'cross-sell-overview' }
+      },
+      {
+        path: 'overview',
+        name: 'cross-sell-overview',
+        component: () => import('@/views/Offers/views/CrossSells/views/CrossSell/views/Overview/Overview.vue')
+      },
+      {
+        path: 'edit',
+        name: 'cross-sell-edit',
+        component: () => import('@/views/Offers/views/CrossSells/views/CrossSell/views/Edit/Edit.vue')
+      }
+    ]
   },
   {
     path: '/cart',

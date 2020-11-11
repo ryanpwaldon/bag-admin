@@ -21,24 +21,9 @@
           <BaseBadge :text="item?.active ? 'Live' : 'Paused'" :theme="item?.active ? 'green' : 'yellow'" />
         </div>
       </div>
-      <BaseTabs :tabs="tabs" v-model:activeTab="activeTab" class="px-4 sm:px-6" />
+      <BaseTabs :links="links" class="px-4 sm:px-6" />
     </div>
-    <div class="grid gap-6 mt-6">
-      <template v-if="activeTab === 'Overview'">
-        <BaseStats
-          :stats="[
-            { label: 'Total income', value: '$29.00' },
-            { label: 'Conversions', value: '2' },
-            { label: 'Impressions', value: '2093' }
-          ]"
-        />
-      </template>
-      <template v-if="activeTab === 'Edit'">
-        <StatusForm v-model:item="item" />
-        <CopyForm v-model:item="item" />
-        <TriggersForm v-model:item="item" />
-      </template>
-    </div>
+    <router-view class="mt-6" v-model:item="item" />
   </div>
 </template>
 
@@ -46,11 +31,7 @@
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
 import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
-import BaseStats from '@/components/BaseStats/BaseStats.vue'
-import StatusForm from './components/StatusForm/StatusForm.vue'
-import CopyForm from './components/CopyForm/CopyForm.vue'
-import TriggersForm from './components/TriggersForm/TriggersForm.vue'
-import BaseTabs, { Tab } from '@/components/BaseTabs/BaseTabs.vue'
+import BaseTabs, { Link } from '@/components/BaseTabs/BaseTabs.vue'
 import crossSellService, { CrossSell } from '@/services/api/services/crossSellService'
 import Calendar from '@/icons/Calendar.vue'
 import Clock from '@/icons/Clock.vue'
@@ -59,9 +40,9 @@ import Pencil from '@/icons/Pencil.vue'
 import Tag from '@/icons/Tag.vue'
 import { defineComponent, ref, watchEffect } from 'vue'
 
-const tabs: Tab[] = [
-  { name: 'Overview', icon: List },
-  { name: 'Edit', icon: Pencil }
+const links: Link[] = [
+  { title: 'Overview', name: 'cross-sell-overview', icon: List },
+  { title: 'Edit', name: 'cross-sell-edit', icon: Pencil }
 ]
 
 export default defineComponent({
@@ -70,11 +51,7 @@ export default defineComponent({
     BaseLoader,
     BaseBadge,
     BaseTabs,
-    StatusForm,
-    CopyForm,
-    TriggersForm,
     Calendar,
-    BaseStats,
     Clock,
     Tag
   },
@@ -85,7 +62,6 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const activeTab = ref('Overview')
     const loading = ref(true)
     const item = ref(null as CrossSell | null)
     const fetchItem = async () => {
@@ -94,7 +70,7 @@ export default defineComponent({
       loading.value = false
     }
     watchEffect(fetchItem)
-    return { item, loading, tabs, activeTab }
+    return { item, loading, links }
   }
 })
 </script>
