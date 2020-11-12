@@ -1,4 +1,5 @@
 import { client } from '@/services/api/client'
+import { AdminProduct } from '@/types/admin/types'
 
 export type CrossSell = {
   id: string
@@ -9,8 +10,9 @@ export type CrossSell = {
   subtitle: string
   triggerProductIds: string[]
   productId: string
-  product: any
+  product: AdminProduct
   createdAt: Date
+  orders: string[]
 }
 
 export default {
