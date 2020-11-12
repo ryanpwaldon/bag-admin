@@ -28,7 +28,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     return {
-      crossSellModelled: useModelWrapper(props, emit, 'item')
+      crossSellModelled: useModelWrapper(props, emit, 'crossSell')
     }
   }
 })
