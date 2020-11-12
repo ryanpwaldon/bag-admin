@@ -1,0 +1,19 @@
+{
+  "schema": [
+    {
+      "https://convert-cart-development.myshopify.com/admin/api/2019-10/graphql.json": {
+        "headers": {
+          "X-Shopify-Access-Token": "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"
+        }
+      }
+    }
+  ],
+  "generates": {
+    "./src/types/admin/types.ts": {
+      "plugins": ["typescript"],
+      "config": {
+        "typesPrefix": "Admin"
+      }
+    }
+  }
+}
