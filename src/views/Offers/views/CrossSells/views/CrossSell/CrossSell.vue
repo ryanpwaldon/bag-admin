@@ -41,7 +41,7 @@ import Tag from '@/icons/Tag.vue'
 import { defineComponent, ref, watchEffect } from 'vue'
 
 const links: Link[] = [
-  { title: 'Overview', name: 'cross-sell-overview', icon: List },
+  { title: 'Activity', name: 'cross-sell-activity', icon: List },
   { title: 'Edit', name: 'cross-sell-edit', icon: Pencil }
 ]
 
