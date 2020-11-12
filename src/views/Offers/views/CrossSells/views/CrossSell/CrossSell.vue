@@ -35,13 +35,13 @@ import BaseTabs, { Link } from '@/components/BaseTabs/BaseTabs.vue'
 import crossSellService, { CrossSell } from '@/services/api/services/crossSellService'
 import Calendar from '@/icons/Calendar.vue'
 import Clock from '@/icons/Clock.vue'
-import List from '@/icons/List.vue'
 import Pencil from '@/icons/Pencil.vue'
 import Tag from '@/icons/Tag.vue'
 import { defineComponent, ref, watchEffect } from 'vue'
+import Lightning from '@/icons/Lightning.vue'
 
 const links: Link[] = [
-  { title: 'Activity', name: 'cross-sell-activity', icon: List },
+  { title: 'Activity', name: 'cross-sell-activity', icon: Lightning },
   { title: 'Edit', name: 'cross-sell-edit', icon: Pencil }
 ]
 
