@@ -1,8 +1,8 @@
 <template>
   <div class="grid gap-6">
-    <StatusForm v-model:item="crossSell" />
-    <CopyForm v-model:item="crossSell" />
-    <TriggersForm v-model:item="crossSell" />
+    <StatusForm v-model:crossSell="crossSellModelled" />
+    <CopyForm v-model:crossSell="crossSellModelled" />
+    <TriggersForm v-model:crossSell="crossSellModelled" />
   </div>
 </template>
 
@@ -21,14 +21,14 @@ export default defineComponent({
     TriggersForm
   },
   props: {
-    item: {
+    crossSell: {
       type: Object as PropType<CrossSell>,
       required: true
     }
   },
   setup(props, { emit }) {
     return {
-      crossSell: useModelWrapper(props, emit, 'item')
+      crossSellModelled: useModelWrapper(props, emit, 'item')
     }
   }
 })

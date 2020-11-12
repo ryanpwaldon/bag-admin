@@ -25,19 +25,19 @@ export default defineComponent({
     BaseInputToggleHorizontal
   },
   props: {
-    item: {
+    crossSell: {
       type: Object as PropType<CrossSell>,
       required: true
     }
   },
   setup(props, { emit }) {
     const loading = ref(false)
-    const schema = object({ active: boolean().default(props.item.active) }).defined()
+    const schema = object({ active: boolean().default(props.crossSell.active) }).defined()
     const { fields, getValues } = useForm(schema)
     watch(fields.active.value, async () => {
       loading.value = true
-      const item = await crossSellService.updateOneById(props.item.id, getValues())
-      emit('update:item', item)
+      const crossSell = await crossSellService.updateOneById(props.crossSell.id, getValues())
+      emit('update:crossSell', crossSell)
       loading.value = false
     })
     return { fields, loading }

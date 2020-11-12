@@ -38,7 +38,7 @@ export default defineComponent({
     BaseButton
   },
   props: {
-    item: {
+    crossSell: {
       type: Object as PropType<CrossSell>,
       required: true
     }
@@ -49,13 +49,13 @@ export default defineComponent({
       triggerProductIds: array()
         .min(1, 'At least 1 trigger product is required.')
         .required('At least 1 trigger product is required.')
-        .default(props.item.triggerProductIds)
+        .default(props.crossSell.triggerProductIds)
     }).defined()
     const { fields, getValues, handleSubmit } = useForm(schema)
     const onSubmit = async () => {
       loading.value = true
-      const item = await crossSellService.updateOneById(props.item.id, getValues())
-      emit('update:item', item)
+      const crossSell = await crossSellService.updateOneById(props.crossSell.id, getValues())
+      emit('update:crossSell', crossSell)
       loading.value = false
     }
     return { fields, handleSubmit: handleSubmit(onSubmit), loading }
