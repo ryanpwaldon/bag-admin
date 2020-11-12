@@ -2,7 +2,7 @@ import createApp from '@shopify/app-bridge'
 import { Redirect } from '@shopify/app-bridge/actions'
 import { ResourcePicker } from '@shopify/app-bridge/actions'
 import { getSessionToken } from '@shopify/app-bridge-utils'
-import { ResourceType } from '@shopify/app-bridge/actions/Navigation/Redirect'
+import { Section } from '@shopify/app-bridge/actions/Navigation/Redirect'
 import { ProductOptions, Options } from '@shopify/app-bridge/actions/ResourcePicker'
 import getShopOriginFromUrl from '@/utils/getShopOriginFromUrl'
 import { App } from 'vue'
@@ -30,8 +30,8 @@ export default {
       getSessionToken() {
         return getSessionToken(shopifyAppBridge)
       },
-      redirectToAdminSection(section: ResourceType) {
-        shopifyRedirect.dispatch(Redirect.Action.ADMIN_SECTION, { name: section })
+      redirectToAdminUrl(section: Section) {
+        shopifyRedirect.dispatch(Redirect.Action.ADMIN_SECTION, section)
       },
       redirectToExternalUrl(url: string) {
         shopifyRedirect.dispatch(Redirect.Action.REMOTE, url)
