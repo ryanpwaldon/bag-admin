@@ -30,7 +30,7 @@ export default defineComponent({
     },
     size: {
       type: String,
-      default: 'md'
+      default: 'sm'
     },
     theme: {
       type: String,
