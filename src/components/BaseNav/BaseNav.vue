@@ -3,11 +3,11 @@
     <div class="px-4 mx-auto bg-white shadow lg:max-w-4xl sm:px-6 lg:px-8 lg:mt-8 lg:rounded-md">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
-          <div class="flex-shrink-0">
-            <Logo class="w-8 h-8" />
+          <div class="flex-shrink-0 text-base font-semibold text-gray-900">
+            <Logo v-if="true" class="h-5" />
           </div>
           <div class="hidden md:block">
-            <div class="flex items-baseline ml-10 space-x-4">
+            <div class="flex items-baseline space-x-4 ml-7">
               <router-link v-for="(route, i) in primaryRoutes" :key="i" :to="route.path" v-slot="{ isActive }" class="block">
                 <span
                   :class="[isActive ? 'text-gray-900 bg-gray-100' : 'text-gray-500 hover:bg-gray-100 ']"
