@@ -7,15 +7,15 @@
         <h2 class="text-lg font-medium leading-6 text-gray-800">{{ crossSell?.product.title }}</h2>
         <div class="flex mt-3 space-x-4 text-sm font-medium leading-4 text-gray-500">
           <div class="flex items-center space-x-1">
-            <Tag class="w-5 h-5" />
+            <Tag class="w-5 h-5 text-gray-400" />
             <p>Cross sell</p>
           </div>
           <div v-if="false" class="flex items-center space-x-1">
-            <Clock class="w-5 h-5" />
+            <Clock class="w-5 h-5 text-gray-400" />
             <p>{{ crossSell?.activeFor }}</p>
           </div>
           <div class="flex items-center space-x-1">
-            <Calendar class="w-5 h-5" />
+            <Calendar class="w-5 h-5 text-gray-400" />
             <p>Created {{ $dayjs(crossSell?.createdAt).format('Do MMM YYYY') }}</p>
           </div>
           <BaseBadge :text="crossSell?.active ? 'Live' : 'Paused'" :theme="crossSell?.active ? 'green' : 'yellow'" />
