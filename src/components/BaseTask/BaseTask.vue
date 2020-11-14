@@ -1,10 +1,10 @@
 <template>
   <div class="px-4 py-5 bg-white rounded-lg shadow sm:p-6 sm:flex sm:space-x-6 sm:items-center sm:justify-between">
     <div>
-      <h3 class="text-lg font-medium leading-6 text-gray-900">
+      <h3 class="text-lg font-medium leading-6 text-gray-700">
         {{ title }}
       </h3>
-      <p class="max-w-xl mt-2 text-sm leading-5 text-gray-500">
+      <p class="max-w-xl mt-1 text-sm leading-5 text-gray-500">
         {{ description }}
       </p>
     </div>
