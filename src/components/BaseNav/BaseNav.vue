@@ -18,23 +18,11 @@
             </div>
           </div>
         </div>
-        <div class="hidden md:block">
-          <div class="flex items-center ml-4 md:ml-6">
-            <div class="relative ml-3">
-              <div>
-                <button
-                  class="flex items-center max-w-xs text-sm text-gray-900 rounded-full focus:outline-none"
-                  id="user-menu"
-                  aria-label="User menu"
-                  aria-haspopup="true"
-                  @click.stop="dropdownIsOpen = !dropdownIsOpen"
-                >
-                  <div class="w-8 h-8 bg-gray-100 rounded-full shadow-inner" />
-                </button>
-              </div>
-              <BaseDropdown v-model:open="dropdownIsOpen" :links="secondaryRoutes.map(route => ({ title: route.meta.title, path: route.path }))" />
-            </div>
-          </div>
+        <div class="items-center hidden space-x-4 md:flex ml-7">
+          <BaseIconButton :icon="Chat" />
+          <router-link class="flex" :to="{ name: 'account' }" v-slot="{ isActive }">
+            <BaseIconButton :active="isActive" :icon="Cog" />
+          </router-link>
         </div>
         <div class="flex -mr-2 md:hidden">
           <button
@@ -80,12 +68,17 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { RouteLocationNormalized } from 'vue-router'
-import BaseDropdown from '../BaseDropdown/BaseDropdown.vue'
 import Logo from '@/icons/Logo.vue'
+import Cog from '@/icons/Cog.vue'
+import BaseIconButton from '@/components/BaseIconButton/BaseIconButton.vue'
+import Chat from '@/icons/Chat.vue'
 export default defineComponent({
   components: {
     Logo,
-    BaseDropdown
+    BaseIconButton
+  },
+  setup() {
+    return { Cog, Chat }
   },
   data: () => ({
     mobileNavIsOpen: false,
@@ -96,7 +89,7 @@ export default defineComponent({
       return this.resolveRoutes(['/', '/offers', '/cart'])
     },
     secondaryRoutes(): RouteLocationNormalized[] {
-      return this.resolveRoutes(['/account', '/help'])
+      return this.resolveRoutes(['/account'])
     }
   },
   methods: {
