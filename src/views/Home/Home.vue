@@ -11,11 +11,7 @@
         :style="`background-image: url('${require('@/assets/img/cart-mockup.svg')}'); background-size: auto 80%`"
       />
     </div>
-    <BaseTask
-      title="Turn on cart 💡"
-      description="Cart is disabled on your storefront by default. Turn it on to start using Cartable on your storefront."
-      :complete="false"
-    >
+    <BaseTask title="Turn on cart 💡" description="Make our cart available to your customers on your online store." :complete="false">
       <BaseButton text="Turn on" />
     </BaseTask>
     <BaseTask
