@@ -9,7 +9,7 @@
   <BaseCard>
     <BaseInputToggleHorizontal
       label="Status"
-      description="Turn this on to enable the cart on your storefront."
+      description="If set to off, our cart will not be available to customers on your online store."
       v-model="fields.active.value.value"
       :error="fields.active.error.value"
       :class="loading && 'pointer-events-none'"
