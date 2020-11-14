@@ -10,7 +10,7 @@
       <div class="text-sm leading-5 text-gray-500">{{ item.active ? 'Live' : 'Paused' }}</div>
     </template>
     <template #link>
-      <div class="self-end text-sm font-medium leading-5 text-blue-600">→</div>
+      <div class="self-end text-sm font-medium leading-5 text-blue-600">View →</div>
     </template>
     <template #pagination>
       <BasePagination :loading="loading" :total="total" v-model:page="page" :pages="pages" :limit="limit" />

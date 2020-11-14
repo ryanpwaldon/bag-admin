@@ -38,10 +38,10 @@ import Clock from '@/icons/Clock.vue'
 import Pencil from '@/icons/Pencil.vue'
 import Tag from '@/icons/Tag.vue'
 import { defineComponent, ref, watchEffect } from 'vue'
-import Lightning from '@/icons/Lightning.vue'
+import Chart from '@/icons/Chart.vue'
 
 const links: Link[] = [
-  { title: 'Activity', name: 'cross-sell-activity', icon: Lightning },
+  { title: 'Activity', name: 'cross-sell-activity', icon: Chart },
   { title: 'Edit', name: 'cross-sell-edit', icon: Pencil }
 ]
 
