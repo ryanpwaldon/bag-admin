@@ -7,27 +7,29 @@
         { label: 'Impressions', value: '2093' }
       ]"
     />
-    <BaseTable :props="ordersTableProperties" :items="orders" :link="buildLink" :loading="loading">
-      <template #order="{ item }">
-        <div class="text-sm font-medium leading-5 text-gray-900">{{ item.name }}</div>
-      </template>
-      <template #date="{ item }">
-        <div class="text-sm leading-5 text-gray-500">{{ $dayjs(item.processedAt).format('Do MMM YYYY') }}</div>
-      </template>
-      <template #total="{ item }">
-        <div class="text-sm leading-5 text-gray-500">
-          {{ format.currency(item.totalPriceSet.shopMoney.amount, item.totalPriceSet.shopMoney.currencyCode) }}
-        </div>
-      </template>
-      <template #attribution="{ item }">
-        <div class="text-sm leading-5 text-gray-500">
-          {{ extractRelevantLineItemPrice(item, crossSell.productId) }}
-        </div>
-      </template>
-      <template #link>
-        <div class="self-end text-sm font-medium leading-5 text-blue-600">→</div>
-      </template>
-    </BaseTable>
+    <div class="overflow-hidden bg-white rounded-lg shadow">
+      <BaseTable :props="ordersTableProperties" :items="orders" :link="buildLink" :loading="loading">
+        <template #order="{ item }">
+          <div class="text-sm font-medium leading-5 text-gray-900">{{ item.name }}</div>
+        </template>
+        <template #date="{ item }">
+          <div class="text-sm leading-5 text-gray-500">{{ $dayjs(item.processedAt).format('Do MMM YYYY') }}</div>
+        </template>
+        <template #total="{ item }">
+          <div class="text-sm leading-5 text-gray-500">
+            {{ format.currency(item.totalPriceSet.shopMoney.amount, item.totalPriceSet.shopMoney.currencyCode) }}
+          </div>
+        </template>
+        <template #attribution="{ item }">
+          <div class="text-sm leading-5 text-gray-500">
+            {{ extractRelevantLineItemPrice(item, crossSell.productId) }}
+          </div>
+        </template>
+        <template #link>
+          <div class="self-end text-sm font-medium leading-5 text-blue-600">Open →</div>
+        </template>
+      </BaseTable>
+    </div>
   </div>
 </template>
 

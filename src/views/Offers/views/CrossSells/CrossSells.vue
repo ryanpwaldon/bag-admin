@@ -1,5 +1,11 @@
 <template>
-  <BaseTable :loading="loading" :props="props" :items="items" :link="item => ({ name: 'cross-sell', params: { id: item.id } })">
+  <BaseTable
+    :loading="loading"
+    :props="props"
+    :items="items"
+    :link="item => ({ name: 'cross-sell', params: { id: item.id } })"
+    class="overflow-hidden bg-white rounded-lg shadow"
+  >
     <template #product="{ item }">
       <div class="text-sm font-medium leading-5 text-gray-900">{{ item.product.title }}</div>
     </template>

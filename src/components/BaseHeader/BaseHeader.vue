@@ -1,5 +1,5 @@
 <template>
-  <header class="mb-8">
+  <header class="mb-6 sm:mb-8">
     <BaseBreadcrumbs class="mb-2" />
     <div class="flex items-center justify-between">
       <div class="flex-1 min-w-0">
