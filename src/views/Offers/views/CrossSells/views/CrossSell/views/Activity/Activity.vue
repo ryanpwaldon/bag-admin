@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col space-y-6">
     <div class="overflow-hidden bg-white rounded-lg shadow">
-      <h3 class="p-6 text-base font-medium text-gray-700 border-b border-gray-200">Performance</h3>
+      <h3 class="px-6 py-5 text-base font-medium text-gray-700 border-b border-gray-200">Performance</h3>
       <BaseStats
         :stats="[
           { label: 'Income', value: '$29.00' },
@@ -11,7 +11,7 @@
       />
     </div>
     <div class="overflow-hidden bg-white rounded-lg shadow">
-      <h3 class="p-6 text-base font-medium text-gray-700 border-b border-gray-200">Orders</h3>
+      <h3 class="px-6 py-5 text-base font-medium text-gray-700 border-b border-gray-200">Orders</h3>
       <BaseTable :props="ordersTableProperties" :items="orders" :link="buildLink" :loading="loading">
         <template #order="{ item }">
           <div class="text-sm font-medium leading-5 text-gray-900">{{ item.name }}</div>
