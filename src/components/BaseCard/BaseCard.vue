@@ -11,7 +11,7 @@
     <div class="px-4 py-5 sm:p-6" v-if="$slots.default">
       <slot />
     </div>
-    <div class="flex px-4 py-5 sm:px-6 bg-gray-50" v-if="$slots.footer">
+    <div class="flex px-4 py-5 border-t border-gray-200 sm:px-6 bg-gray-50" v-if="$slots.footer">
       <slot name="footer" />
     </div>
   </div>
