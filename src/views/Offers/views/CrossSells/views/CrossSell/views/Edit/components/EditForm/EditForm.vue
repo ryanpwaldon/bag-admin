@@ -6,8 +6,17 @@
       </template>
       <div class="grid grid-cols-12 gap-6">
         <div class="col-span-full">
+          <p class="text-base font-medium leading-6 text-gray-700">Product</p>
+          <p class="max-w-xl text-sm text-gray-500">
+            The product being cross-sold. This product will be suggested to the customer if they have added any of the following trigger products to
+            their cart.
+          </p>
+        </div>
+        <BaseProduct :title="crossSell.product.title" :image="crossSell.product.featuredImage?.originalSrc" type="Product" class="col-span-6" />
+        <div class="h-2 -mx-6 border-b border-gray-200 col-span-full" />
+        <div class="col-span-full">
           <p class="text-base font-medium leading-6 text-gray-700">Copy</p>
-          <p class="text-sm text-gray-500">Use persuasive language to entice the user into to purchasing your product.</p>
+          <p class="max-w-xl text-sm text-gray-500">Use persuasive language to entice the user into to purchasing your product.</p>
         </div>
         <BaseInputText
           name="title"
@@ -28,7 +37,7 @@
         <div class="h-2 -mx-6 border-b border-gray-200 col-span-full" />
         <div class="col-span-full">
           <p class="text-base font-medium leading-6 text-gray-700">Trigger products</p>
-          <p class="text-sm text-gray-500">
+          <p class="max-w-xl text-sm text-gray-500">
             This offer will only be visible to the customer if they have added at least one trigger product to their cart.
           </p>
         </div>
@@ -60,8 +69,9 @@
 
 <script lang="ts">
 import useForm from '@/composables/useForm'
-import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
+import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
 import BaseInputProducts from '@/components/BaseInputProducts/BaseInputProducts.vue'
 import BaseInputToggleHorizontal from '@/components/BaseInputToggleHorizontal/BaseInputToggleHorizontal.vue'
@@ -74,8 +84,9 @@ export default defineComponent({
     BaseGridCard,
     BaseInputText,
     BaseButton,
-    BaseInputToggleHorizontal,
-    BaseInputProducts
+    BaseProduct,
+    BaseInputProducts,
+    BaseInputToggleHorizontal
   },
   props: {
     crossSell: {
