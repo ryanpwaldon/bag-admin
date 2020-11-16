@@ -1,11 +1,11 @@
 <template>
-  <BaseLoader />
+  <BaseInDevelopmentNotice />
 </template>
 
 <script lang="ts">
-import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
+import BaseInDevelopmentNotice from '@/components/BaseInDevelopmentNotice/BaseInDevelopmentNotice.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
-  components: { BaseLoader }
+  components: { BaseInDevelopmentNotice }
 })
 </script>
