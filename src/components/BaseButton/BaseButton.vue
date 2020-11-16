@@ -74,7 +74,7 @@ export default defineComponent({
       }
       const themeDisabledClasses: Classes<Themes> = {
         blue: 'bg-blue-400',
-        white: '',
+        white: 'opacity-50',
         black: '',
         red: 'bg-red-500'
       }

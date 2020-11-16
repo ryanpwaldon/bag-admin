@@ -14,15 +14,11 @@
     <BaseTask title="Turn on cart 💡" description="Make our cart available to your customers on your online store." :complete="false">
       <BaseButton text="Turn on" />
     </BaseTask>
-    <BaseTask
-      title="Create a cross sell offer"
-      description="Cross sell offers encourage customers to spend more. Create as many as you’d like (the more the merrier)."
-      :complete="false"
-    >
+    <BaseTask title="Create a cross sell" description="Start earning more money by creating in-cart cross sells." :complete="false">
       <BaseButton text="Create →" />
     </BaseTask>
     <BaseTask title="Need help?" description="Get in touch via the messenger." :complete="false">
-      <BaseButton text="Talk to us →" />
+      <BaseButton text="Ask a question →" />
     </BaseTask>
   </div>
 </template>
