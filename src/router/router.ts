@@ -56,7 +56,7 @@ const routes: RouteRecordRaw[] = [
     path: '/offers/cross-sells/:id',
     name: 'cross-sell',
     component: () => import('@/views/Offers/views/CrossSells/views/CrossSell/CrossSell.vue'),
-    meta: { title: 'Offer details', breadcrumbs: ['cross-sells'] },
+    meta: { title: 'Cross sell' },
     redirect: { name: 'cross-sell-activity' },
     children: [
       {
