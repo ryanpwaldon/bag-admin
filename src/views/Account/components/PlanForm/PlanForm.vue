@@ -6,7 +6,7 @@
     <BaseInputRadioGroup :label="plan" :options="plans" v-model="plan" name="plan" />
     <template #footer>
       <div class="flex justify-end">
-        <BaseButton text="Save" type="submit" :loading="loading" />
+        <BaseButton text="Save" type="submit" />
       </div>
     </template>
   </BaseGridCard>
