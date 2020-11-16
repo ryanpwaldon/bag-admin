@@ -8,8 +8,7 @@
         <div class="col-span-full">
           <p class="text-base font-medium leading-6 text-gray-700">Product</p>
           <p class="max-w-xl text-sm text-gray-500">
-            The product being cross-sold. This product will be suggested to the customer if they have added any of the following trigger products to
-            their cart.
+            The product being cross-sold.
           </p>
         </div>
         <BaseProduct :title="crossSell.product.title" :image="crossSell.product.featuredImage?.originalSrc" type="Product" class="col-span-6" />
