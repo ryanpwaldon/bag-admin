@@ -21,7 +21,7 @@
           <BaseBadge :text="crossSell?.active ? 'Live' : 'Paused'" :theme="crossSell?.active ? 'green' : 'yellow'" />
         </div>
       </div>
-      <BaseTabs :links="links" class="px-4 sm:px-6" />
+      <BaseTabs :links="links" class="px-4 pt-4 sm:px-6" />
     </div>
     <router-view class="mt-6" v-model:crossSell="crossSell" />
   </div>

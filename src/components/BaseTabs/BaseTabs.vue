@@ -3,7 +3,7 @@
     <router-link v-for="(link, i) in links" :key="i" v-slot="{ isActive }" :to="{ name: link.name }">
       <span
         :class="isActive ? 'border-gray-900 text-gray-900' : 'text-gray-500 hover:text-gray-900 border-transparent hover:border-gray-400'"
-        class="inline-flex items-center px-1 pb-4 -mb-px text-sm font-medium leading-5 transition duration-150 ease-in-out border-b-2 cursor-pointer select-none group"
+        class="inline-flex items-center px-1 pb-4 text-sm font-medium leading-5 transition duration-150 ease-in-out border-b-2 cursor-pointer select-none group"
       >
         <component
           v-if="link.icon"
