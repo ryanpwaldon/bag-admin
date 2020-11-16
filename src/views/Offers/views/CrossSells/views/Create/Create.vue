@@ -43,7 +43,7 @@
         />
       </div>
       <template #footer>
-        <BaseButton class="ml-auto" text="Create" type="submit" />
+        <BaseButton class="ml-auto" text="Create" type="submit" :loading="loading" />
       </template>
     </BaseCard>
   </form>
@@ -58,7 +58,7 @@ import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import crossSellService from '@/services/api/services/crossSellService'
 import useForm from '@/composables/useForm'
 import { array, object, string } from 'yup'
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const schema = object({
@@ -87,14 +87,17 @@ export default defineComponent({
     BaseButton
   },
   setup() {
+    const loading = ref(false)
     const router = useRouter()
     const { fields, getValues, handleSubmit } = useForm(schema)
     const onSubmit = async () => {
+      loading.value = true
       const values = getValues()
       const { id } = await crossSellService.create(values)
       router.push({ name: 'cross-sell', params: { id } })
     }
     return {
+      loading,
       fields,
       handleSubmit: handleSubmit(onSubmit)
     }

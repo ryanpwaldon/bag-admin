@@ -21,7 +21,7 @@
           </BaseProduct>
         </template>
       </BaseFetchProduct>
-      <BaseButton @click="handleSelection({ mode: 'add' })" class="h-20" text="Select a product" theme="white" v-if="!modelValue || multi">
+      <BaseInputButton @click="handleSelection({ mode: 'add' })" class="h-20" text="Select a product" theme="white" v-if="!modelValue || multi">
         <template #icon>
           <svg class="w-5 h-5 ml-3 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
             <path
@@ -31,7 +31,7 @@
             />
           </svg>
         </template>
-      </BaseButton>
+      </BaseInputButton>
     </div>
   </div>
 </template>
@@ -41,12 +41,12 @@ import { defineComponent } from 'vue'
 import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
 import BaseFetchProduct from '@/components/BaseFetchProduct/BaseFetchProduct.vue'
 import BaseMenuButton from '../BaseMenuButton/BaseMenuButton.vue'
-import BaseButton from '../BaseButton/BaseButton.vue'
+import BaseInputButton from '../BaseInputButton/BaseInputButton.vue'
 export default defineComponent({
   components: {
     BaseProduct,
     BaseFetchProduct,
-    BaseButton,
+    BaseInputButton,
     BaseMenuButton
   },
   props: {
