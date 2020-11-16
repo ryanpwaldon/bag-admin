@@ -6,10 +6,6 @@
       <div class="px-4 py-5 sm:p-6">
         <h2 class="text-lg font-medium leading-6 text-gray-800">{{ crossSell?.product.title }}</h2>
         <div class="flex mt-3 space-x-4 text-sm font-medium leading-4 text-gray-500">
-          <div class="flex items-center space-x-1">
-            <Tag class="w-5 h-5 text-gray-400" />
-            <p>Cross sell</p>
-          </div>
           <div v-if="false" class="flex items-center space-x-1">
             <Clock class="w-5 h-5 text-gray-400" />
             <p>{{ crossSell?.activeFor }}</p>
@@ -36,7 +32,6 @@ import crossSellService, { CrossSell } from '@/services/api/services/crossSellSe
 import Calendar from '@/icons/Calendar.vue'
 import Clock from '@/icons/Clock.vue'
 import Pencil from '@/icons/Pencil.vue'
-import Tag from '@/icons/Tag.vue'
 import { defineComponent, ref, watchEffect } from 'vue'
 import Chart from '@/icons/Chart.vue'
 
@@ -52,8 +47,7 @@ export default defineComponent({
     BaseBadge,
     BaseTabs,
     Calendar,
-    Clock,
-    Tag
+    Clock
   },
   props: {
     id: {
