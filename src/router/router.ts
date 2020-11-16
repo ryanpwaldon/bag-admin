@@ -25,8 +25,17 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'cross-sells',
         name: 'cross-sells',
-        component: () => import('@/views/Offers/views/CrossSells/CrossSells.vue'),
-        meta: { title: 'Offers' }
+        component: () => import('@/views/Offers/views/CrossSells/CrossSells.vue')
+      },
+      {
+        path: 'up-sells',
+        name: 'up-sells',
+        component: () => import('@/views/Offers/views/UpSells/UpSells.vue')
+      },
+      {
+        path: 'discounts',
+        name: 'discounts',
+        component: () => import('@/views/Offers/views/Discounts/Discounts.vue')
       }
     ]
   },
