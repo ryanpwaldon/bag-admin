@@ -49,7 +49,7 @@ const routes: RouteRecordRaw[] = [
     path: '/offers/cross-sells/create',
     name: 'create-cross-sell',
     component: () => import('@/views/Offers/views/CrossSells/views/Create/Create.vue'),
-    meta: { title: 'Create a cross sell offer' }
+    meta: { title: 'Create a cross sell' }
   },
   {
     props: true,
