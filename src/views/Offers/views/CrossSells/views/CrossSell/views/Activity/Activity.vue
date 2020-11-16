@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-col space-y-6">
-    <div class="overflow-hidden bg-white rounded-lg shadow">
-      <h3 class="px-6 py-5 text-base font-medium text-gray-700 border-b border-gray-200">Performance</h3>
+    <BaseGridCard :content-padding="false">
+      <template #header>
+        <h3 class="text-base font-medium text-gray-700">Performance</h3>
+      </template>
       <BaseStats
         :stats="[
           { label: 'Income', value: '$29.00' },
@@ -9,9 +11,11 @@
           { label: 'Conversions', value: '2' }
         ]"
       />
-    </div>
-    <div class="overflow-hidden bg-white rounded-lg shadow">
-      <h3 class="px-6 py-5 text-base font-medium text-gray-700 border-b border-gray-200">Conversions</h3>
+    </BaseGridCard>
+    <BaseGridCard :content-padding="false">
+      <template #header>
+        <h3 class="text-base font-medium text-gray-700">Conversions</h3>
+      </template>
       <BaseTable :props="ordersTableProperties" :items="orders" :link="buildLink" :loading="loading" v-if="loading || orders.length">
         <template #order="{ item }">
           <div class="text-sm font-medium leading-5 text-gray-900">{{ item.name }}</div>
@@ -33,13 +37,11 @@
           <div class="self-end text-sm font-medium leading-5 text-blue-600">Open →</div>
         </template>
       </BaseTable>
-      <BaseGridCard v-else>
-        <div class="flex flex-col items-center justify-center h-44">
-          <img class="h-10" src="@/assets/img/empty-box.svg" />
-          <p class="mt-2 text-sm leading-5 text-gray-500">No conversions found</p>
-        </div>
-      </BaseGridCard>
-    </div>
+      <div class="flex flex-col items-center justify-center h-44" v-else>
+        <img class="h-10" src="@/assets/img/empty-box.svg" />
+        <p class="mt-2 text-sm leading-5 text-gray-500">No conversions found</p>
+      </div>
+    </BaseGridCard>
   </div>
 </template>
 
@@ -53,11 +55,13 @@ import { AdminOrder } from '@/types/admin/types'
 import { defineComponent, PropType, ref, watchEffect } from 'vue'
 import { ResourceType } from '@shopify/app-bridge/actions/Navigation/Redirect'
 import { parseGid } from '@shopify/admin-graphql-api-utilities'
+import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 
 export default defineComponent({
   components: {
     BaseStats,
-    BaseTable
+    BaseTable,
+    BaseGridCard
   },
   props: {
     crossSell: {
