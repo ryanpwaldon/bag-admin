@@ -6,6 +6,7 @@ const getLocale = () => (navigator.languages && navigator.languages.length ? nav
 const currency = (amount: number, currencyCode?: string) => {
   return new Intl.NumberFormat(getLocale(), {
     style: 'currency',
+    currencyDisplay: 'narrowSymbol',
     currency: currencyCode || AdminCurrencyCode.Usd
   }).format(amount)
 }

@@ -6,9 +6,8 @@
       </template>
       <BaseStats
         :stats="[
-          { label: 'Income', value: '$29.00' },
-          { label: 'Views', value: '109' },
-          { label: 'Conversions', value: '2' }
+          { label: 'Income', value: income },
+          { label: 'Conversions', value: orders.length }
         ]"
       />
     </BaseGridCard>
@@ -97,6 +96,18 @@ export default defineComponent({
     extractRelevantLineItemPrice(order: AdminOrder, productId: string) {
       const lineItem = order.lineItems.edges.find(item => item.node.product?.id === productId)?.node
       return this.format.currency(lineItem?.discountedTotalSet.shopMoney.amount, lineItem?.discountedTotalSet.shopMoney.currencyCode)
+    }
+  },
+  computed: {
+    income(): string {
+      if (!this.orders.length) return '$0'
+      const lineItems = this.orders.map(item => item.lineItems.edges.find(item => item.node.product?.id === this.crossSell.productId)?.node)
+      const currencyCode = lineItems[0]?.discountedTotalSet.shopMoney.currencyCode
+      const income = lineItems.reduce((income, item) => {
+        income += parseFloat(item?.discountedTotalSet.shopMoney.amount)
+        return income
+      }, 0)
+      return this.format.currency(income, currencyCode)
     }
   }
 })
