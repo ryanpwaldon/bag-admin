@@ -2,6 +2,8 @@
 
 import { ObjectSchema, Schema } from 'yup'
 import { computed, ComputedRef, Ref, ref, watch } from 'vue'
+import clone from 'lodash/clone'
+import isEqual from 'lodash/isEqual'
 
 type Field = {
   initial: any
@@ -14,9 +16,9 @@ type Field = {
 const createFields = <T extends object>(schema: ObjectSchema<T>) => {
   return Object.entries(schema.fields).reduce((fields, item) => {
     const [key, schema] = item as [keyof T, Schema<any>]
-    const initial = schema.cast(schema.default())
-    const value = ref(initial)
-    const modified = computed(() => value.value !== initial)
+    const initial = ref(schema.cast(schema.default()))
+    const value = ref(clone(initial.value))
+    const modified = computed(() => !isEqual(value.value, initial.value))
     const error = ref(undefined)
     const validate = async () => {
       try {
@@ -42,6 +44,7 @@ const validateAll = async (fields: Record<string, Field>) => {
 
 export default <T extends object>(schema: ObjectSchema<T>) => {
   const fields = createFields(schema)
+  const modified = computed(() => !(Object.values(fields) as Field[]).map(({ modified }) => modified).every(value => !value.value))
   const getValues = () => {
     const fieldEntries: [string, Field][] = Object.entries(fields)
     return fieldEntries.reduce((values, [key, field]) => {
@@ -54,5 +57,5 @@ export default <T extends object>(schema: ObjectSchema<T>) => {
     const isValid = await validateAll(fields)
     if (isValid) callback()
   }
-  return { fields, getValues, handleSubmit }
+  return { fields, modified, getValues, handleSubmit }
 }
