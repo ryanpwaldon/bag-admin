@@ -11,8 +11,8 @@
       />
     </div>
     <div class="overflow-hidden bg-white rounded-lg shadow">
-      <h3 class="px-6 py-5 text-base font-medium text-gray-700 border-b border-gray-200">Orders</h3>
-      <BaseTable :props="ordersTableProperties" :items="orders" :link="buildLink" :loading="loading">
+      <h3 class="px-6 py-5 text-base font-medium text-gray-700 border-b border-gray-200">Conversions</h3>
+      <BaseTable :props="ordersTableProperties" :items="orders" :link="buildLink" :loading="loading" v-if="loading || orders.length">
         <template #order="{ item }">
           <div class="text-sm font-medium leading-5 text-gray-900">{{ item.name }}</div>
         </template>
@@ -33,6 +33,12 @@
           <div class="self-end text-sm font-medium leading-5 text-blue-600">Open →</div>
         </template>
       </BaseTable>
+      <BaseGridCard v-else>
+        <div class="flex flex-col items-center justify-center h-44">
+          <img class="h-10" src="@/assets/img/empty-box.svg" />
+          <p class="mt-2 text-sm leading-5 text-gray-500">No conversions found</p>
+        </div>
+      </BaseGridCard>
     </div>
   </div>
 </template>
@@ -61,7 +67,7 @@ export default defineComponent({
   },
   setup(props) {
     const loading = ref(true)
-    const orders = ref(null as AdminOrder[] | null)
+    const orders = ref([] as AdminOrder[])
     const fetchOrders = async () => {
       loading.value = true
       orders.value = await orderService.findByIds(props.crossSell.orders)
