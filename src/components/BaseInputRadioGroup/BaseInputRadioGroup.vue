@@ -25,7 +25,7 @@
           </label>
           <p class="pl-1 ml-6 text-sm leading-5 md:ml-0 md:pl-0 md:text-center">
             <span :class="modelValue === option.value ? 'text-blue-900' : 'text-gray-900'" class="font-medium">{{ option.meta1 }}</span>
-            <span :class="modelValue === option.value ? 'text-blue-700' : 'text-gray-500'" v-if="option.col3">{{ option.meta2 }}</span>
+            <span :class="modelValue === option.value ? 'text-blue-700' : 'text-gray-500'" v-if="option.meta3">{{ option.meta2 }}</span>
           </p>
           <p
             :class="modelValue === option.value ? 'text-blue-700' : 'text-gray-500'"
