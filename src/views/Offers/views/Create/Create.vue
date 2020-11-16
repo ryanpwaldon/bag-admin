@@ -2,6 +2,7 @@
   <BaseHeader />
   <div class="grid gap-4">
     <BaseGridCard>
+      <h3 class="mb-6 text-lg font-medium text-gray-700">Offer type</h3>
       <BaseInputRadioGroup label="Offer type" name="offerType" v-model="selected" :options="options" />
       <template #footer>
         <div class="flex justify-end">
@@ -27,9 +28,23 @@ enum RouteNames {
 }
 
 const options: RadioGroupOption[] = [
-  { value: RouteNames.CrossSell, label: 'Cross sell', meta3: 'Recommend a related product based on an item already added to cart.' },
-  { value: RouteNames.UpSell, label: 'Up sell', meta3: 'Suggest a product upgrade for an item already added to cart.', disabled: true },
-  { value: RouteNames.Discount, label: 'Discount', meta3: 'Encourage customers to spend more by offering a discount in return.', disabled: true }
+  {
+    value: RouteNames.CrossSell,
+    label: 'Cross sell',
+    meta3: 'Recommend a related product based on an item already added to cart.'
+  },
+  {
+    value: RouteNames.UpSell,
+    label: 'Up sell [coming soon]',
+    meta3: 'Suggest a product upgrade for an item already added to cart.',
+    disabled: true
+  },
+  {
+    value: RouteNames.Discount,
+    label: 'Discount [coming soon]',
+    meta3: 'Encourage customers to spend more by offering a discount in return.',
+    disabled: true
+  }
 ]
 
 export default defineComponent({

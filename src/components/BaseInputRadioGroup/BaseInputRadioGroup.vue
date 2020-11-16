@@ -26,7 +26,6 @@
             />
             <span :class="disabled ? 'text-gray-500' : 'text-gray-900'" class="font-medium">
               {{ label }}
-              <BaseBadge v-if="disabled" text="Coming soon" class="ml-1" theme="lightGray" />
             </span>
           </label>
           <p class="pl-1 ml-6 text-sm leading-5 md:ml-0 md:pl-0 md:text-center" v-if="meta1 || meta2">
@@ -51,7 +50,6 @@
 </template>
 
 <script lang="ts">
-import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
 import { defineComponent, PropType } from 'vue'
 
 export type RadioGroupOption = {
@@ -64,7 +62,6 @@ export type RadioGroupOption = {
 }
 
 export default defineComponent({
-  components: { BaseBadge },
   props: {
     label: {
       type: String,
