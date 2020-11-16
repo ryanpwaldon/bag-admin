@@ -1,8 +1,6 @@
 <template>
   <BaseGridCard>
-    <template #header>
-      <h3 class="text-lg font-medium text-gray-700">Plan</h3>
-    </template>
+    <h3 class="mb-6 text-lg font-medium text-gray-700">Plan</h3>
     <BaseInputRadioGroup :label="plan" :options="plans" v-model="plan" name="plan" />
     <template #footer>
       <div class="flex justify-end">
