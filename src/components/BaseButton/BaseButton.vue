@@ -1,5 +1,5 @@
 <template>
-  <span class="relative inline-flex rounded-md shadow-sm select-none" :class="[containerClasses, loading && 'pointer-events-none']">
+  <span class="relative inline-flex rounded-md shadow-sm select-none" :class="[containerClasses, (loading || disabled) && 'pointer-events-none']">
     <button :type="type" :class="[buttonClasses]" class="relative w-full transition duration-150 ease-in-out border focus:outline-none">
       <BaseSpinner v-if="loading" class="absolute w-4 h-4 transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2" />
       <span :class="loading && 'opacity-0'">{{ text }}</span>
@@ -39,6 +39,10 @@ export default defineComponent({
     loading: {
       type: Boolean,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -68,13 +72,13 @@ export default defineComponent({
         black: 'bg-gray-900 focus:shadow-outline-gray hover:bg-gray-800 active:bg-gray-700',
         red: 'bg-red-600 hover:bg-red-500 focus:border-red-700 focus:shadow-outline-red'
       }
-      const themeLoadingClasses: Classes<Themes> = {
-        blue: 'bg-blue-500',
+      const themeDisabledClasses: Classes<Themes> = {
+        blue: 'bg-blue-400',
         white: '',
         black: '',
         red: 'bg-red-500'
       }
-      return `${sizeClasses[this.size]} ${themeBaseClasses[this.theme]} ${this.loading ? themeLoadingClasses[this.theme] : themeDefaultClasses[this.theme]}`
+      return `${sizeClasses[this.size]} ${themeBaseClasses[this.theme]} ${this.loading || this.disabled ? themeDisabledClasses[this.theme] : themeDefaultClasses[this.theme]}`
     }
   }
 })
