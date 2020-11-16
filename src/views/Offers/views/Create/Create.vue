@@ -1,44 +1,49 @@
 <template>
   <BaseHeader />
   <div class="grid gap-4">
-    <BaseCard title="Offer type" description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.">
-      <BaseInputRadio name="offer type" v-model="selected" :options="radioOptions" />
+    <BaseGridCard>
+      <BaseInputRadioGroup label="Offer type" name="offerType" v-model="selected" :options="options" />
       <template #footer>
-        <BaseButton class="ml-auto" text="Next" @click="handleNext" />
+        <div class="flex justify-end">
+          <BaseButton text="Next" @click="handleNext" />
+        </div>
       </template>
-    </BaseCard>
+    </BaseGridCard>
   </div>
 </template>
 
 <script lang="ts">
-import BaseCard from '@/components/BaseCard/BaseCard.vue'
-import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
-import BaseInputRadio from '@/components/BaseInputRadio/BaseInputRadio.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
-import { defineComponent } from 'vue'
-import { OfferType } from '@/types/offer-type'
+import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
+import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
+import BaseInputRadioGroup, { RadioGroupOption } from '@/components/BaseInputRadioGroup/BaseInputRadioGroup.vue'
+import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+enum RouteNames {
+  CrossSell = 'create-cross-sell',
+  UpSell = 'create-up-sell',
+  Discount = 'create-discount'
+}
+
+const options: RadioGroupOption[] = [
+  { value: RouteNames.CrossSell, label: 'Cross sell', meta3: 'Recommend a related product based on an item already added to cart.' },
+  { value: RouteNames.UpSell, label: 'Up sell', meta3: 'Suggest a product upgrade for an item already added to cart.' },
+  { value: RouteNames.Discount, label: 'Discount', meta3: 'Encourage customers to spend more by offering a discount in return.' }
+]
 
 export default defineComponent({
   components: {
-    BaseCard,
+    BaseGridCard,
     BaseHeader,
-    BaseInputRadio,
+    BaseInputRadioGroup,
     BaseButton
   },
-  data: () => ({
-    selected: OfferType.CrossSell,
-    radioOptions: [
-      { label: 'Cross sell', value: OfferType.CrossSell },
-      { label: 'Up sell', value: OfferType.UpSell },
-      { label: 'Discount', value: OfferType.Discount }
-    ]
-  }),
-  methods: {
-    handleNext() {
-      if (this.selected === OfferType.CrossSell) this.$router.push({ name: 'create-cross-sell' })
-      if (this.selected === OfferType.UpSell) this.$router.push({ name: 'create-up-sell' })
-      if (this.selected === OfferType.Discount) this.$router.push({ name: 'create-discount' })
-    }
+  setup() {
+    const selected = ref(RouteNames.CrossSell)
+    const router = useRouter()
+    const handleNext = () => router.push({ name: selected.value })
+    return { options, selected, handleNext }
   }
 })
 </script>

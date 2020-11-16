@@ -43,7 +43,7 @@ const routes: RouteRecordRaw[] = [
     path: '/offers/create',
     name: 'create-offer',
     component: () => import('@/views/Offers/views/Create/Create.vue'),
-    meta: { title: 'Create an offer' }
+    meta: { title: 'Offer type' }
   },
   {
     path: '/offers/cross-sells/create',
