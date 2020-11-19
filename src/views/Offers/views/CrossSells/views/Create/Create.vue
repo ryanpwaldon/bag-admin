@@ -1,6 +1,6 @@
 <template>
   <BaseHeader />
-  <form @submit="handleSubmit" class="grid gap-4">
+  <form @submit="handleSubmit" class="grid gap-4" autocomplete="off">
     <BaseCard>
       <div class="grid grid-cols-12 gap-6">
         <BaseInputProducts
