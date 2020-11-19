@@ -94,7 +94,7 @@ export default defineComponent({
       loading.value = true
       const values = getValues()
       const { id } = await crossSellService.create(values)
-      router.push({ name: 'cross-sell', params: { id } })
+      router.push({ name: 'cross-sells', params: { id } })
     }
     return {
       loading,
