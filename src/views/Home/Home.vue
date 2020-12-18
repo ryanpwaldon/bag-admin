@@ -11,9 +11,7 @@
         :style="`background-image: url('${require('@/assets/img/cart-mockup.svg')}'); background-size: auto 80%`"
       />
     </div>
-    <BaseTask title="Turn on cart 💡" description="Make our cart available to your customers on your online store." :complete="false">
-      <BaseButton text="Turn on" />
-    </BaseTask>
+    <TurnOnCartPrompt />
     <BaseTask title="Create a cross sell" description="Start earning more money by creating in-cart cross sells." :complete="false">
       <BaseButton text="Create →" />
     </BaseTask>
@@ -24,15 +22,17 @@
 </template>
 
 <script lang="ts">
-import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseTask from '@/components/BaseTask/BaseTask.vue'
+import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import TurnOnCartPrompt from '@/views/Home/components/TurnOnCartPrompt/TurnOnCartPrompt.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
   components: {
     BaseHeader,
     BaseTask,
-    BaseButton
+    BaseButton,
+    TurnOnCartPrompt
   }
 })
 </script>
