@@ -18,7 +18,7 @@ import { defineComponent, ref } from 'vue'
 
 const plans: RadioGroupOption[] = [
   { value: 'free', label: 'Free', meta1: '$0 / month', meta3: 'Basic features' },
-  { value: 'premium', label: 'Premium', meta1: '$48 / month', meta3: 'Premium features' }
+  { value: 'premium', label: 'Premium', meta1: '$XX / month', meta3: 'Premium features' }
 ]
 
 export default defineComponent({
