@@ -12,9 +12,7 @@
       />
     </div>
     <TurnOnCartPrompt />
-    <BaseTask title="Create a cross sell" description="Start earning more money by creating in-cart cross sells." :complete="false">
-      <BaseButton text="Create →" />
-    </BaseTask>
+    <CreateCrossSellPrompt />
     <BaseTask title="Need help?" description="Get in touch via the messenger." :complete="false">
       <BaseButton text="Ask a question →" />
     </BaseTask>
@@ -27,12 +25,14 @@ import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import TurnOnCartPrompt from '@/views/Home/components/TurnOnCartPrompt/TurnOnCartPrompt.vue'
 import { defineComponent } from 'vue'
+import CreateCrossSellPrompt from '@/views/Home/components/CreateCrossSellPrompt/CreateCrossSellPrompt.vue'
 export default defineComponent({
   components: {
     BaseHeader,
     BaseTask,
     BaseButton,
-    TurnOnCartPrompt
+    TurnOnCartPrompt,
+    CreateCrossSellPrompt
   }
 })
 </script>
