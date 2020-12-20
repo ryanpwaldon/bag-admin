@@ -14,7 +14,7 @@
     <TurnOnCartPrompt />
     <CreateCrossSellPrompt />
     <BaseTask title="Need help?" description="Get in touch via the messenger." :complete="false">
-      <BaseButton text="Ask a question →" />
+      <BaseButton text="Ask a question →" @click="open" />
     </BaseTask>
   </div>
 </template>
@@ -26,6 +26,7 @@ import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import TurnOnCartPrompt from '@/views/Home/components/TurnOnCartPrompt/TurnOnCartPrompt.vue'
 import { defineComponent } from 'vue'
 import CreateCrossSellPrompt from '@/views/Home/components/CreateCrossSellPrompt/CreateCrossSellPrompt.vue'
+import useBeacon from '@/composables/useBeacon'
 export default defineComponent({
   components: {
     BaseHeader,
@@ -33,6 +34,10 @@ export default defineComponent({
     BaseButton,
     TurnOnCartPrompt,
     CreateCrossSellPrompt
+  },
+  setup() {
+    const { open } = useBeacon()
+    return { open }
   }
 })
 </script>
