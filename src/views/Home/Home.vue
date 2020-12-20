@@ -14,7 +14,7 @@
     <TurnOnCartPrompt />
     <CreateCrossSellPrompt />
     <BaseTask title="Need help?" description="Get in touch via the messenger." :complete="false">
-      <BaseButton text="Ask a question →" @click="open" />
+      <BaseButton text="Ask a question →" @click="toggle" />
     </BaseTask>
   </div>
 </template>
@@ -36,8 +36,8 @@ export default defineComponent({
     CreateCrossSellPrompt
   },
   setup() {
-    const { open } = useBeacon()
-    return { open }
+    const { toggle } = useBeacon()
+    return { toggle }
   }
 })
 </script>

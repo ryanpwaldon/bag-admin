@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="items-center hidden space-x-4 md:flex ml-7">
-          <BaseIconButton :icon="Chat" @click="open" />
+          <BaseIconButton :icon="Chat" @click="toggle" />
           <router-link class="flex" :to="{ name: 'account' }" v-slot="{ isActive }">
             <BaseIconButton :active="isActive" :icon="Cog" />
           </router-link>
@@ -79,8 +79,8 @@ export default defineComponent({
     BaseIconButton
   },
   setup() {
-    const { open } = useBeacon()
-    return { Cog, Chat, open }
+    const { toggle } = useBeacon()
+    return { Cog, Chat, toggle }
   },
   data: () => ({
     mobileNavIsOpen: false,
