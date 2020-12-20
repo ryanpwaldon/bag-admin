@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, NavigationGuard, RouteRecordRaw } from 'vue-router'
+import { trackRouter } from 'vue-gtag-next'
 import authGuard from './guards/authGuard'
 import roleGuard from './guards/roleGuard'
 
@@ -105,5 +106,7 @@ router.beforeEach((async to => {
   const results = await Promise.all([authGuard(to), roleGuard()])
   for (const result of results) if (result !== true || result !== undefined) return result
 }) as NavigationGuard)
+
+trackRouter(router)
 
 export default router
