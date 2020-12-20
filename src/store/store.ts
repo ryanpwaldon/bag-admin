@@ -19,16 +19,6 @@ export default createStore({
   actions: {
     async authenticate({ commit }) {
       const user = await userService.findMe().catch(() => null)
-      // if (user) {
-      //   const userAttributes = {
-      //     name: user.shopOrigin,
-      //     shopOrigin: user.shopOrigin,
-      //     email: user.details.email,
-      //     appName: process.env.VUE_APP_NAME,
-      //     environment: process.env.VUE_APP_ENV,
-      //     createdAt: user.createdAt
-      //   }
-      //   Vue.prototype.$segment.identify(user.id, userAttributes)
       commit('setUser', user)
       return user
     }

@@ -1,14 +1,24 @@
 <template>
-  <BaseLayout v-if="$route.name !== 'login'"><router-view /></BaseLayout>
-  <router-view v-else />
+  <template v-if="$route.name === 'login'">
+    <router-view />
+  </template>
+  <template v-else>
+    <!-- <BasePageLoader /> -->
+    <BaseLayout v-if="$store.state.user">
+      <router-view />
+    </BaseLayout>
+    <BasePageLoader v-else />
+  </template>
 </template>
 
 <script lang="ts">
 import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
+import BasePageLoader from '@/components/BasePageLoader/BasePageLoader.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
   components: {
-    BaseLayout
+    BaseLayout,
+    BasePageLoader
   }
 })
 </script>
