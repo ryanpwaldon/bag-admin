@@ -5,22 +5,24 @@
       {{ error || description }}
     </p>
     <div class="grid grid-cols-1 row-gap-4 col-gap-6 sm:grid-cols-2">
-      <BaseFetchProduct v-for="id in ids" :key="id" :id="id">
-        <template #loader><BaseProduct :loading="true"/></template>
-        <template #default="{ item }">
-          <BaseProduct :title="item.title" :image="item.featuredImage.originalSrc" type="Product">
-            <template #footer>
-              <BaseMenuButton
-                class="flex-shrink-0 mr-2"
-                :links="[
-                  { title: 'Change', action: () => handleSelection({ mode: 'change', id }) },
-                  { title: 'Remove', action: () => handleRemove(id) }
-                ]"
-              />
-            </template>
-          </BaseProduct>
+      <BaseProduct
+        v-for="id in ids"
+        :title="products[id]?.title"
+        :image="products[id]?.featuredImage?.originalSrc"
+        :loading="!products[id]"
+        type="Product"
+        :key="id"
+      >
+        <template #footer>
+          <BaseMenuButton
+            class="flex-shrink-0 mr-2"
+            :links="[
+              { title: 'Change', action: () => handleSelection({ mode: 'change', id }) },
+              { title: 'Remove', action: () => handleRemove(id) }
+            ]"
+          />
         </template>
-      </BaseFetchProduct>
+      </BaseProduct>
       <BaseInputButton @click="handleSelection({ mode: 'add' })" class="h-20" text="Select a product" theme="white" v-if="!modelValue || multi">
         <template #icon>
           <svg class="w-5 h-5 ml-3 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -39,13 +41,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
-import BaseFetchProduct from '@/components/BaseFetchProduct/BaseFetchProduct.vue'
 import BaseMenuButton from '../BaseMenuButton/BaseMenuButton.vue'
 import BaseInputButton from '../BaseInputButton/BaseInputButton.vue'
+import productService from '@/services/api/services/productService'
+import { AdminProduct } from '@/types/admin/types'
 export default defineComponent({
   components: {
     BaseProduct,
-    BaseFetchProduct,
     BaseInputButton,
     BaseMenuButton
   },
@@ -71,6 +73,9 @@ export default defineComponent({
       required: false
     }
   },
+  data: () => ({
+    products: {} as Record<string, AdminProduct>
+  }),
   computed: {
     multi(): boolean {
       return Array.isArray(this.modelValue)
@@ -78,6 +83,17 @@ export default defineComponent({
     ids(): string[] {
       if (!this.modelValue) return []
       return this.multi ? (this.modelValue as string[]) : [this.modelValue as string]
+    }
+  },
+  watch: {
+    ids: {
+      immediate: true,
+      async handler() {
+        const productsToFetchById = []
+        for (const id of this.ids) if (!(id in this.products)) productsToFetchById.push(id)
+        const products = await productService.findByIds(productsToFetchById)
+        for (const product of products) this.products[product.id] = product
+      }
     }
   },
   methods: {
