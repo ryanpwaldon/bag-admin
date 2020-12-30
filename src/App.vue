@@ -3,7 +3,6 @@
     <router-view />
   </template>
   <template v-else>
-    <!-- <BasePageLoader /> -->
     <BaseLayout v-if="$store.state.user">
       <router-view />
     </BaseLayout>
