@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import userService, { User } from '@/services/api/services/userService'
+import accessScopeService from '@/services/api/services/accessScopeService'
 
 export default createStore({
   state: {
@@ -19,6 +20,8 @@ export default createStore({
   actions: {
     async authenticate({ commit }) {
       const user = await userService.findMe().catch(() => null)
+      const accessScopesUpToDate = await accessScopeService.checkStatus().catch(() => false)
+      if (!(user && accessScopesUpToDate)) return false
       commit('setUser', user)
       return user
     }
