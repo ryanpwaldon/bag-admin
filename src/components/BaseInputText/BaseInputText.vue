@@ -1,15 +1,19 @@
 <template>
-  <div>
+  <div class="flex flex-col items-start">
     <label :for="name" class="block text-sm font-medium leading-5 text-gray-700">{{ label }}</label>
-    <div class="relative mt-1 rounded-md shadow-sm">
+    <div class="relative w-full mt-1">
       <input
         :id="name"
         type="text"
         :value="modelValue"
         :placeholder="placeholder"
         @input="$emit('update:modelValue', $event.target.value)"
-        class="block w-full transition duration-150 ease-in-out form-input sm:text-sm sm:leading-5"
-        :class="[error && 'pr-10 text-red-900 placeholder-red-300 border-red-300 focus:border-red-300 focus:shadow-outline-red']"
+        class="block w-full transition duration-150 ease-in-out rounded shadow-sm sm:text-sm sm:leading-5"
+        :class="
+          error
+            ? 'text-red-900 placeholder-red-300 border-red-300 focus:ring-red-500 focus:border-red-500'
+            : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'
+        "
       />
       <div v-if="error" class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
         <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">

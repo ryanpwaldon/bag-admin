@@ -4,7 +4,7 @@
     <p class="max-w-xl mb-4 text-sm" :class="[error ? 'text-red-600' : 'text-gray-500']" v-if="error || description">
       {{ error || description }}
     </p>
-    <div class="grid grid-cols-1 row-gap-4 col-gap-6 sm:grid-cols-2">
+    <div class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
       <BaseProduct
         v-for="id in ids"
         :title="products[id]?.title"
