@@ -1,13 +1,8 @@
 <template>
-  <template v-if="$route.name === 'login'">
+  <component v-if="$store.state.user" :is="layout">
     <router-view />
-  </template>
-  <template v-else>
-    <BaseLayout v-if="$store.state.user">
-      <router-view />
-    </BaseLayout>
-    <BasePageLoader v-else />
-  </template>
+  </component>
+  <BasePageLoader v-else />
 </template>
 
 <script lang="ts">
@@ -18,6 +13,11 @@ export default defineComponent({
   components: {
     BaseLayout,
     BasePageLoader
+  },
+  computed: {
+    layout() {
+      return this.$route.meta.layout || 'div'
+    }
   }
 })
 </script>
