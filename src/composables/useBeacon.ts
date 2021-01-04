@@ -1,7 +1,7 @@
 export default () => {
   return {
-    open: () => window.Beacon('open'),
-    close: () => window.Beacon('close'),
-    toggle: () => window.Beacon('toggle')
+    openBeacon: () => window.Beacon('open'),
+    closeBeacon: () => window.Beacon('close'),
+    toggleBeacon: () => window.Beacon('toggle')
   }
 }

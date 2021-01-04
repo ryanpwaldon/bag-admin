@@ -36,7 +36,7 @@
       </div>
       <BaseLoader v-else />
     </div>
-    <button class="mt-10 text-sm text-gray-500 rounded focus:outline-none focus:ring-2 ring-blue-600">
+    <button class="mt-10 text-sm text-gray-500 rounded focus:outline-none focus:ring-2 ring-blue-600" @click="openBeacon">
       Need some help?
     </button>
   </div>
@@ -48,6 +48,7 @@ import Logo from '@/icons/Logo.vue'
 import router from '@/router/router'
 import Check from '@/icons/Check.vue'
 import Cross from '@/icons/Cross.vue'
+import useBeacon from '@/composables/useBeacon'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
 import useCreateSubscription from '@/composables/useCreateSubscription'
@@ -65,7 +66,9 @@ export default defineComponent({
     if (store.state.user?.subscription) router.push({ name: 'home' })
   },
   setup() {
-    return useCreateSubscription()
+    const { openBeacon } = useBeacon()
+    const { createFreeSubscription, createPaidSubscription } = useCreateSubscription()
+    return { createFreeSubscription, createPaidSubscription, openBeacon }
   },
   created() {
     this.fetchSubscriptions()
