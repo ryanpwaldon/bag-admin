@@ -25,12 +25,12 @@
           <div class="flex items-center space-x-3 mt-7">
             <BaseButton
               size="md"
-              :text="subscription.ctaText"
               :theme="subscription.ctaTheme"
               @click="handleSubmit(subscription)"
               :loading="selectedSubscription === subscription.name"
+              :text="hasTrial(subscription) ? 'Try it free' : 'Get started'"
             />
-            <p class="text-sm text-gray-500" v-if="subscription.trialDays">Free for {{ subscription.trialDays }} days</p>
+            <p class="text-sm text-gray-500" v-if="hasTrial(subscription)">Free for {{ subscription.trialDays }} days</p>
           </div>
         </div>
       </div>
@@ -80,6 +80,11 @@ export default defineComponent({
   methods: {
     async fetchSubscriptions() {
       this.subscriptions = await subscriptionService.findAll()
+    },
+    hasTrial(subscription: Subscription) {
+      const subscriptionHasTrial = subscription.trialDays > 0
+      const userHasPreviouslySubscribed = this.$store.state.user.prevSubscriptions.includes(subscription.name)
+      return subscriptionHasTrial && !userHasPreviouslySubscribed
     },
     convertInterval(interval: Interval) {
       return interval === Interval.Monthly ? 'month' : 'year'

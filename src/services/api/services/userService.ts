@@ -3,7 +3,7 @@ import { client } from '@/services/api/client'
 export interface User {
   shopOrigin: string
   subscription: string
-  trialedSubscriptions: string[]
+  prevSubscriptions: string[]
 }
 
 export default {
