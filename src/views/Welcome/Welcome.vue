@@ -2,7 +2,7 @@
   <div class="max-w-2xl px-4 m-auto mt-16 sm:px-6 lg:px-8">
     <Logo class="h-5" />
     <h1 class="mt-8 text-2xl font-semibold leading-8 md:text-3xl">Welcome!</h1>
-    <p class="mt-2 text-base leading-6 text-gray-500 md:text-lg">We’re so excited to have you on board.<br />Select a plan to get started.</p>
+    <p class="mt-2 text-base leading-6 text-gray-500 md:text-lg">We’re excited to have you on board.<br />Select a plan to get started.</p>
     <div class="mt-10">
       <div class="flex space-x-6" v-if="subscriptions.length">
         <div class="flex-1 p-6 bg-white rounded-lg shadow" v-for="(subscription, i) in subscriptions" :key="i">
