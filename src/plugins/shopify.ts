@@ -1,4 +1,5 @@
 import { App } from 'vue'
+import isFramed from '@/utils/isFramed'
 import createApp from '@shopify/app-bridge'
 import { Redirect } from '@shopify/app-bridge/actions'
 import { ResourcePicker } from '@shopify/app-bridge/actions'
@@ -16,9 +17,8 @@ declare module '@vue/runtime-core' {
 
 export default {
   install: (app: App) => {
-    const framed = window.top !== window.self
     const shopOrigin = getShopOriginFromUrl()
-    if (!shopOrigin || !framed) return console.warn('Shopify app bridge could not be created.')
+    if (!shopOrigin || !isFramed) return console.warn('Shopify app bridge could not be created.')
     const shopifyAppBridge = createApp({ apiKey: process.env.VUE_APP_SHOPIFY_API_KEY, shopOrigin })
     const shopifyRedirect = Redirect.create(shopifyAppBridge)
     const shopifyProductPicker = ResourcePicker.create(shopifyAppBridge, {
