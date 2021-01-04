@@ -48,9 +48,9 @@ import Check from '@/icons/Check.vue'
 import Cross from '@/icons/Cross.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
+import useCreateSubscription from '@/composables/useCreateSubscription'
 import subscriptionService, { Interval, Subscription } from '@/services/api/services/subscriptionService'
 import { defineComponent } from 'vue'
-import useCreateSubscription from '@/composables/useCreateSubscription'
 export default defineComponent({
   components: {
     Logo,

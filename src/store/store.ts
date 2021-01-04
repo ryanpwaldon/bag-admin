@@ -4,7 +4,6 @@ import accessScopeService from '@/services/api/services/accessScopeService'
 
 export default createStore({
   state: {
-    framed: window.top !== window.self,
     user: null as null | User
   },
   mutations: {

@@ -1,7 +1,7 @@
 <template>
-  <div class="flex items-center justify-center w-screen h-screen text-lg tracking-wider text-gray-500 bg-gray-900">
-    <p>Error</p>
-    <p>{{ message }}</p>
+  <div class="flex items-center justify-center w-screen h-screen text-lg tracking-wider text-gray-700 uppercase">
+    <p class="px-4 border-r border-gray-700">Error</p>
+    <p class="px-4">{{ message }}</p>
   </div>
 </template>
 

@@ -1,3 +1,4 @@
+import { App } from 'vue'
 import createApp from '@shopify/app-bridge'
 import { Redirect } from '@shopify/app-bridge/actions'
 import { ResourcePicker } from '@shopify/app-bridge/actions'
@@ -5,8 +6,6 @@ import { getSessionToken } from '@shopify/app-bridge-utils'
 import { Section } from '@shopify/app-bridge/actions/Navigation/Redirect'
 import { ProductOptions, Options } from '@shopify/app-bridge/actions/ResourcePicker'
 import getShopOriginFromUrl from '@/utils/getShopOriginFromUrl'
-import { App } from 'vue'
-import store from '@/store/store'
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
@@ -17,7 +16,7 @@ declare module '@vue/runtime-core' {
 
 export default {
   install: (app: App) => {
-    const framed = store.state.framed
+    const framed = window.top !== window.self
     const shopOrigin = getShopOriginFromUrl()
     if (!shopOrigin || !framed) return console.warn('Shopify app bridge could not be created.')
     const shopifyAppBridge = createApp({ apiKey: process.env.VUE_APP_SHOPIFY_API_KEY, shopOrigin })

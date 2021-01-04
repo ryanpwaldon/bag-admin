@@ -1,7 +1,6 @@
-import authGuard from './guards/authGuard'
 import { trackRouter } from 'vue-gtag-next'
 import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
-import { createRouter, createWebHistory, NavigationGuard, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -102,11 +101,6 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
-
-router.beforeEach((async () => {
-  const results = await Promise.all([authGuard()])
-  for (const result of results) if (result !== true || result !== undefined) return result
-}) as NavigationGuard)
 
 trackRouter(router)
 
