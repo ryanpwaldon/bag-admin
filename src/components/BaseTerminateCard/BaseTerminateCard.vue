@@ -9,8 +9,8 @@
       </p>
     </div>
     <div class="mt-4 sm:flex-shrink-0 sm:mt-0">
-      <BaseButton text="Confirm deletion" theme="red" :loading="loading" @click="handleClickConfirm" v-if="initiated || loading" />
-      <BaseButton text="Delete" @click.stop="handleClickDelete" theme="white" v-else />
+      <BaseButton :text="buttonConfirmationText" theme="red" :loading="loading" @click="handleClickConfirm" v-if="initiated || loading" />
+      <BaseButton :text="buttonText" @click.stop="handleClick" theme="white" v-else />
     </div>
   </div>
 </template>
@@ -30,6 +30,14 @@ export default defineComponent({
     description: {
       type: String,
       required: true
+    },
+    buttonText: {
+      type: String,
+      required: true
+    },
+    buttonConfirmationText: {
+      type: String,
+      required: true
     }
   },
   data: () => ({
@@ -37,12 +45,12 @@ export default defineComponent({
     loading: false
   }),
   methods: {
-    handleClickDelete() {
+    handleClick() {
       this.initiated = true
       window.addEventListener('click', () => (this.initiated = false), { once: true })
     },
     handleClickConfirm() {
-      this.$emit('delete')
+      this.$emit('terminate')
       this.loading = true
     }
   }
