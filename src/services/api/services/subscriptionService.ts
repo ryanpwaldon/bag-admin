@@ -1,6 +1,14 @@
 import { client } from '@/services/api/client'
 import { User } from '@/services/api/services/userService'
 
+export type ActiveSubscription = {
+  id: string
+  name: string
+  createdAt: Date
+  trialDays: number
+  currentPeriodEnd: Date
+}
+
 export enum Interval {
   Monthly = 'EVERY_30_DAYS',
   Annually = 'ANNUAL'
@@ -21,6 +29,14 @@ export type Subscription = {
 }
 
 export default {
+  async findAll(): Promise<Subscription[]> {
+    return (await client({ url: `/subscription`, method: 'get' })).data
+  },
+
+  async findActiveSubscription(): Promise<ActiveSubscription | null> {
+    return (await client({ url: `/subscription/active`, method: 'get' })).data
+  },
+
   async createFreeSubscription(subscriptionName: string): Promise<User> {
     return (await client({ url: `/subscription/free`, method: 'post', data: { subscriptionName } })).data
   },
@@ -28,10 +44,6 @@ export default {
   async createPaidSubscription(subscriptionName: string): Promise<string> {
     const confirmationUrl = (await client({ url: `/subscription/paid`, method: 'post', data: { subscriptionName } })).data
     return confirmationUrl
-  },
-
-  async findAll(): Promise<Subscription[]> {
-    return (await client({ url: `/subscription`, method: 'get' })).data
   },
 
   async sync() {

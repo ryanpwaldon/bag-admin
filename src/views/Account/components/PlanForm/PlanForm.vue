@@ -17,8 +17,8 @@ import BaseInputRadioGroup, { RadioGroupOption } from '@/components/BaseInputRad
 import { defineComponent, ref } from 'vue'
 
 const plans: RadioGroupOption[] = [
-  { value: 'free', label: 'Free', meta1: '$0 / month', meta3: 'Basic features' },
-  { value: 'premium', label: 'Premium', meta1: '$XX / month', meta3: 'Premium features' }
+  { value: 'starter', label: 'Starter', meta1: '$0 / month', meta3: 'Cart only' },
+  { value: 'premium', label: 'Growth', meta1: '$98 / month', meta3: 'Cart & offers' }
 ]
 
 export default defineComponent({
