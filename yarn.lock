@@ -1723,16 +1723,6 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@vee-validate/i18n@^4.0.0-beta.0":
-  version "4.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@vee-validate/i18n/-/i18n-4.0.0-beta.0.tgz#c4e4a231e8ded70ea23e240a5c70122294666f4c"
-  integrity sha512-7JCPoxSdDuvf+PWGaKQ49ODnYbmZx3vbaxw848/fKcdGIis6hRv8hGfJkfhAWCFJhN98/ZHC1BAZpWiBdZ7J0w==
-
-"@vee-validate/rules@^4.0.0-beta.0":
-  version "4.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@vee-validate/rules/-/rules-4.0.0-beta.0.tgz#3006a4206ebf0c06f38f1087074f6ff61b16c643"
-  integrity sha512-CaSSrcYpkrOZGQQyTevLABw0S+IMd1yprqnlCb/GPOGpTm+ojee3LuMs27VSWfdPiuUYbdOKyf+DyrX9+2C9CA==
-
 "@vue/babel-helper-vue-jsx-merge-props@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@vue/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-1.2.1.tgz#31624a7a505fb14da1d58023725a4c5f270e6a81"
@@ -10536,11 +10526,6 @@ vary@^1, vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
-
-vee-validate@^4.0.0-beta.1:
-  version "4.0.0-beta.18"
-  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-4.0.0-beta.18.tgz#7ff6b7f7c34dc44c9604838abf113da83921ab89"
-  integrity sha512-8AiOBcRqwNgMBnuvi12sFTdh0TNdyay5WQE9W9ge6ZFFaMmp9sKrktaFA1tCdo/1o5eIWjD/tFZ/M8vT18zr9w==
 
 vendors@^1.0.0:
   version "1.0.4"
