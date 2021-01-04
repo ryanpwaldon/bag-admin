@@ -43,7 +43,9 @@
 </template>
 
 <script lang="ts">
+import store from '@/store/store'
 import Logo from '@/icons/Logo.vue'
+import router from '@/router/router'
 import Check from '@/icons/Check.vue'
 import Cross from '@/icons/Cross.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
@@ -58,6 +60,9 @@ export default defineComponent({
     Check,
     BaseButton,
     BaseLoader
+  },
+  beforeRouteEnter() {
+    if (store.state.user?.subscription) router.push({ name: 'home' })
   },
   setup() {
     return useCreateSubscription()
