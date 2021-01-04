@@ -86,6 +86,12 @@ const routes: RouteRecordRaw[] = [
     meta: { title: 'Account', layout: BaseLayout }
   },
   {
+    path: '/welcome',
+    name: 'welcome',
+    component: () => import('@/views/Welcome/Welcome.vue'),
+    meta: { title: 'Welcome' }
+  },
+  {
     path: '/:path(.*)*',
     name: 'not-found',
     redirect: '/'

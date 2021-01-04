@@ -12,7 +12,7 @@ import BaseSpinner from '@/components/BaseSpinner/BaseSpinner.vue'
 import { defineComponent, PropType } from 'vue'
 
 type Sizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-type Themes = 'white' | 'black' | 'blue' | 'red'
+type Themes = 'white' | 'black' | 'blue' | 'red' | 'lightBlue'
 type Classes<T extends string> = { [K in T]: string }
 
 export default defineComponent({
@@ -62,18 +62,21 @@ export default defineComponent({
       }
       const themeBaseClasses: Classes<Themes> = {
         blue: 'text-white border-transparent',
+        lightBlue: 'text-blue-700 border-blue-200 ',
         white: 'text-gray-700 border-gray-300',
         black: 'text-white border-transparent',
         red: 'text-white border-transparent'
       }
       const themeDefaultClasses: Classes<Themes> = {
-        blue: 'bg-blue-600 hover:bg-blue-500 focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700',
+        blue: 'bg-blue-600 hover:bg-blue-500 focus:ring-2 ring-offset-2 ring-offset ring-blue-700',
+        lightBlue: 'bg-blue-50 hover:bg-blue-100 focus:ring-2 ring-offset-2 ring-offset ring-blue-700',
         white: 'bg-white hover:text-gray-500 focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50',
         black: 'bg-gray-900 focus:shadow-outline-gray hover:bg-gray-800 active:bg-gray-700',
         red: 'bg-red-600 hover:bg-red-500 focus:border-red-700 focus:shadow-outline-red'
       }
       const themeDisabledClasses: Classes<Themes> = {
         blue: 'bg-blue-400',
+        lightBlue: 'bg-blue-50',
         white: 'opacity-50',
         black: '',
         red: 'bg-red-500'
