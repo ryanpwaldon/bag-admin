@@ -34,10 +34,10 @@ export default defineComponent({
     async start() {
       const shopOrigin = getShopOriginFromUrl()
       if (!shopOrigin) return this.$router.push({ name: 'error', params: { message: 'Shop origin missing' } })
-      const framed = window.top !== window.self
-      if (!framed) return this.$router.push({ name: 'error', params: { message: 'App must be embedded' } })
       const user = await this.$store.dispatch('authenticate')
       if (!user) return installationService.install(shopOrigin)
+      const framed = window.top !== window.self
+      if (!framed) return this.$router.push({ name: 'error', params: { message: 'App must be embedded' } })
       if (!user.subscription) return this.$router.push({ name: 'welcome' })
     }
   }
