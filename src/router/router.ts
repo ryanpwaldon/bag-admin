@@ -1,5 +1,4 @@
 import authGuard from './guards/authGuard'
-import roleGuard from './guards/roleGuard'
 import { trackRouter } from 'vue-gtag-next'
 import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import { createRouter, createWebHistory, NavigationGuard, RouteRecordRaw } from 'vue-router'
@@ -10,12 +9,6 @@ const routes: RouteRecordRaw[] = [
     name: 'home',
     component: () => import('@/views/Home/Home.vue'),
     meta: { title: 'Home', layout: BaseLayout }
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/Login/Login.vue'),
-    meta: { title: 'Login' }
   },
   {
     path: '/offers',
@@ -92,6 +85,13 @@ const routes: RouteRecordRaw[] = [
     meta: { title: 'Welcome' }
   },
   {
+    path: '/error',
+    name: 'error',
+    props: true,
+    component: () => import('@/views/Error/Error.vue'),
+    meta: { title: 'Error' }
+  },
+  {
     path: '/:path(.*)*',
     name: 'not-found',
     redirect: '/'
@@ -103,8 +103,8 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((async to => {
-  const results = await Promise.all([authGuard(to), roleGuard()])
+router.beforeEach((async () => {
+  const results = await Promise.all([authGuard()])
   for (const result of results) if (result !== true || result !== undefined) return result
 }) as NavigationGuard)
 

@@ -7,11 +7,6 @@ export default createStore({
     framed: window.top !== window.self,
     user: null as null | User
   },
-  getters: {
-    roles(state) {
-      return state.user && state.user.roles
-    }
-  },
   mutations: {
     setUser(state, value) {
       state.user = value

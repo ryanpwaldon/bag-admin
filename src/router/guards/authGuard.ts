@@ -1,13 +1,12 @@
 import store from '@/store/store'
-import { RouteLocationNormalized } from 'vue-router'
-import getShopOriginFromUrl from '../../utils/getShopOriginFromUrl'
+import getShopOriginFromUrl from '@/utils/getShopOriginFromUrl'
 import installationService from '@/services/api/services/installationService'
 
-export default async (to: RouteLocationNormalized) => {
+export default async () => {
   const shopOrigin = getShopOriginFromUrl()
-  if (to.path === '/login') return true
-  if (store.state.user) return true
-  if (!shopOrigin) return '/login'
-  if (await store.dispatch('authenticate')) return true
-  return installationService.install(shopOrigin)
+  if (!shopOrigin) return { name: 'error', props: { message: 'Shop origin missing' } }
+  const user = store.state.user || (await store.dispatch('authenticate'))
+  if (!user) return installationService.install(shopOrigin)
+  if (!user.subscribed) return { name: 'welcome' }
+  return true
 }
