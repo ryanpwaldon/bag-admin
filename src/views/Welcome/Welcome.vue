@@ -11,7 +11,7 @@
           <div class="font-medium">{{ subscription.title }}</div>
           <div class="mt-3">
             <span class="text-3xl font-semibold">${{ subscription.price }}</span>
-            <span class="text-sm text-gray-500"> / {{ convertInterval(subscription.interval) }}</span>
+            <span class="text-sm text-gray-500"> / {{ convertShopifyInterval(subscription.interval) }}</span>
           </div>
           <div class="mt-3 text-sm text-gray-500">{{ subscription.description }}</div>
           <div class="space-y-1 mt-7">
@@ -53,8 +53,9 @@ import Cross from '@/icons/Cross.vue'
 import useBeacon from '@/composables/useBeacon'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
+import convertShopifyInterval from '@/utils/convertShopifyInterval'
 import useCreateSubscription from '@/composables/useCreateSubscription'
-import subscriptionService, { Interval, Subscription } from '@/services/api/services/subscriptionService'
+import subscriptionService, { Subscription } from '@/services/api/services/subscriptionService'
 import { defineComponent } from 'vue'
 export default defineComponent({
   components: {
@@ -70,7 +71,7 @@ export default defineComponent({
   setup() {
     const { openBeacon } = useBeacon()
     const { createFreeSubscription, createPaidSubscription } = useCreateSubscription()
-    return { createFreeSubscription, createPaidSubscription, openBeacon }
+    return { createFreeSubscription, createPaidSubscription, openBeacon, convertShopifyInterval }
   },
   created() {
     this.fetchSubscriptions()
@@ -88,13 +89,11 @@ export default defineComponent({
       const userHasPreviouslySubscribed = this.$store.state.user.prevSubscriptions.includes(subscription.name)
       return subscriptionHasTrial && !userHasPreviouslySubscribed
     },
-    convertInterval(interval: Interval) {
-      return interval === Interval.Monthly ? 'month' : 'year'
-    },
-    handleSubmit(subscription: Subscription) {
+    async handleSubmit(subscription: Subscription) {
       this.selectedSubscription = subscription.name
-      if (subscription.price === 0) this.createFreeSubscription(subscription.name)
-      else this.createPaidSubscription(subscription.name)
+      if (subscription.price !== 0) return this.createPaidSubscription(subscription.name)
+      await this.createFreeSubscription(subscription.name)
+      this.$router.push({ name: 'home' })
     }
   }
 })
