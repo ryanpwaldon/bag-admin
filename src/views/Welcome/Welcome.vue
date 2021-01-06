@@ -1,9 +1,11 @@
 <template>
-  <div class="max-w-2xl px-4 m-auto mt-16 sm:px-6 lg:px-8">
+  <div class="max-w-2xl px-4 m-auto mt-8 sm:px-6 lg:px-8">
     <Logo class="h-5" />
-    <h1 class="mt-8 text-2xl font-semibold leading-8 md:text-3xl">Welcome!</h1>
-    <p class="mt-2 text-base leading-6 text-gray-500 md:text-lg">We’re excited to have you on board.<br />Select a plan to get started.</p>
-    <div class="mt-10">
+    <div class="flex flex-col px-6 py-8 mt-8 overflow-hidden rounded-lg shadow bg-gradient-to-tr from-blue-700 to-blue-400">
+      <h1 class="text-2xl font-semibold leading-8 text-white md:text-3xl">Welcome</h1>
+      <p class="mt-2 text-base leading-6 text-blue-100 md:text-lg">Excited to have you on board!<br />Select a plan to get started.</p>
+    </div>
+    <div class="mt-8">
       <div class="flex space-x-6" v-if="subscriptions.length">
         <div class="flex-1 p-6 bg-white rounded-lg shadow" v-for="(subscription, i) in subscriptions" :key="i">
           <div class="font-medium">{{ subscription.title }}</div>
@@ -36,7 +38,7 @@
       </div>
       <BaseLoader v-else />
     </div>
-    <button class="mt-10 text-sm text-gray-500 rounded focus:outline-none focus:ring-2 ring-blue-600" @click="openBeacon">
+    <button class="mt-8 text-sm text-gray-500 rounded focus:outline-none focus:ring-2 ring-blue-600" @click="openBeacon">
       Need some help?
     </button>
   </div>
