@@ -1,51 +1,36 @@
 <template>
   <fieldset>
     <legend class="sr-only">
-      {{ label }}
+      {{ name }}
     </legend>
-    <ul class="relative -space-y-px bg-white rounded-md">
-      <li v-for="({ value, label, meta1, meta2, meta3, disabled }, i) in options" :key="i">
+    <div class="-space-y-px bg-white rounded-md">
+      <template v-for="(option, i) in options" :key="i">
         <div
           :class="[
+            'relative flex p-4 border',
+            option.disabled && 'pointer-events-none',
             i === 0 && 'rounded-tl-md rounded-tr-md',
             i === options.length - 1 && 'rounded-bl-md rounded-br-md',
-            modelValue === value ? 'bg-blue-50 border-blue-200 z-10' : 'border-gray-200',
-            disabled && 'pointer-events-none'
+            modelValue === option.value ? 'bg-blue-50 border-blue-200 z-10' : 'border-gray-200'
           ]"
-          class="relative flex flex-col p-4 border cursor-default select-none md:pl-4 md:pr-6 md:grid md:grid-cols-3"
-          @click="$emit('update:modelValue', value)"
         >
-          <label class="flex items-center space-x-3 text-sm leading-5">
+          <div class="flex items-center h-5">
             <input
-              :name="name"
               type="radio"
-              :checked="modelValue === value"
-              @input="$emit('update:modelValue', value)"
-              class="w-4 h-4 text-blue-600 transition duration-150 ease-in-out form-radio"
-              :disabled="disabled"
+              :name="name"
+              :disabled="option.disabled"
+              :id="`settings-option-${i}`"
+              :checked="modelValue === option.value"
+              @input="$emit('update:modelValue', option.value)"
+              class="w-4 h-4 text-blue-600 border-gray-300 cursor-pointer focus:ring-blue-500"
             />
-            <span :class="disabled ? 'text-gray-500' : 'text-gray-900'" class="font-medium">
-              {{ label }}
-            </span>
+          </div>
+          <label :for="`settings-option-${i}`" class="w-full ml-3 cursor-pointer">
+            <slot :name="option.value" />
           </label>
-          <p class="pl-1 ml-6 text-sm leading-5 md:ml-0 md:pl-0 md:text-center" v-if="meta1 || meta2">
-            <span :class="disabled ? 'text-gray-400' : modelValue === value ? 'text-blue-900' : 'text-gray-900'" class="font-medium" v-if="meta1">
-              {{ meta1 }}
-            </span>
-            <span :class="disabled ? 'text-gray-400' : modelValue === value ? 'text-blue-700' : 'text-gray-500'" v-if="meta2">
-              {{ meta2 }}
-            </span>
-          </p>
-          <p
-            v-if="meta3"
-            class="pl-1 ml-6 text-sm leading-5 md:ml-0 md:pl-0 md:text-right"
-            :class="[disabled ? 'text-gray-400' : modelValue === value ? 'text-blue-700' : 'text-gray-500', meta1 || meta2 ? '' : 'col-span-2']"
-          >
-            {{ meta3 }}
-          </p>
         </div>
-      </li>
-    </ul>
+      </template>
+    </div>
   </fieldset>
 </template>
 
@@ -54,19 +39,11 @@ import { defineComponent, PropType } from 'vue'
 
 export type RadioGroupOption = {
   value: string
-  label: string
-  meta1?: string
-  meta2?: string
-  meta3?: string
-  disabled?: boolean
+  disabled: boolean
 }
 
 export default defineComponent({
   props: {
-    label: {
-      type: String,
-      required: true
-    },
     name: {
       type: String,
       required: true

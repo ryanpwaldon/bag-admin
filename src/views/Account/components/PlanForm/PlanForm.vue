@@ -1,7 +1,7 @@
 <template>
   <BaseGridCard>
     <h3 class="mb-5 text-lg font-medium text-gray-700">Plan</h3>
-    <BaseInputRadioGroupSlot name="plan" :options="options" v-model="fields.subscription.value.value">
+    <BaseInputRadioGroup name="plan" :options="options" v-model="fields.subscription.value.value">
       <template v-for="(option, i) in options" v-slot:[option.value] :key="i">
         <div class="flex justify-between text-sm">
           <div class="flex space-x-3">
@@ -19,7 +19,7 @@
           </p>
         </div>
       </template>
-    </BaseInputRadioGroupSlot>
+    </BaseInputRadioGroup>
     <template #footer>
       <div class="flex items-center justify-between">
         <router-link :to="{ name: 'pricing' }" class="font-medium text-blue-600">View plans</router-link>
@@ -38,13 +38,13 @@ import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import useCreateSubscription from '@/composables/useCreateSubscription'
 import { SubscriptionExtended } from '@/services/api/services/subscriptionService'
-import BaseInputRadioGroupSlot from '@/components/BaseInputRadioGroupSlot/BaseInputRadioGroupSlot.vue'
+import BaseInputRadioGroup from '@/components/BaseInputRadioGroup/BaseInputRadioGroup.vue'
 import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
 
 export default defineComponent({
   components: {
     BaseGridCard,
-    BaseInputRadioGroupSlot,
+    BaseInputRadioGroup,
     BaseButton,
     BaseBadge
   },
