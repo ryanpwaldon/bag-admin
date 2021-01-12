@@ -1,8 +1,10 @@
 <template>
   <BasePageLoader v-if="loading" />
-  <component v-else :is="layout">
-    <router-view />
-  </component>
+  <div v-else class="pb-32">
+    <component :is="layout">
+      <router-view />
+    </component>
+  </div>
 </template>
 
 <script lang="ts">
