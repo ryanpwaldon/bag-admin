@@ -1,6 +1,7 @@
 import app from '@/main'
 import store from '@/store/store'
-import subscriptionService from '@/services/api/services/subscriptionService'
+import router from '@/router/router'
+import subscriptionService, { Subscription } from '@/services/api/services/subscriptionService'
 
 const createFreeSubscription = async (subscriptionName: string) => {
   const user = await subscriptionService.createFreeSubscription(subscriptionName)
@@ -12,4 +13,13 @@ const createPaidSubscription = async (subscriptionName: string) => {
   app.$shopify.redirectToExternalUrl(confirmationUrl)
 }
 
-export default () => ({ createFreeSubscription, createPaidSubscription })
+const createSubscription = async (subscription: Subscription) => {
+  if (subscription.price === 0) {
+    await createFreeSubscription(subscription.name)
+    router.push({ name: 'home' })
+  } else {
+    createPaidSubscription(subscription.name)
+  }
+}
+
+export default () => createSubscription

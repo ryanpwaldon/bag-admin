@@ -84,6 +84,12 @@ const routes: RouteRecordRaw[] = [
     meta: { title: 'Welcome' }
   },
   {
+    path: '/pricing',
+    name: 'pricing',
+    component: () => import('@/views/Pricing/Pricing.vue'),
+    meta: { title: 'Pricing' }
+  },
+  {
     path: '/error',
     name: 'error',
     props: true,

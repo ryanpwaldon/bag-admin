@@ -1,5 +1,7 @@
+import { useStore } from 'vuex'
 import { client } from '@/services/api/client'
 import { User } from '@/services/api/services/userService'
+import convertShopifyInterval from '@/utils/convertShopifyInterval'
 
 export type ActiveSubscription = {
   id: string
@@ -23,13 +25,43 @@ export type Subscription = {
   description: string
   featuresIncluded: string[]
   featuresExcluded: string[]
-  ctaTheme: string
+  emphasize: string
   legacy: boolean
 }
 
+export type SubscriptionExtended = Subscription & {
+  subscribed: boolean
+  displayInterval: string
+  trialAvailable: boolean
+  ctaText: string
+  ctaTheme: string
+}
+
 export default {
-  async findAll(): Promise<Subscription[]> {
-    return (await client({ url: `/subscription`, method: 'get' })).data
+  async findAll(): Promise<SubscriptionExtended[]> {
+    const { state } = useStore()
+    const subscriptions: Subscription[] = (await client({ url: `/subscription`, method: 'get' })).data
+    const extendedSubscriptions: SubscriptionExtended[] = subscriptions.map(subscription => {
+      const subscribed = subscription.name === state.user.subscription
+      const displayInterval = convertShopifyInterval(subscription.interval)
+      const prevSubscribed = state.user.prevSubscriptions.includes(subscription.name)
+      const trialAvailable = subscription.trialDays > 0 && !prevSubscribed
+      const ctaText = subscribed ? 'Subscribed' : trialAvailable ? 'Try it free' : 'Get started'
+      const ctaTheme = subscribed ? 'white' : subscription.emphasize ? 'blue' : 'lightBlue'
+      return {
+        ctaText,
+        ctaTheme,
+        subscribed,
+        trialAvailable,
+        displayInterval,
+        ...subscription
+      }
+    })
+    const filteredSubscriptions = extendedSubscriptions.filter(subscription => !subscription.legacy || subscription.subscribed)
+    const sortedSubscriptions = filteredSubscriptions
+      .sort((a, b) => a.price - b.price)
+      .sort((a, b) => (a.legacy === b.legacy ? 0 : a.legacy ? -1 : 1))
+    return sortedSubscriptions
   },
 
   async findActiveSubscription(): Promise<ActiveSubscription | null> {
