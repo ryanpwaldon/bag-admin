@@ -1,13 +1,14 @@
 <template>
-  <div class="flex flex-col space-y-6">
+  <BaseLoader v-if="loading" />
+  <div class="flex flex-col space-y-6" v-else>
     <BaseGridCard :content-padding="false">
       <template #header>
         <h3 class="text-base font-medium text-gray-700">Performance</h3>
       </template>
       <BaseStats
         :stats="[
-          { label: 'Income', value: totalConversionIncome },
-          { label: 'Conversions', value: conversions.length }
+          { label: 'Conversions', value: conversions.length },
+          { label: 'Total income', value: totalConversionIncome }
         ]"
       />
     </BaseGridCard>
@@ -15,20 +16,14 @@
       <template #header>
         <h3 class="text-base font-medium text-gray-700">Conversions</h3>
       </template>
-      <BaseTable
-        :loading="loading"
-        :items="conversions"
-        :link="buildLinkFromConversion"
-        :props="conversionsTableColumns"
-        v-if="loading || conversions.length"
-      >
+      <BaseTable :items="conversions" :link="buildLinkFromConversion" :props="conversionsTableColumns" v-if="conversions.length">
         <template #order="{ item }">
           <div class="text-sm font-medium leading-5 text-gray-900">{{ item.order.name }}</div>
         </template>
         <template #date="{ item }">
           <div class="text-sm leading-5 text-gray-500">{{ $dayjs(item.order.processed_at).format('Do MMM YYYY') }}</div>
         </template>
-        <template #conversion="{ item }">
+        <template #income="{ item }">
           <div class="text-sm leading-5 text-gray-500">
             {{ item.value }}
           </div>
@@ -50,6 +45,7 @@ import { defineComponent, PropType } from 'vue'
 import useFormatter from '@/composables/useFormatter'
 import BaseStats from '@/components/BaseStats/BaseStats.vue'
 import BaseTable from '@/components/BaseTable/BaseTable.vue'
+import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
 import { CrossSell } from '@/services/api/services/crossSellService'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import { ResourceType } from '@shopify/app-bridge/actions/Navigation/Redirect'
@@ -58,7 +54,8 @@ export default defineComponent({
   components: {
     BaseStats,
     BaseTable,
-    BaseGridCard
+    BaseGridCard,
+    BaseLoader
   },
   props: {
     crossSell: {
@@ -80,7 +77,7 @@ export default defineComponent({
     conversionsTableColumns: [
       { name: 'Order', id: 'order' },
       { name: 'Date', id: 'date' },
-      { name: 'Conversion', id: 'conversion' },
+      { name: 'Income', id: 'income' },
       { name: '', id: 'link' }
     ]
   }),
