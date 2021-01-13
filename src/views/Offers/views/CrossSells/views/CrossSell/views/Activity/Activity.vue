@@ -6,8 +6,8 @@
       </template>
       <BaseStats
         :stats="[
-          { label: 'Income', value: income },
-          { label: 'Conversions', value: orders.length }
+          { label: 'Income', value: totalConversionIncome },
+          { label: 'Conversions', value: conversions.length }
         ]"
       />
     </BaseGridCard>
@@ -15,21 +15,22 @@
       <template #header>
         <h3 class="text-base font-medium text-gray-700">Conversions</h3>
       </template>
-      <BaseTable :props="ordersTableProperties" :items="orders" :link="buildLink" :loading="loading" v-if="loading || orders.length">
+      <BaseTable
+        :loading="loading"
+        :items="conversions"
+        :link="buildLinkFromConversion"
+        :props="conversionsTableColumns"
+        v-if="loading || conversions.length"
+      >
         <template #order="{ item }">
-          <div class="text-sm font-medium leading-5 text-gray-900">{{ item.name }}</div>
+          <div class="text-sm font-medium leading-5 text-gray-900">{{ item.order.name }}</div>
         </template>
         <template #date="{ item }">
-          <div class="text-sm leading-5 text-gray-500">{{ $dayjs(item.processedAt).format('Do MMM YYYY') }}</div>
+          <div class="text-sm leading-5 text-gray-500">{{ $dayjs(item.order.processed_at).format('Do MMM YYYY') }}</div>
         </template>
-        <template #total="{ item }">
+        <template #conversion="{ item }">
           <div class="text-sm leading-5 text-gray-500">
-            {{ format.currency(item.totalPriceSet.shopMoney.amount, item.totalPriceSet.shopMoney.currencyCode) }}
-          </div>
-        </template>
-        <template #attribution="{ item }">
-          <div class="text-sm leading-5 text-gray-500">
-            {{ extractRelevantLineItemPrice(item, crossSell.productId) }}
+            {{ item.value }}
           </div>
         </template>
         <template #link>
@@ -45,17 +46,14 @@
 </template>
 
 <script lang="ts">
-import BaseStats from '@/components/BaseStats/BaseStats.vue'
-import orderService from '@/services/api/services/orderService'
-import { CrossSell } from '@/services/api/services/crossSellService'
-import BaseTable from '@/components/BaseTable/BaseTable.vue'
+import { defineComponent, PropType } from 'vue'
 import useFormatter from '@/composables/useFormatter'
-import { AdminOrder } from '@/types/admin/types'
-import { defineComponent, PropType, ref, watchEffect } from 'vue'
-import { ResourceType } from '@shopify/app-bridge/actions/Navigation/Redirect'
-import { parseGid } from '@shopify/admin-graphql-api-utilities'
+import BaseStats from '@/components/BaseStats/BaseStats.vue'
+import BaseTable from '@/components/BaseTable/BaseTable.vue'
+import { CrossSell } from '@/services/api/services/crossSellService'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
-
+import { ResourceType } from '@shopify/app-bridge/actions/Navigation/Redirect'
+import conversionService, { Conversion } from '@/services/api/services/conversionService'
 export default defineComponent({
   components: {
     BaseStats,
@@ -68,46 +66,32 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
-    const loading = ref(true)
-    const orders = ref([] as AdminOrder[])
-    const fetchOrders = async () => {
-      loading.value = true
-      orders.value = await orderService.findByIds(props.crossSell.orders)
-      loading.value = false
-    }
-    watchEffect(fetchOrders)
+  setup() {
     const { format } = useFormatter()
-    return { orders, loading, format }
+    return { format }
+  },
+  async created() {
+    this.conversions = await conversionService.findByCrossSellId(this.crossSell.id)
+    this.loading = false
   },
   data: () => ({
-    ordersTableProperties: [
+    loading: true,
+    conversions: [] as Conversion<CrossSell>[],
+    conversionsTableColumns: [
       { name: 'Order', id: 'order' },
       { name: 'Date', id: 'date' },
-      { name: 'Total', id: 'total' },
-      { name: 'Attribution', id: 'attribution' },
+      { name: 'Conversion', id: 'conversion' },
       { name: '', id: 'link' }
     ]
   }),
-  methods: {
-    buildLink(order: AdminOrder) {
-      this.$shopify.redirectToAdminUrl({ name: ResourceType.Order, resource: { id: parseGid(order.id) } })
-    },
-    extractRelevantLineItemPrice(order: AdminOrder, productId: string) {
-      const lineItem = order.lineItems.edges.find(item => item.node.product?.id === productId)?.node
-      return this.format.currency(lineItem?.discountedTotalSet.shopMoney.amount, lineItem?.discountedTotalSet.shopMoney.currencyCode)
+  computed: {
+    totalConversionIncome(): number {
+      return this.conversions.reduce((total, { value }) => total + value, 0)
     }
   },
-  computed: {
-    income(): string {
-      if (!this.orders.length) return '$0'
-      const lineItems = this.orders.map(item => item.lineItems.edges.find(item => item.node.product?.id === this.crossSell.productId)?.node)
-      const currencyCode = lineItems[0]?.discountedTotalSet.shopMoney.currencyCode
-      const income = lineItems.reduce((income, item) => {
-        income += parseFloat(item?.discountedTotalSet.shopMoney.amount)
-        return income
-      }, 0)
-      return this.format.currency(income, currencyCode)
+  methods: {
+    buildLinkFromConversion(conversion: Conversion<CrossSell>) {
+      this.$shopify.redirectToAdminUrl({ name: ResourceType.Order, resource: { id: conversion.order.id } })
     }
   }
 })
