@@ -22,7 +22,6 @@ export default defineComponent({
   async created() {
     await this.start()
     this.loading = false
-    throw new Error('Test')
   },
   data() {
     return {
