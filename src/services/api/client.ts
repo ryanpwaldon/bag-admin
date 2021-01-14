@@ -1,6 +1,6 @@
+import qs from 'qs'
 import app from '@/main'
 import axios from 'axios'
-import qs from 'qs'
 
 export const client = axios.create({ baseURL: process.env.VUE_APP_SERVER_URL })
 

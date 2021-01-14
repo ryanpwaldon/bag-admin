@@ -2,18 +2,11 @@ import { App } from 'vue'
 import isFramed from '@/utils/isFramed'
 import createApp from '@shopify/app-bridge'
 import { Redirect } from '@shopify/app-bridge/actions'
-import { ResourcePicker } from '@shopify/app-bridge/actions'
 import { getSessionToken } from '@shopify/app-bridge-utils'
+import { ResourcePicker } from '@shopify/app-bridge/actions'
+import getShopOriginFromUrl from '@/utils/getShopOriginFromUrl'
 import { Section } from '@shopify/app-bridge/actions/Navigation/Redirect'
 import { ProductOptions, Options } from '@shopify/app-bridge/actions/ResourcePicker'
-import getShopOriginFromUrl from '@/utils/getShopOriginFromUrl'
-
-declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties {
-    // eslint-disable-next-line
-    $shopify: any
-  }
-}
 
 export default {
   install: (app: App) => {
