@@ -26,9 +26,8 @@
               <tr
                 :key="i"
                 v-for="(item, i) in items"
-                class="hover:bg-gray-50"
-                :class="link && 'cursor-pointer'"
-                @click="link && $router.push(link(item))"
+                :class="[handleSelection && 'cursor-pointer', 'hover:bg-gray-50']"
+                @click="handleSelection && handleSelection(item)"
               >
                 <td v-for="{ id } in props" :key="id" class="px-6 py-4 whitespace-no-wrap">
                   <slot :name="id" :item="item" />
@@ -61,7 +60,7 @@ export default defineComponent({
       type: Array,
       default: () => []
     },
-    link: {
+    handleSelection: {
       type: Function,
       required: false
     },

@@ -16,7 +16,7 @@
       <template #header>
         <h3 class="text-base font-medium text-gray-700">Conversions</h3>
       </template>
-      <BaseTable :items="conversions" :link="buildLinkFromConversion" :props="conversionsTableColumns" v-if="conversions.length">
+      <BaseTable :items="conversions" :handle-selection="handleSelection" :props="conversionsTableColumns" v-if="conversions.length">
         <template #order="{ item }">
           <div class="text-sm font-medium leading-5 text-gray-900">{{ item.order.name }}</div>
         </template>
@@ -87,7 +87,7 @@ export default defineComponent({
     }
   },
   methods: {
-    buildLinkFromConversion(conversion: Conversion<CrossSell>) {
+    handleSelection(conversion: Conversion<CrossSell>) {
       this.$shopify.redirectToAdminUrl({ name: ResourceType.Order, resource: { id: conversion.order.id } })
     }
   }

@@ -3,7 +3,7 @@
     :loading="loading"
     :props="props"
     :items="items"
-    :link="item => ({ name: 'cross-sell', params: { id: item.id } })"
+    :handle-selection="handleSelection"
     class="overflow-hidden bg-white rounded-lg shadow"
     v-if="loading || items.length"
   >
@@ -16,7 +16,7 @@
     <template #status="{ item }">
       <div class="text-sm leading-5 text-gray-500">{{ item.active ? 'Live' : 'Paused' }}</div>
     </template>
-    <template #link>
+    <template #arrow>
       <div class="self-end text-sm font-medium leading-5 text-blue-600">View →</div>
     </template>
     <template #pagination>
@@ -39,6 +39,7 @@ import BasePagination from '@/components/BasePagination/BasePagination.vue'
 import crossSellService, { CrossSell } from '@/services/api/services/crossSellService'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'Offers',
   components: {
@@ -51,6 +52,7 @@ export default defineComponent({
     const page = ref(1)
     const limit = ref(10)
     const loading = ref(true)
+    const router = useRouter()
     const total = ref(null as number | null)
     const pages = ref(null as number | null)
     const items = ref([] as CrossSell[])
@@ -58,8 +60,9 @@ export default defineComponent({
       { name: 'Product', id: 'product' },
       { name: 'Title', id: 'title' },
       { name: 'Status', id: 'status' },
-      { name: '', id: 'link' }
+      { name: '', id: 'arrow' }
     ]
+    const handleSelection = (item: CrossSell) => router.push({ name: 'cross-sell', params: { id: item.id } })
     const fetchItems = async () => {
       loading.value = true
       const response = await crossSellService.findAll({ page: page.value, limit: limit.value })
@@ -69,7 +72,7 @@ export default defineComponent({
       loading.value = false
     }
     watchEffect(fetchItems)
-    return { items, page, limit, props, total, pages, loading }
+    return { items, page, limit, props, total, pages, loading, handleSelection }
   }
 })
 </script>
