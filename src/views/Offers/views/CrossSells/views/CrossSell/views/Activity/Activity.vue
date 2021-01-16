@@ -88,7 +88,7 @@ export default defineComponent({
   },
   methods: {
     handleSelection(conversion: Conversion<CrossSell>) {
-      this.$shopify.redirectToAdminUrl({ name: ResourceType.Order, resource: { id: conversion.order.id } })
+      this.$shopify.redirectToAdminUrl({ name: ResourceType.Order, resource: { id: conversion.order.id.toString() } })
     }
   }
 })
