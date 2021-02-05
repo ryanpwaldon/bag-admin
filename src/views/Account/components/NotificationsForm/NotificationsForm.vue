@@ -6,13 +6,13 @@
       </template>
       <BaseInputToggleHorizontal
         label="Conversions"
-        description="Get an email each time a customer completes an in-cart offer."
+        description="Get notified every time a customer converts."
         v-model="fields.conversion.value.value"
         class="w-full"
       />
       <BaseInputToggleHorizontal
         label="Weekly Report"
-        description="Get a summary at the end of each week detailing completed in-cart offers."
+        description="Get a summary of your conversions at the end of each week."
         v-model="fields.conversionReportWeekly.value.value"
         class="w-full mt-5"
       />
