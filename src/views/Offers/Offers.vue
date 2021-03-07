@@ -18,9 +18,7 @@ import BaseTabs, { Link } from '@/components/BaseTabs/BaseTabs.vue'
 
 const links: Link[] = [
   { title: 'Cross sells', name: 'cross-sells' },
-  { title: 'Progress bars', name: 'progress-bars' },
-  { title: 'Up sells', name: 'up-sells' },
-  { title: 'Discounts', name: 'discounts' }
+  { title: 'Progress bars', name: 'progress-bars' }
 ]
 
 export default defineComponent({

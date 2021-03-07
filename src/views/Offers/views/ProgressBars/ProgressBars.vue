@@ -11,7 +11,7 @@
       <div class="text-sm font-medium text-gray-900">{{ item.title }}</div>
     </template>
     <template #goal="{ item }">
-      <div class="text-sm font-medium text-gray-500">{{ format.currency(item.goal) }}</div>
+      <div class="text-sm text-gray-500">{{ format.currency(item.goal) }}</div>
     </template>
     <template #status="{ item }">
       <div class="text-sm text-gray-500">{{ item.active ? 'Live' : 'Paused' }}</div>

@@ -25,16 +25,6 @@ const routes: RouteRecordRaw[] = [
         path: 'progress-bars',
         name: 'progress-bars',
         component: () => import('@/views/Offers/views/ProgressBars/ProgressBars.vue')
-      },
-      {
-        path: 'up-sells',
-        name: 'up-sells',
-        component: () => import('@/views/Offers/views/UpSells/UpSells.vue')
-      },
-      {
-        path: 'discounts',
-        name: 'discounts',
-        component: () => import('@/views/Offers/views/Discounts/Discounts.vue')
       }
     ]
   },
