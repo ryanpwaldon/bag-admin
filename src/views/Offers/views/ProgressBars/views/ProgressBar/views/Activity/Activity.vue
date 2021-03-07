@@ -7,8 +7,9 @@
       </template>
       <BaseStats
         :stats="[
-          { label: 'Offer income', value: format.currency(totalConversionIncome) },
-          { label: 'Conversions', value: conversions.length }
+          { label: 'Views', value: impressions },
+          { label: 'Conversions', value: conversions.length },
+          { label: 'Conversion rate', value: conversionRate }
         ]"
       />
     </BaseGridCard>
@@ -18,28 +19,21 @@
       </template>
       <BaseTable :items="conversions" :handle-selection="handleSelection" :props="conversionsTableColumns" v-if="conversions.length">
         <template #order="{ item }">
-          <div class="text-sm font-medium leading-5 text-gray-900">{{ item.order.name }}</div>
-        </template>
-        <template #date="{ item }">
-          <div class="text-sm leading-5 text-gray-500">{{ $dayjs(item.order.processed_at).format('Do MMM YYYY') }}</div>
-        </template>
-        <template #income="{ item }">
-          <div class="text-sm leading-5 text-gray-500">
-            {{ format.currency(item.value) }}
-          </div>
+          <div class="text-sm font-medium text-gray-900">{{ item.order.name }}</div>
         </template>
         <template #total="{ item }">
-          <div class="text-sm leading-5 text-gray-500">
-            {{ format.currency(item.order.total_price) }}
-          </div>
+          <div class="text-sm text-gray-500">{{ format.currency(item.order.total_price) }}</div>
+        </template>
+        <template #date="{ item }">
+          <div class="text-sm text-gray-500">{{ $dayjs(item.order.processed_at).format('Do MMM YYYY') }}</div>
         </template>
         <template #link>
-          <div class="self-end text-sm font-medium leading-5 text-blue-600">Open →</div>
+          <div class="self-end text-sm font-medium text-blue-600">Open →</div>
         </template>
       </BaseTable>
       <div class="flex flex-col items-center justify-center h-44" v-else>
         <img class="h-10" src="@/assets/img/empty-box.svg" />
-        <p class="mt-2 text-sm leading-5 text-gray-500">No conversions found</p>
+        <p class="mt-2 text-sm text-gray-500">No conversions found</p>
       </div>
     </BaseGridCard>
   </div>
@@ -51,20 +45,21 @@ import useFormatter from '@/composables/useFormatter'
 import BaseStats from '@/components/BaseStats/BaseStats.vue'
 import BaseTable from '@/components/BaseTable/BaseTable.vue'
 import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
-import { CrossSell } from '@/services/api/services/crossSellService'
+import eventService from '@/services/api/services/eventService'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import { ResourceType } from '@shopify/app-bridge/actions/Navigation/Redirect'
 import conversionService, { Conversion } from '@/services/api/services/conversionService'
+import { ProgressBar } from '@/services/api/services/progressBarService'
 export default defineComponent({
   components: {
     BaseStats,
     BaseTable,
-    BaseGridCard,
-    BaseLoader
+    BaseLoader,
+    BaseGridCard
   },
   props: {
-    crossSell: {
-      type: Object as PropType<CrossSell>,
+    progressBar: {
+      type: Object as PropType<ProgressBar>,
       required: true
     }
   },
@@ -73,27 +68,32 @@ export default defineComponent({
     return { format }
   },
   async created() {
-    this.conversions = await conversionService.findByCrossSellId(this.crossSell.id)
+    const [conversions, impressions] = await Promise.all([
+      conversionService.findByProgressBarId(this.progressBar.id),
+      eventService.countProgressBarImpressions(this.progressBar.id)
+    ])
+    this.conversions = conversions
+    this.impressions = impressions
     this.loading = false
   },
   data: () => ({
     loading: true,
-    conversions: [] as Conversion<CrossSell>[],
+    impressions: 0 as number,
+    conversions: [] as Conversion<ProgressBar>[],
     conversionsTableColumns: [
       { name: 'Order', id: 'order' },
-      { name: 'Offer income', id: 'income' },
       { name: 'Order total', id: 'total' },
       { name: 'Date', id: 'date' },
       { name: '', id: 'link' }
     ]
   }),
   computed: {
-    totalConversionIncome(): number {
-      return this.conversions.reduce((total, { value }) => total + value, 0)
+    conversionRate(): number {
+      return this.conversions.length / this.impressions
     }
   },
   methods: {
-    handleSelection(conversion: Conversion<CrossSell>) {
+    handleSelection(conversion: Conversion<ProgressBar>) {
       this.$shopify.redirectToAdminUrl({ name: ResourceType.Order, resource: { id: conversion.order.id.toString() } })
     }
   }

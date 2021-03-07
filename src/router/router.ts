@@ -22,6 +22,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/Offers/views/CrossSells/CrossSells.vue')
       },
       {
+        path: 'progress-bars',
+        name: 'progress-bars',
+        component: () => import('@/views/Offers/views/ProgressBars/ProgressBars.vue')
+      },
+      {
         path: 'up-sells',
         name: 'up-sells',
         component: () => import('@/views/Offers/views/UpSells/UpSells.vue')
@@ -46,6 +51,12 @@ const routes: RouteRecordRaw[] = [
     meta: { title: 'Create a cross sell', layout: BaseLayout }
   },
   {
+    path: '/offers/progress-bar/create',
+    name: 'create-progress-bar',
+    component: () => import('@/views/Offers/views/ProgressBars/views/Create/Create.vue'),
+    meta: { title: 'Create a progress bar', layout: BaseLayout }
+  },
+  {
     props: true,
     path: '/offers/cross-sells/:id',
     name: 'cross-sell',
@@ -62,6 +73,26 @@ const routes: RouteRecordRaw[] = [
         path: 'edit',
         name: 'cross-sell-edit',
         component: () => import('@/views/Offers/views/CrossSells/views/CrossSell/views/Edit/Edit.vue')
+      }
+    ]
+  },
+  {
+    props: true,
+    path: '/offers/progress-bars/:id',
+    name: 'progress-bar',
+    component: () => import('@/views/Offers/views/ProgressBars/views/ProgressBar/ProgressBar.vue'),
+    meta: { title: 'Progress bar', layout: BaseLayout },
+    redirect: { name: 'progress-bar-activity' },
+    children: [
+      {
+        path: 'activity',
+        name: 'progress-bar-activity',
+        component: () => import('@/views/Offers/views/ProgressBars/views/ProgressBar/views/Activity/Activity.vue')
+      },
+      {
+        path: 'edit',
+        name: 'progress-bar-edit',
+        component: () => import('@/views/Offers/views/ProgressBars/views/ProgressBar/views/Edit/Edit.vue')
       }
     ]
   },

@@ -1,9 +1,10 @@
+import store from '@/store/store'
 import { AdminCurrencyCode } from '@/types/admin/types'
 import { composeGid } from '@shopify/admin-graphql-api-utilities'
 
 const getLocale = () => (navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language)
 
-const currency = (amount: number, currencyCode?: string) => {
+const currency = (amount: number, currencyCode: string | undefined = store.state.user?.currencyCode) => {
   return new Intl.NumberFormat(getLocale(), {
     style: 'currency',
     currencyDisplay: 'narrowSymbol',

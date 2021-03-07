@@ -34,28 +34,21 @@ import BaseInputRadioGroup from '@/components/BaseInputRadioGroup/BaseInputRadio
 
 enum RouteNames {
   CrossSell = 'create-cross-sell',
-  UpSell = 'create-up-sell',
-  Discount = 'create-discount'
+  ProgressBar = 'create-progress-bar'
 }
 
 const options = [
   {
     value: RouteNames.CrossSell,
     disabled: false,
-    title: 'Cross sell',
+    title: 'Cross-Sell',
     description: 'Recommend a related product based on an item already added to cart.'
   },
   {
-    value: RouteNames.UpSell,
-    disabled: true,
-    title: 'Up sell',
-    description: 'Suggest a product upgrade for an item already added to cart.'
-  },
-  {
-    value: RouteNames.Discount,
-    disabled: true,
-    title: 'Discount',
-    description: 'Encourage customers to spend more by offering a discount in return.'
+    value: RouteNames.ProgressBar,
+    disabled: false,
+    title: 'Progress Bar',
+    description: 'Encourage users to spend a more.'
   }
 ]
 

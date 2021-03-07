@@ -47,10 +47,12 @@ export default <T extends object>(schema: ObjectSchema<T>) => {
   const modified = computed(() => !(Object.values(fields) as Field[]).map(({ modified }) => modified).every(value => !value.value))
   const getValues = () => {
     const fieldEntries: [string, Field][] = Object.entries(fields)
-    return fieldEntries.reduce((values, [key, field]) => {
-      values[key] = field.value.value
-      return values
-    }, {} as Record<string, any>)
+    return schema.cast(
+      fieldEntries.reduce((values, [key, field]) => {
+        values[key] = field.value.value
+        return values
+      }, {} as Record<string, any>)
+    )
   }
   const handleSubmit = (callback: Function) => async (e: Event) => {
     e.preventDefault()
