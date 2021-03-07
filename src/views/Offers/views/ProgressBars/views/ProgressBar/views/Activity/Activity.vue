@@ -5,13 +5,7 @@
       <template #header>
         <h3 class="text-base font-medium text-gray-700">Performance</h3>
       </template>
-      <BaseStats
-        :stats="[
-          { label: 'Views', value: impressions },
-          { label: 'Conversions', value: conversions.length },
-          { label: 'Conversion rate', value: conversionRate }
-        ]"
-      />
+      <BaseStats :stats="[{ label: 'Conversions', value: conversions.length }]" />
     </BaseGridCard>
     <BaseGridCard :content-padding="false">
       <template #header>
@@ -45,7 +39,6 @@ import useFormatter from '@/composables/useFormatter'
 import BaseStats from '@/components/BaseStats/BaseStats.vue'
 import BaseTable from '@/components/BaseTable/BaseTable.vue'
 import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
-import eventService from '@/services/api/services/eventService'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import { ResourceType } from '@shopify/app-bridge/actions/Navigation/Redirect'
 import conversionService, { Conversion } from '@/services/api/services/conversionService'
@@ -68,17 +61,11 @@ export default defineComponent({
     return { format }
   },
   async created() {
-    const [conversions, impressions] = await Promise.all([
-      conversionService.findByProgressBarId(this.progressBar.id),
-      eventService.countProgressBarImpressions(this.progressBar.id)
-    ])
-    this.conversions = conversions
-    this.impressions = impressions
+    this.conversions = await conversionService.findByProgressBarId(this.progressBar.id)
     this.loading = false
   },
   data: () => ({
     loading: true,
-    impressions: 0 as number,
     conversions: [] as Conversion<ProgressBar>[],
     conversionsTableColumns: [
       { name: 'Order', id: 'order' },
@@ -87,11 +74,6 @@ export default defineComponent({
       { name: '', id: 'link' }
     ]
   }),
-  computed: {
-    conversionRate(): number {
-      return this.conversions.length / this.impressions
-    }
-  },
   methods: {
     handleSelection(conversion: Conversion<ProgressBar>) {
       this.$shopify.redirectToAdminUrl({ name: ResourceType.Order, resource: { id: conversion.order.id.toString() } })
