@@ -1,10 +1,16 @@
 import { client } from '@/services/api/client'
 
+export interface DateRange {
+  start: Date
+  end?: Date
+}
+
 export type ProgressBar = {
   id: string
   user: string
   active: boolean
   title: string
+  activeHistory: DateRange[]
   completionMessage: string
   goal: number
   image: string

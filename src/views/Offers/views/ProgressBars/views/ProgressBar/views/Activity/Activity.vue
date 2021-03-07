@@ -5,7 +5,13 @@
       <template #header>
         <h3 class="text-base font-medium text-gray-700">Performance</h3>
       </template>
-      <BaseStats :stats="[{ label: 'Conversions', value: conversions.length }]" />
+      <BaseStats
+        :stats="[
+          { label: 'Orders', value: ordersOverActivePeriod },
+          { label: 'Conversions', value: conversions.length },
+          { label: 'Conversion rate', value: conversionRate }
+        ]"
+      />
     </BaseGridCard>
     <BaseGridCard :content-padding="false">
       <template #header>
@@ -39,10 +45,11 @@ import useFormatter from '@/composables/useFormatter'
 import BaseStats from '@/components/BaseStats/BaseStats.vue'
 import BaseTable from '@/components/BaseTable/BaseTable.vue'
 import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
+import eventService from '@/services/api/services/eventService'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
+import { ProgressBar } from '@/services/api/services/progressBarService'
 import { ResourceType } from '@shopify/app-bridge/actions/Navigation/Redirect'
 import conversionService, { Conversion } from '@/services/api/services/conversionService'
-import { ProgressBar } from '@/services/api/services/progressBarService'
 export default defineComponent({
   components: {
     BaseStats,
@@ -61,11 +68,17 @@ export default defineComponent({
     return { format }
   },
   async created() {
-    this.conversions = await conversionService.findByProgressBarId(this.progressBar.id)
+    const [conversions, ordersOverActivePeriod] = await Promise.all([
+      conversionService.findByProgressBarId(this.progressBar.id),
+      eventService.countOrderCreatedEventsByDateRanges(this.progressBar.activeHistory)
+    ])
+    this.conversions = conversions
+    this.ordersOverActivePeriod = ordersOverActivePeriod
     this.loading = false
   },
   data: () => ({
     loading: true,
+    ordersOverActivePeriod: 0,
     conversions: [] as Conversion<ProgressBar>[],
     conversionsTableColumns: [
       { name: 'Order', id: 'order' },
@@ -74,6 +87,11 @@ export default defineComponent({
       { name: '', id: 'link' }
     ]
   }),
+  computed: {
+    conversionRate(): number {
+      return this.conversions.length / this.ordersOverActivePeriod
+    }
+  },
   methods: {
     handleSelection(conversion: Conversion<ProgressBar>) {
       this.$shopify.redirectToAdminUrl({ name: ResourceType.Order, resource: { id: conversion.order.id.toString() } })
