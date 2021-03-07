@@ -48,7 +48,7 @@ export default defineComponent({
       required: true
     },
     modelValue: {
-      type: String,
+      type: [String, Number],
       default: ''
     },
     placeholder: {
