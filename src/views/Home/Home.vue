@@ -3,7 +3,7 @@
   <div class="grid gap-6">
     <div class="flex overflow-hidden rounded-lg shadow bg-gradient-to-tr from-blue-700 to-blue-400">
       <div class="grid w-full p-10 text-center md:gap-2 md:p-14 lg:p-16 sm:w-auto sm:text-left">
-        <h1 class="text-2xl font-semibold leading-8 text-white md:text-3xl">Let's get you up and running</h1>
+        <h1 class="text-2xl font-semibold leading-8 text-white md:text-3xl">Time to grow your sales</h1>
         <p class="text-base leading-6 text-blue-100 md:text-lg">Complete the following tasks to get started</p>
       </div>
       <div
