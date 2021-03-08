@@ -86,7 +86,8 @@ export default defineComponent({
     }
   },
   created() {
-    this.imageUrls = [...this.defaultImageUrls]
+    this.imageUrls =
+      this.modelValue && !this.defaultImageUrls.includes(this.modelValue) ? [...this.defaultImageUrls, this.modelValue] : [...this.defaultImageUrls]
   },
   data: () => ({
     imageUrls: [] as string[],
