@@ -2,7 +2,7 @@
   <form @submit="handleSubmit">
     <BaseGridCard>
       <template #header>
-        <h3 class="text-lg font-medium text-gray-700">Settings</h3>
+        <h3 class="text-lg font-medium text-gray-700">Edit</h3>
       </template>
       <div class="grid grid-cols-12 gap-6">
         <div class="col-span-full">

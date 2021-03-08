@@ -4,6 +4,10 @@ import { composeGid } from '@shopify/admin-graphql-api-utilities'
 
 const getLocale = () => (navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language)
 
+const percent = (num: number) => {
+  return Math.round((num * 100 + Number.EPSILON) * 100) / 100 + '%'
+}
+
 const currency = (amount: number, currencyCode: string | undefined = store.state.user?.currencyCode) => {
   return new Intl.NumberFormat(getLocale(), {
     style: 'currency',
@@ -19,6 +23,7 @@ const gid = (key: string, id: string | number) => {
 export default () => ({
   format: {
     currency,
+    percent,
     gid
   }
 })

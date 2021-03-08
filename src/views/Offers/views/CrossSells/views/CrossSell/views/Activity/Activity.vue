@@ -1,17 +1,12 @@
 <template>
   <BaseLoader v-if="loading" />
   <div class="flex flex-col space-y-6" v-else>
-    <BaseGridCard :content-padding="false">
-      <template #header>
-        <h3 class="text-base font-medium text-gray-700">Performance</h3>
-      </template>
-      <BaseStats
-        :stats="[
-          { label: 'Offer income', value: format.currency(totalConversionIncome) },
-          { label: 'Conversions', value: conversions.length }
-        ]"
-      />
-    </BaseGridCard>
+    <BaseStats
+      :stats="[
+        { label: 'Total Conversions', value: conversions.length },
+        { label: 'Total Income', value: format.currency(totalConversionIncome) }
+      ]"
+    />
     <BaseGridCard :content-padding="false">
       <template #header>
         <h3 class="text-base font-medium text-gray-700">Conversions</h3>

@@ -1,18 +1,13 @@
 <template>
   <BaseLoader v-if="loading" />
   <div class="flex flex-col space-y-6" v-else>
-    <BaseGridCard :content-padding="false">
-      <template #header>
-        <h3 class="text-base font-medium text-gray-700">Performance</h3>
-      </template>
-      <BaseStats
-        :stats="[
-          { label: 'Orders', value: ordersOverActivePeriod },
-          { label: 'Conversions', value: conversions.length },
-          { label: 'Conversion rate', value: conversionRate }
-        ]"
-      />
-    </BaseGridCard>
+    <BaseStats
+      :stats="[
+        { label: 'Total Orders', value: ordersOverActivePeriod },
+        { label: 'Total Conversions', value: conversions.length },
+        { label: 'Conversion Rate', value: conversionRate }
+      ]"
+    />
     <BaseGridCard :content-padding="false">
       <template #header>
         <h3 class="text-base font-medium text-gray-700">Conversions</h3>
@@ -88,8 +83,9 @@ export default defineComponent({
     ]
   }),
   computed: {
-    conversionRate(): number {
-      return this.conversions.length / this.ordersOverActivePeriod
+    conversionRate(): string {
+      if (!this.ordersOverActivePeriod) return '–'
+      return this.format.percent(this.conversions.length / this.ordersOverActivePeriod)
     }
   },
   methods: {
