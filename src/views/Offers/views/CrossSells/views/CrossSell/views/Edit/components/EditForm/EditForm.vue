@@ -11,7 +11,7 @@
             The product being cross-sold.
           </p>
         </div>
-        <BaseProduct :title="crossSell.product.title" :image="crossSell.product.featuredImage?.originalSrc" type="Product" class="col-span-6" />
+        <BaseProduct :title="crossSell.product?.title" :image="crossSell.product?.featuredImage?.originalSrc" type="Product" class="col-span-6" />
         <div class="h-2 -mx-6 border-b border-gray-200 col-span-full" />
         <div class="col-span-full">
           <p class="text-base font-medium leading-6 text-gray-700">Copy</p>

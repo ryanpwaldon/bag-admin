@@ -11,7 +11,7 @@
       <div class="text-sm font-medium text-gray-900">{{ item.title }}</div>
     </template>
     <template #product="{ item }">
-      <div class="text-sm text-gray-500">{{ item.product.title }}</div>
+      <div class="text-sm text-gray-500">{{ item.product?.title || '–' }}</div>
     </template>
     <template #status="{ item }">
       <div class="text-sm text-gray-500">{{ item.active ? 'Live' : 'Paused' }}</div>

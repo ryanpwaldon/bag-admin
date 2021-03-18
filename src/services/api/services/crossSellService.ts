@@ -10,7 +10,7 @@ export type CrossSell = {
   subtitle: string
   triggerProductIds: string[]
   productId: string
-  product: AdminProduct
+  product?: AdminProduct
   createdAt: Date
   orders: string[]
 }

@@ -4,7 +4,7 @@
   <div v-else>
     <div class="overflow-hidden bg-white rounded-lg shadow">
       <div class="px-4 py-5 sm:p-6">
-        <h2 class="text-lg font-medium leading-6 text-gray-800">{{ crossSell?.product.title }}</h2>
+        <h2 class="text-lg font-medium leading-6 text-gray-800">{{ crossSell?.title }}</h2>
         <div class="flex mt-3 space-x-4 text-sm font-medium leading-4 text-gray-500">
           <div class="flex items-center space-x-1">
             <Calendar class="w-5 h-5 text-gray-400" />

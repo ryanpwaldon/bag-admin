@@ -9,7 +9,7 @@
         v-for="id in ids"
         :title="products[id]?.title"
         :image="products[id]?.featuredImage?.originalSrc"
-        :loading="!products[id]"
+        :loading="productsLoading[id]"
         type="Product"
         :key="id"
       >
@@ -74,7 +74,8 @@ export default defineComponent({
     }
   },
   data: () => ({
-    products: {} as Record<string, AdminProduct>
+    products: {} as Record<string, AdminProduct | undefined>,
+    productsLoading: {} as Record<string, boolean>
   }),
   computed: {
     multi(): boolean {
@@ -90,9 +91,17 @@ export default defineComponent({
       immediate: true,
       async handler() {
         const productsToFetchById = []
-        for (const id of this.ids) if (!(id in this.products)) productsToFetchById.push(id)
+        for (const id of this.ids) {
+          if (!(id in this.products)) {
+            productsToFetchById.push(id)
+            this.productsLoading[id] = true
+          }
+        }
         const products = await productService.findByIds(productsToFetchById)
-        for (const product of products) this.products[product.id] = product
+        for (const id of productsToFetchById) {
+          this.products[id] = products.find(product => id === product?.id)
+          this.productsLoading[id] = false
+        }
       }
     }
   },

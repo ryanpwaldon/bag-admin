@@ -31,7 +31,7 @@ export default defineComponent({
     },
     title: {
       type: String,
-      required: false
+      default: '–'
     },
     type: {
       type: String,
