@@ -1,5 +1,5 @@
 import store from '@/store/store'
-import { AdminCurrencyCode } from '@/types/admin/types'
+import { AdminCurrencyCode } from '@/types/admin/graphql'
 import { composeGid } from '@shopify/admin-graphql-api-utilities'
 
 const getLocale = () => (navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language)

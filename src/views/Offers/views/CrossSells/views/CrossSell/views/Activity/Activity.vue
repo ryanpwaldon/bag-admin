@@ -13,10 +13,10 @@
       </template>
       <BaseTable :items="conversions" :handle-selection="handleSelection" :props="conversionsTableColumns" v-if="conversions.length">
         <template #order="{ item }">
-          <div class="text-sm font-medium leading-5 text-gray-900">{{ item.order.name }}</div>
+          <div class="text-sm font-medium leading-5 text-gray-900">{{ item.order.details.name }}</div>
         </template>
         <template #date="{ item }">
-          <div class="text-sm leading-5 text-gray-500">{{ $dayjs(item.order.processed_at).format('Do MMM YYYY') }}</div>
+          <div class="text-sm leading-5 text-gray-500">{{ $dayjs(item.order.details.processed_at).format('Do MMM YYYY') }}</div>
         </template>
         <template #income="{ item }">
           <div class="text-sm leading-5 text-gray-500">
@@ -25,7 +25,7 @@
         </template>
         <template #total="{ item }">
           <div class="text-sm leading-5 text-gray-500">
-            {{ format.currency(item.order.total_price) }}
+            {{ format.currency(item.order.details.total_price) }}
           </div>
         </template>
         <template #link>
@@ -89,7 +89,7 @@ export default defineComponent({
   },
   methods: {
     handleSelection(conversion: Conversion<CrossSell>) {
-      this.$shopify.redirectToAdminUrl({ name: ResourceType.Order, resource: { id: conversion.order.id.toString() } })
+      this.$shopify.redirectToAdminUrl({ name: ResourceType.Order, resource: { id: conversion.order.details.id.toString() } })
     }
   }
 })

@@ -44,7 +44,7 @@ import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
 import BaseMenuButton from '../BaseMenuButton/BaseMenuButton.vue'
 import BaseInputButton from '../BaseInputButton/BaseInputButton.vue'
 import productService from '@/services/api/services/productService'
-import { AdminProduct } from '@/types/admin/types'
+import { AdminProduct } from '@/types/admin/graphql'
 export default defineComponent({
   components: {
     BaseProduct,

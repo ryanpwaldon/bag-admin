@@ -1,5 +1,5 @@
-import { Order } from '@/types/order'
 import { client } from '@/services/api/client'
+import { Order } from '@/services/api/services/orderService'
 import { CrossSell } from '@/services/api/services/crossSellService'
 import { ProgressBar } from '@/services/api/services/progressBarService'
 

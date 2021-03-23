@@ -14,13 +14,13 @@
       </template>
       <BaseTable :items="conversions" :handle-selection="handleSelection" :props="conversionsTableColumns" v-if="conversions.length">
         <template #order="{ item }">
-          <div class="text-sm font-medium text-gray-900">{{ item.order.name }}</div>
+          <div class="text-sm font-medium text-gray-900">{{ item.order.details.name }}</div>
         </template>
         <template #total="{ item }">
-          <div class="text-sm text-gray-500">{{ format.currency(item.order.total_price) }}</div>
+          <div class="text-sm text-gray-500">{{ format.currency(item.order.details.total_price) }}</div>
         </template>
         <template #date="{ item }">
-          <div class="text-sm text-gray-500">{{ $dayjs(item.order.processed_at).format('Do MMM YYYY') }}</div>
+          <div class="text-sm text-gray-500">{{ $dayjs(item.order.details.processed_at).format('Do MMM YYYY') }}</div>
         </template>
         <template #link>
           <div class="self-end text-sm font-medium text-blue-600">Open →</div>
@@ -40,7 +40,7 @@ import useFormatter from '@/composables/useFormatter'
 import BaseStats from '@/components/BaseStats/BaseStats.vue'
 import BaseTable from '@/components/BaseTable/BaseTable.vue'
 import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
-import eventService from '@/services/api/services/eventService'
+import orderService from '@/services/api/services/orderService'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import { ProgressBar } from '@/services/api/services/progressBarService'
 import { ResourceType } from '@shopify/app-bridge/actions/Navigation/Redirect'
@@ -65,7 +65,7 @@ export default defineComponent({
   async created() {
     const [conversions, ordersOverActivePeriod] = await Promise.all([
       conversionService.findByProgressBarId(this.progressBar.id),
-      eventService.countOrderCreatedEventsByDateRanges(this.progressBar.activeHistory)
+      orderService.countByDateRanges(this.progressBar.activeHistory)
     ])
     this.conversions = conversions
     this.ordersOverActivePeriod = ordersOverActivePeriod
@@ -90,7 +90,7 @@ export default defineComponent({
   },
   methods: {
     handleSelection(conversion: Conversion<ProgressBar>) {
-      this.$shopify.redirectToAdminUrl({ name: ResourceType.Order, resource: { id: conversion.order.id.toString() } })
+      this.$shopify.redirectToAdminUrl({ name: ResourceType.Order, resource: { id: conversion.order.details.id.toString() } })
     }
   }
 })

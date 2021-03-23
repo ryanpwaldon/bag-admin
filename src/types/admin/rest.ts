@@ -1,4 +1,4 @@
-export interface Order {
+export interface AdminRestOrder {
   id: number
   email: string
   closed_at: null

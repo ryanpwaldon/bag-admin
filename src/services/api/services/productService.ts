@@ -1,5 +1,5 @@
 import { client } from '@/services/api/client'
-import { AdminProduct } from '@/types/admin/types'
+import { AdminProduct } from '@/types/admin/graphql'
 
 export default {
   async findByIds(ids: string[]): Promise<AdminProduct[]> {
