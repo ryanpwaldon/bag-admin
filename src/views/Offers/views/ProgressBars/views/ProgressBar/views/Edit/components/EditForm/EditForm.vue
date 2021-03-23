@@ -39,7 +39,8 @@
             'https://ucarecdn.com/3a77539f-c7da-460a-81f8-5954fc6cef44/truck.svg',
             'https://ucarecdn.com/8b1f1f20-b43a-4b96-be36-bb16e437fb35/coupon.svg',
             'https://ucarecdn.com/f9edb77e-70e8-4510-8ccc-ba3648a4d10b/mysterybox.png',
-            'https://ucarecdn.com/e3f9d57b-3dd1-4145-ae50-9478e93f6634/pixelatedpresent.gif'
+            'https://ucarecdn.com/e3f9d57b-3dd1-4145-ae50-9478e93f6634/pixelatedpresent.gif',
+            'https://ucarecdn.com/83d06128-e7cf-4eee-8106-b038aca2b02f/freeshipping.gif'
           ]"
           v-model="fields.image.value.value"
           :error="fields.image.error.value"

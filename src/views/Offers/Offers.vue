@@ -17,8 +17,8 @@ import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseTabs, { Link } from '@/components/BaseTabs/BaseTabs.vue'
 
 const links: Link[] = [
-  { title: 'Cross sells', name: 'cross-sells' },
-  { title: 'Progress bars', name: 'progress-bars' }
+  { title: 'Progress bars', name: 'progress-bars' },
+  { title: 'Cross sells', name: 'cross-sells' }
 ]
 
 export default defineComponent({

@@ -22,7 +22,7 @@
           label="Title"
           v-model="fields.title.value.value"
           :error="fields.title.error.value"
-          placeholder="Add a pencil"
+          placeholder="Need some tape?"
           class="col-span-full sm:col-span-6"
         />
         <BaseInputText
@@ -30,7 +30,7 @@
           label="Subtitle"
           v-model="fields.subtitle.value.value"
           :error="fields.subtitle.error.value"
-          placeholder="Faber Casel 2B"
+          placeholder="Add for $8.95"
           class="col-span-full sm:col-span-6"
         />
         <div class="h-2 -mx-6 border-b border-gray-200 col-span-full" />

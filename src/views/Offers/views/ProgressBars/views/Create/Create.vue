@@ -8,7 +8,7 @@
           label="Title"
           v-model="fields.title.value.value"
           :error="fields.title.error.value"
-          placeholder="Get a free gift"
+          placeholder="Get a surprise gift"
           description="Describe the reward the customer will receive."
           class="col-span-full sm:col-span-7"
         />
@@ -17,7 +17,7 @@
           label="Goal"
           v-model="fields.goal.value.value"
           :error="fields.goal.error.value"
-          placeholder="50.00"
+          placeholder="180.00"
           description="The amount the customer must spend to receive their reward."
           class="col-span-full sm:col-span-7"
         />
@@ -26,7 +26,7 @@
           label="Completion message"
           v-model="fields.completionMessage.value.value"
           :error="fields.completionMessage.error.value"
-          placeholder="Your free gift will be included in delivery"
+          placeholder="Your gift will be included in delivery"
           description="A message to be displayed once the goal is reached (optional)."
           class="col-span-full sm:col-span-7"
         />
@@ -37,7 +37,8 @@
             'https://ucarecdn.com/3a77539f-c7da-460a-81f8-5954fc6cef44/truck.svg',
             'https://ucarecdn.com/8b1f1f20-b43a-4b96-be36-bb16e437fb35/coupon.svg',
             'https://ucarecdn.com/f9edb77e-70e8-4510-8ccc-ba3648a4d10b/mysterybox.png',
-            'https://ucarecdn.com/e3f9d57b-3dd1-4145-ae50-9478e93f6634/pixelatedpresent.gif'
+            'https://ucarecdn.com/e3f9d57b-3dd1-4145-ae50-9478e93f6634/pixelatedpresent.gif',
+            'https://ucarecdn.com/83d06128-e7cf-4eee-8106-b038aca2b02f/freeshipping.gif'
           ]"
           v-model="fields.image.value.value"
           :error="fields.image.error.value"

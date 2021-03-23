@@ -12,6 +12,7 @@
       />
     </div>
     <TurnOnCartPrompt />
+    <CreateProgressBarPrompt />
     <CreateCrossSellPrompt />
     <BaseTask title="Need help?" description="Get in touch via the messenger." :complete="false">
       <BaseButton text="Ask a question →" @click="toggleBeacon" />
@@ -27,13 +28,15 @@ import TurnOnCartPrompt from '@/views/Home/components/TurnOnCartPrompt/TurnOnCar
 import { defineComponent } from 'vue'
 import CreateCrossSellPrompt from '@/views/Home/components/CreateCrossSellPrompt/CreateCrossSellPrompt.vue'
 import useBeacon from '@/composables/useBeacon'
+import CreateProgressBarPrompt from '@/views/Home/components/CreateProgressBarPrompt/CreateProgressBarPrompt.vue'
 export default defineComponent({
   components: {
     BaseHeader,
     BaseTask,
     BaseButton,
     TurnOnCartPrompt,
-    CreateCrossSellPrompt
+    CreateCrossSellPrompt,
+    CreateProgressBarPrompt
   },
   setup() {
     const { toggleBeacon } = useBeacon()

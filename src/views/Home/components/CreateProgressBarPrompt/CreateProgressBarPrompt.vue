@@ -2,20 +2,20 @@
   <BaseTask
     :loading="loading"
     :complete="total >= 1"
-    title="Create a smart cross sell"
-    description="Sell more by creating your first smart cross sell."
+    title="Create a progress bar"
+    description="Encourage customers to spend more with your first progress bar."
   >
-    <router-link :to="{ name: 'create-cross-sell' }">
+    <router-link :to="{ name: 'create-progress-bar' }">
       <BaseButton text="Create →" />
     </router-link>
   </BaseTask>
 </template>
 
 <script lang="ts">
+import { defineComponent, ref } from 'vue'
 import BaseTask from '@/components/BaseTask/BaseTask.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
-import crossSellService from '@/services/api/services/crossSellService'
-import { defineComponent, ref } from 'vue'
+import progressBarService from '@/services/api/services/progressBarService'
 export default defineComponent({
   components: { BaseTask, BaseButton },
   setup() {
@@ -23,7 +23,7 @@ export default defineComponent({
     const total = ref(0 as number)
     const fetchCart = async () => {
       loading.value = true
-      total.value = (await crossSellService.findAll({ page: 1, limit: 1 })).total
+      total.value = (await progressBarService.findAll({ page: 1, limit: 1 })).total
       loading.value = false
     }
     fetchCart()

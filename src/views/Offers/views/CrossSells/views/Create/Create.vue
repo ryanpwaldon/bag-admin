@@ -21,7 +21,7 @@
           label="Title"
           v-model="fields.title.value.value"
           :error="fields.title.error.value"
-          placeholder="Add some protection"
+          placeholder="Need some tape?"
           class="col-span-full sm:col-span-6"
         />
         <BaseInputText
@@ -29,7 +29,7 @@
           label="Subtitle"
           v-model="fields.subtitle.value.value"
           :error="fields.subtitle.error.value"
-          placeholder="For only $29"
+          placeholder="Add for $8.95"
           class="col-span-full sm:col-span-6"
         />
         <div class="h-px -mx-6 bg-gray-300 col-span-full" />
