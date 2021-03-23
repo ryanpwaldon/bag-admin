@@ -35,9 +35,11 @@
         <BaseInputImage
           label="Image"
           :default-image-urls="[
-            'https://ucarecdn.com/be2bc202-2905-47ff-bd09-5a4fd6f87758/gift.svg',
-            'https://ucarecdn.com/83862ae6-f8d8-40f6-b28e-6169d665d32a/truck.svg',
-            'https://ucarecdn.com/91568390-06c2-430e-a34e-555b9f4f1b9f/coupon.svg'
+            'https://ucarecdn.com/dde5bd6a-2594-4081-8e47-342390c05639/gift.svg',
+            'https://ucarecdn.com/3a77539f-c7da-460a-81f8-5954fc6cef44/truck.svg',
+            'https://ucarecdn.com/8b1f1f20-b43a-4b96-be36-bb16e437fb35/coupon.svg',
+            'https://ucarecdn.com/f9edb77e-70e8-4510-8ccc-ba3648a4d10b/mysterybox.png',
+            'https://ucarecdn.com/e3f9d57b-3dd1-4145-ae50-9478e93f6634/pixelatedpresent.gif'
           ]"
           v-model="fields.image.value.value"
           :error="fields.image.error.value"
