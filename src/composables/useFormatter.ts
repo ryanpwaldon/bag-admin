@@ -11,7 +11,7 @@ const percent = (num: number) => {
 const currency = (amount: number, currencyCode: string | undefined = store.state.user?.currencyCode) => {
   return new Intl.NumberFormat(getLocale(), {
     style: 'currency',
-    currencyDisplay: 'narrowSymbol',
+    currencyDisplay: 'symbol',
     currency: currencyCode || AdminCurrencyCode.Usd
   }).format(amount)
 }
