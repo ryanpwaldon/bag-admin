@@ -3,9 +3,9 @@
     <div class="px-4 mx-auto bg-white shadow lg:max-w-4xl sm:px-6 lg:px-8 lg:mt-8 lg:rounded-md">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
-          <div class="flex-shrink-0 text-base font-semibold text-gray-900">
-            <Logo v-if="true" class="h-5" />
-          </div>
+          <router-link class="flex-shrink-0 text-base font-semibold text-gray-900" to="/">
+            <Logo class="h-5" />
+          </router-link>
           <div class="hidden md:block">
             <div class="flex items-baseline space-x-4 ml-7">
               <router-link v-for="(route, i) in primaryRoutes" :key="i" :to="route.path" v-slot="{ isActive }" class="block">
@@ -83,9 +83,13 @@ export default defineComponent({
     return { Cog, Chat, toggleBeacon }
   },
   data: () => ({
-    mobileNavIsOpen: false,
-    dropdownIsOpen: false
+    mobileNavIsOpen: false
   }),
+  watch: {
+    $route() {
+      this.mobileNavIsOpen = false
+    }
+  },
   computed: {
     primaryRoutes(): RouteLocationNormalized[] {
       return this.resolveRoutes(['/', '/offers', '/cart'])

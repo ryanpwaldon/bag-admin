@@ -3,10 +3,10 @@
     :loading="loading"
     :complete="total >= 1"
     title="Create a progress bar"
-    description="Encourage customers to spend more with your first progress bar."
+    description="Increase customer spending with visual in-cart incentives."
   >
     <router-link :to="{ name: 'create-progress-bar' }">
-      <BaseButton text="Create →" />
+      <BaseButton text="Start →" />
     </router-link>
   </BaseTask>
 </template>

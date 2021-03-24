@@ -26,7 +26,7 @@
   <BaseGridCard v-else>
     <div class="flex flex-col items-center justify-center h-44">
       <img class="h-10" src="@/assets/img/empty-box.svg" />
-      <p class="mt-2 text-base font-medium leading-6 text-gray-700">You have not created any cross sells</p>
+      <p class="mt-2 text-base font-medium leading-6 text-center text-gray-700">You have not created any cross sells</p>
       <BaseButton class="mt-3" text="Create a cross sell" @click="$router.push({ name: 'create-cross-sell' })" />
     </div>
   </BaseGridCard>

@@ -2,11 +2,11 @@
   <BaseTask
     :loading="loading"
     :complete="total >= 1"
-    title="Create a smart cross sell"
-    description="Sell more by creating your first smart cross sell."
+    title="Create a cross sell"
+    description="Increase your AOV with smarter in-cart product suggestions."
   >
     <router-link :to="{ name: 'create-cross-sell' }">
-      <BaseButton text="Create →" />
+      <BaseButton text="Start →" />
     </router-link>
   </BaseTask>
 </template>
