@@ -41,6 +41,14 @@
           :error="fields.triggerProductIds.error.value"
           class="col-span-full"
         />
+        <div class="h-px -mx-6 bg-gray-300 col-span-full" />
+        <BaseInputTriggerGroup
+          name="triggerGroup"
+          label="Triggers"
+          v-model="fields.triggerGroup.value.value"
+          :error="fields.triggerGroup.error.value"
+          class="col-span-full"
+        />
       </div>
       <template #footer>
         <BaseButton class="ml-auto" text="Create" type="submit" :loading="loading" />
@@ -57,9 +65,10 @@ import BaseInputProducts from '@/components/BaseInputProducts/BaseInputProducts.
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import crossSellService from '@/services/api/services/crossSellService'
 import useForm from '@/composables/useForm'
-import { array, object, string } from 'yup'
+import { array, boolean, mixed, object, string } from 'yup'
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import BaseInputTriggerGroup from '@/components/BaseInputTriggerGroup/BaseInputTriggerGroup.vue'
 
 const schema = object({
   productId: string()
@@ -75,7 +84,13 @@ const schema = object({
   triggerProductIds: array()
     .min(1, 'At least 1 trigger product is required.')
     .required('At least 1 trigger product is required.')
-    .default([])
+    .default([]),
+  triggerGroup: mixed()
+    .required('Trigger is required.')
+    .default({
+      matchAll: true,
+      triggers: []
+    })
 }).defined()
 
 export default defineComponent({
@@ -84,17 +99,19 @@ export default defineComponent({
     BaseCard,
     BaseInputText,
     BaseInputProducts,
-    BaseButton
+    BaseButton,
+    BaseInputTriggerGroup
   },
   setup() {
     const loading = ref(false)
     const router = useRouter()
     const { fields, getValues, handleSubmit } = useForm(schema)
     const onSubmit = async () => {
-      loading.value = true
+      // loading.value = true
       const values = getValues()
-      const { id } = await crossSellService.create(values)
-      router.push({ name: 'cross-sells', params: { id } })
+      console.log(values)
+      // const { id } = await crossSellService.create(values)
+      // router.push({ name: 'cross-sells', params: { id } })
     }
     return {
       loading,

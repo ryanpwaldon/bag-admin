@@ -1,14 +1,14 @@
 <template>
   <div class="flex flex-col items-start">
-    <label :for="name" class="block text-sm font-medium leading-5 text-gray-700">{{ label }}</label>
-    <div class="relative w-full mt-1">
+    <label :for="name" class="block text-sm font-medium text-gray-700">{{ label }}</label>
+    <div class="relative w-full" :class="label && 'mt-1'">
       <input
         :id="name"
         type="text"
         :value="modelValue"
         :placeholder="placeholder"
         @input="$emit('update:modelValue', $event.target.value)"
-        class="block w-full transition duration-150 ease-in-out rounded shadow-sm sm:text-sm sm:leading-5"
+        class="block w-full text-sm transition duration-150 ease-in-out rounded shadow-sm"
         :class="
           error
             ? 'text-red-900 placeholder-red-300 border-red-300 focus:ring-red-500 focus:border-red-500'
@@ -37,7 +37,7 @@ export default defineComponent({
   props: {
     label: {
       type: String,
-      required: true
+      required: false
     },
     description: {
       type: String,
@@ -45,7 +45,7 @@ export default defineComponent({
     },
     name: {
       type: String,
-      required: true
+      required: false
     },
     modelValue: {
       type: [String, Number],

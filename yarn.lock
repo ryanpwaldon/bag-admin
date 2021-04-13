@@ -1311,6 +1311,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@headlessui/vue@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@headlessui/vue/-/vue-0.3.1.tgz#aeb6224664cec4825e18c123b422fd45977b97d4"
+  integrity sha512-FG/EWA9+yVOMAnVpa5ziFgaWJ16eGkMy3IJbClzCQAFL4aAHgBlAfeQqIt9d9ND4khlLMdWLQft01XvBkSFccQ==
+
 "@iarna/toml@^2.2.5":
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.5.tgz#b32366c89b43c6f8cefbdefac778b9c828e3ba8c"

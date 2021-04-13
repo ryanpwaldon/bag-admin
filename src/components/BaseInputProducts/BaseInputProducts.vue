@@ -25,13 +25,7 @@
       </BaseProduct>
       <BaseInputButton @click="handleSelection({ mode: 'add' })" class="h-20" text="Select a product" theme="white" v-if="!modelValue || multi">
         <template #icon>
-          <svg class="w-5 h-5 ml-3 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path
-              fill-rule="evenodd"
-              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-              clip-rule="evenodd"
-            />
-          </svg>
+          <ChevronRight class="w-5 h-5 ml-3 -mr-1 text-gray-400" />
         </template>
       </BaseInputButton>
     </div>
@@ -45,11 +39,13 @@ import BaseMenuButton from '../BaseMenuButton/BaseMenuButton.vue'
 import BaseInputButton from '../BaseInputButton/BaseInputButton.vue'
 import productService from '@/services/api/services/productService'
 import { AdminProduct } from '@/types/admin/graphql'
+import ChevronRight from '@/icons/ChevronRight.vue'
 export default defineComponent({
   components: {
     BaseProduct,
     BaseInputButton,
-    BaseMenuButton
+    BaseMenuButton,
+    ChevronRight
   },
   props: {
     label: {
@@ -117,15 +113,13 @@ export default defineComponent({
     },
     async handleSelection({ id, mode }: { id?: string; mode: 'add' | 'change' }) {
       const selectMultiple = this.multi && mode === 'add'
-      this.$shopify.productPicker.update({ selectMultiple })
-      const selection = await this.$shopify.productPicker.open()
+      const selection = await this.$shopify.openProductPicker({ selectMultiple })
       if (!selection.length) return
-      if (!this.multi) return this.updateValue(selection[0].id)
+      if (!this.multi) return this.updateValue(selection[0])
       const ids = [...this.modelValue]
       const insertIndex = mode === 'add' ? ids.length : ids.indexOf(id)
       const deleteCount = mode === 'add' ? 0 : 1
-      const newIds = selection.map(({ id }: { id: string }) => id)
-      ids.splice(insertIndex, deleteCount, ...newIds)
+      ids.splice(insertIndex, deleteCount, ...selection)
       const idsWithRemovedDuplicates = [...new Set(ids)]
       this.updateValue(idsWithRemovedDuplicates as string[])
     }

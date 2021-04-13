@@ -6,7 +6,6 @@ import { getSessionToken } from '@shopify/app-bridge-utils'
 import { ResourcePicker } from '@shopify/app-bridge/actions'
 import getShopOriginFromUrl from '@/utils/getShopOriginFromUrl'
 import { Section } from '@shopify/app-bridge/actions/Navigation/Redirect'
-import { ProductOptions, Options } from '@shopify/app-bridge/actions/ResourcePicker'
 
 export default {
   install: (app: App) => {
@@ -14,10 +13,7 @@ export default {
     if (!shopOrigin || !isFramed) return console.warn('Shopify app bridge could not be created.')
     const shopifyAppBridge = createApp({ apiKey: process.env.VUE_APP_SHOPIFY_API_KEY, shopOrigin })
     const shopifyRedirect = Redirect.create(shopifyAppBridge)
-    const shopifyProductPicker = ResourcePicker.create(shopifyAppBridge, {
-      resourceType: ResourcePicker.ResourceType.Product,
-      options: { selectMultiple: false, showVariants: false }
-    })
+    const shopifyProductPicker = ResourcePicker.create(shopifyAppBridge, { resourceType: ResourcePicker.ResourceType.Product })
     app.config.globalProperties.$shopify = {
       getSessionToken() {
         return getSessionToken(shopifyAppBridge)
@@ -28,23 +24,16 @@ export default {
       redirectToExternalUrl(url: string) {
         shopifyRedirect.dispatch(Redirect.Action.REMOTE, url)
       },
-      productPicker: {
-        update(options: Partial<Options | ProductOptions>) {
-          shopifyProductPicker.set(options)
-        },
-        open() {
-          shopifyProductPicker.dispatch(ResourcePicker.Action.OPEN)
-          return new Promise(resolve => {
-            shopifyProductPicker.subscribe(ResourcePicker.Action.SELECT, ({ selection }) => {
-              shopifyProductPicker.unsubscribe()
-              resolve(selection)
-            })
-            shopifyProductPicker.subscribe(ResourcePicker.Action.CANCEL, () => {
-              shopifyProductPicker.unsubscribe()
-              resolve([])
-            })
-          })
-        }
+      async openProductPicker({ selectMultiple = false, showVariants = false }) {
+        shopifyProductPicker.set({ selectMultiple, showVariants })
+        shopifyProductPicker.dispatch(ResourcePicker.Action.OPEN)
+        const selection: { id: string }[] = await new Promise(resolve => {
+          shopifyProductPicker.subscribe(ResourcePicker.Action.SELECT, ({ selection }) => resolve(selection))
+          shopifyProductPicker.subscribe(ResourcePicker.Action.CANCEL, () => resolve([]))
+        })
+        shopifyProductPicker.unsubscribe()
+        const productIds = selection.map(({ id }) => id)
+        return productIds
       }
     }
   }

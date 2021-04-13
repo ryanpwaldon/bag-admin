@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-hidden bg-white rounded-lg shadow">
+  <div class="bg-white rounded-lg shadow">
     <div class="px-4 py-5 sm:p-6" v-if="title" :class="[$slots.default && 'border-gray-200 border-b']">
       <h3 class="text-lg font-medium leading-6 text-gray-900">
         {{ title }}
@@ -11,7 +11,7 @@
     <div class="px-4 py-5 sm:p-6" v-if="$slots.default">
       <slot />
     </div>
-    <div class="flex px-4 py-5 border-t border-gray-200 sm:px-6 bg-gray-50" v-if="$slots.footer">
+    <div class="flex px-4 py-5 border-t border-gray-200 rounded-b-lg sm:px-6 bg-gray-50" v-if="$slots.footer">
       <slot name="footer" />
     </div>
   </div>
