@@ -20,6 +20,7 @@
       />
     </div>
     <button type="button" class="mt-4 font-medium text-blue-600 focus:outline-none" @click="addTrigger">Add trigger →</button>
+    <p v-if="error" class="mt-4 text-sm text-red-600">{{ error }}</p>
   </div>
 </template>
 

@@ -1,9 +1,7 @@
 <template>
   <div>
-    <label v-if="label" :for="name" class="block text-base font-medium leading-6 text-gray-700">{{ label }}</label>
-    <p class="max-w-xl mb-4 text-sm" :class="[error ? 'text-red-600' : 'text-gray-500']" v-if="error || description">
-      {{ error || description }}
-    </p>
+    <label v-if="label" :for="name" class="block text-base font-medium text-gray-700">{{ label }}</label>
+    <p v-if="description" class="max-w-xl mb-4 text-sm text-gray-500">{{ description }}</p>
     <div class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
       <BaseProduct
         v-for="id in ids"
@@ -29,6 +27,7 @@
         </template>
       </BaseInputButton>
     </div>
+    <p v-if="error" class="mt-2 text-sm text-red-600">{{ error }}</p>
   </div>
 </template>
 
