@@ -47,16 +47,13 @@
           description="The image to be displayed along side the progress bar. Select one of our defaults, or upload your own."
           class="col-span-full sm:col-span-full"
         />
-        <div class="h-2 -mx-6 border-b border-gray-200 col-span-full" />
-        <div class="col-span-full">
-          <BaseInputToggleHorizontal
-            label="Status"
-            description="If paused, your customers will not be able to see this offer."
-            v-model="fields.active.value.value"
-            :error="fields.active.error.value"
-            class="w-full"
-          />
-        </div>
+        <BaseInputTriggerGroup
+          name="triggerGroup"
+          label="Triggers"
+          v-model="fields.triggerGroup.value.value"
+          :error="fields.triggerGroup.error.value"
+          class="col-span-full"
+        />
       </div>
       <template #footer>
         <div class="flex justify-end">
@@ -70,13 +67,14 @@
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue'
 import useForm from '@/composables/useForm'
-import { boolean, number, object, string } from 'yup'
+import { object, string } from 'yup'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
 import BaseInputImage from '@/components/BaseInputImage/BaseInputImage.vue'
 import progressBarService, { ProgressBar } from '@/services/api/services/progressBarService'
-import BaseInputToggleHorizontal from '@/components/BaseInputToggleHorizontal/BaseInputToggleHorizontal.vue'
+import BaseInputTriggerGroup from '@/components/BaseInputTriggerGroup/BaseInputTriggerGroup.vue'
+import { requiredNumber, requiredString, triggerGroup } from '@/validators'
 
 export default defineComponent({
   components: {
@@ -84,7 +82,7 @@ export default defineComponent({
     BaseInputText,
     BaseButton,
     BaseInputImage,
-    BaseInputToggleHorizontal
+    BaseInputTriggerGroup
   },
   props: {
     progressBar: {
@@ -95,18 +93,13 @@ export default defineComponent({
   setup(props, { emit }) {
     const loading = ref(false)
     const schema = object({
-      title: string()
-        .required('Title is required.')
-        .default(props.progressBar.title),
-      goal: number()
-        .typeError('Please enter a valid number.')
-        .required('Goal is required.')
-        .default(props.progressBar.goal),
+      title: requiredString.default(props.progressBar.title),
+      goal: requiredNumber.default(props.progressBar.goal),
       image: string()
         .required('Please select an image, or upload your own.')
         .default(props.progressBar.image),
       completionMessage: string().default(props.progressBar.completionMessage),
-      active: boolean().default(props.progressBar.active)
+      triggerGroup: triggerGroup.default(props.progressBar.triggerGroup)
     }).defined()
     const { fields, getValues, handleSubmit } = useForm(schema)
     const onSubmit = async () => {

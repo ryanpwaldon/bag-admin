@@ -2,7 +2,7 @@
   <div>
     <label v-if="label" :for="name" class="block text-base font-medium leading-6 text-gray-700">{{ label }}</label>
     <p class="text-sm text-gray-500">
-      Use triggers to display the offer only when certain conditions are met. If no triggers are used, this offer will appear at all times.
+      Use triggers to display the offer only when certain conditions are met.
     </p>
     <p class="mt-4 text-sm text-gray-500" v-if="!triggers.length">
       For example, display the offer when:<br />

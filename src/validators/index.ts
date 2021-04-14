@@ -5,6 +5,11 @@ export const requiredString = string()
   .required('This field is required.')
   .default('')
 
+export const requiredNumber = number()
+  .required('This field is required.')
+  .typeError('Please enter a valid number.')
+  .min(0, 'Number must be greater than 0.')
+
 export const triggerGroup = object({
   matchAll: boolean()
     .required()

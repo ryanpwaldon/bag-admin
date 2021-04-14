@@ -1,5 +1,6 @@
 <template>
   <div class="grid gap-6">
+    <StatusForm v-model:progressBar="progressBarModelled" />
     <EditForm v-model:progressBar="progressBarModelled" />
     <DeleteForm v-model:progressBar="progressBarModelled" />
   </div>
@@ -11,10 +12,12 @@ import EditForm from './components/EditForm/EditForm.vue'
 import useModelWrapper from '@/composables/useModelWrapper'
 import DeleteForm from './components/DeleteForm/DeleteForm.vue'
 import { ProgressBar } from '@/services/api/services/progressBarService'
+import StatusForm from './components/StatusForm/StatusForm.vue'
 export default defineComponent({
   components: {
     EditForm,
-    DeleteForm
+    DeleteForm,
+    StatusForm
   },
   props: {
     progressBar: {

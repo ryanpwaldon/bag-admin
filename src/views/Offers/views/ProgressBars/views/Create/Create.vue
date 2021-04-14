@@ -45,6 +45,13 @@
           description="The image to be displayed along side the progress bar. Select one of our defaults, or upload your own."
           class="col-span-full sm:col-span-full"
         />
+        <BaseInputTriggerGroup
+          name="triggerGroup"
+          label="Triggers"
+          v-model="fields.triggerGroup.value.value"
+          :error="fields.triggerGroup.error.value"
+          class="col-span-full"
+        />
       </div>
       <template #footer>
         <BaseButton class="ml-auto" text="Create" type="submit" :loading="loading" />
@@ -57,21 +64,22 @@
 import { useRouter } from 'vue-router'
 import { defineComponent, ref } from 'vue'
 import useForm from '@/composables/useForm'
-import { number, object, string } from 'yup'
+import { object, string } from 'yup'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
 import BaseInputImage from '@/components/BaseInputImage/BaseInputImage.vue'
 import progressBarService from '@/services/api/services/progressBarService'
+import { requiredNumber, requiredString, triggerGroup } from '@/validators'
+import BaseInputTriggerGroup from '@/components/BaseInputTriggerGroup/BaseInputTriggerGroup.vue'
 
 const schema = object({
-  title: string().required('Title is required.'),
-  goal: number()
-    .typeError('Please enter a valid number.')
-    .required('Goal is required.'),
-  image: string().required('Please select an image, or upload your own.'),
-  completionMessage: string()
+  triggerGroup,
+  goal: requiredNumber,
+  title: requiredString,
+  completionMessage: string(),
+  image: string().required('Please select an image, or upload your own.')
 }).defined()
 
 export default defineComponent({
@@ -80,7 +88,8 @@ export default defineComponent({
     BaseCard,
     BaseInputText,
     BaseButton,
-    BaseInputImage
+    BaseInputImage,
+    BaseInputTriggerGroup
   },
   setup() {
     const loading = ref(false)

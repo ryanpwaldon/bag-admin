@@ -2,7 +2,7 @@
   <form @submit="handleSubmit">
     <BaseGridCard>
       <template #header>
-        <h3 class="text-lg font-medium text-gray-700">Edit</h3>
+        <h3 class="text-lg font-medium text-gray-700">Details</h3>
       </template>
       <div class="grid grid-cols-12 gap-6">
         <div class="col-span-full">
@@ -34,28 +34,13 @@
           class="col-span-full sm:col-span-6"
         />
         <div class="h-2 -mx-6 border-b border-gray-200 col-span-full" />
-        <div class="col-span-full">
-          <p class="text-base font-medium leading-6 text-gray-700">Trigger products</p>
-          <p class="max-w-xl text-sm text-gray-500">
-            This offer will only be visible to the customer if they have added at least one trigger product to their cart.
-          </p>
-        </div>
-        <BaseInputProducts
-          name="triggerProductIds"
-          v-model="fields.triggerProductIds.value.value"
-          :error="fields.triggerProductIds.error.value"
+        <BaseInputTriggerGroup
+          name="triggerGroup"
+          label="Triggers"
+          v-model="fields.triggerGroup.value.value"
+          :error="fields.triggerGroup.error.value"
           class="col-span-full"
         />
-        <div class="h-2 -mx-6 border-b border-gray-200 col-span-full" />
-        <div class="col-span-full">
-          <BaseInputToggleHorizontal
-            label="Status"
-            description="If paused, your customers will not be able to see this offer."
-            v-model="fields.active.value.value"
-            :error="fields.active.error.value"
-            class="w-full"
-          />
-        </div>
       </div>
       <template #footer>
         <div class="flex justify-end">
@@ -72,11 +57,11 @@ import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
-import BaseInputProducts from '@/components/BaseInputProducts/BaseInputProducts.vue'
-import BaseInputToggleHorizontal from '@/components/BaseInputToggleHorizontal/BaseInputToggleHorizontal.vue'
 import crossSellService, { CrossSell } from '@/services/api/services/crossSellService'
+import BaseInputTriggerGroup from '@/components/BaseInputTriggerGroup/BaseInputTriggerGroup.vue'
 import { defineComponent, PropType, ref } from 'vue'
-import { array, boolean, object, string } from 'yup'
+import { requiredString, triggerGroup } from '@/validators'
+import { object } from 'yup'
 
 export default defineComponent({
   components: {
@@ -84,8 +69,7 @@ export default defineComponent({
     BaseInputText,
     BaseButton,
     BaseProduct,
-    BaseInputProducts,
-    BaseInputToggleHorizontal
+    BaseInputTriggerGroup
   },
   props: {
     crossSell: {
@@ -96,17 +80,9 @@ export default defineComponent({
   setup(props, { emit }) {
     const loading = ref(false)
     const schema = object({
-      active: boolean().default(props.crossSell.active),
-      title: string()
-        .required('This field is required.')
-        .default(props.crossSell.title),
-      subtitle: string()
-        .required('This field is required.')
-        .default(props.crossSell.subtitle),
-      triggerProductIds: array()
-        .min(1, 'At least 1 trigger product is required.')
-        .required('At least 1 trigger product is required.')
-        .default(props.crossSell.triggerProductIds)
+      triggerGroup: triggerGroup.default(props.crossSell.triggerGroup),
+      title: requiredString.default(props.crossSell.title),
+      subtitle: requiredString.default(props.crossSell.subtitle)
     }).defined()
     const { fields, getValues, handleSubmit } = useForm(schema)
     const onSubmit = async () => {

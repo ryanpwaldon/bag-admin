@@ -1,5 +1,6 @@
 import { client } from '@/services/api/client'
 import { AdminProduct } from '@/types/admin/graphql'
+import { TriggerGroup } from '@/types/internal'
 
 export type CrossSell = {
   id: string
@@ -8,7 +9,7 @@ export type CrossSell = {
   activeFor: number
   title: string
   subtitle: string
-  triggerProductIds: string[]
+  triggerGroup: TriggerGroup
   productId: string
   product?: AdminProduct
   createdAt: Date

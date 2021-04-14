@@ -1,4 +1,5 @@
 import { client } from '@/services/api/client'
+import { TriggerGroup } from '@/types/internal'
 
 export interface DateRange {
   start: Date
@@ -12,6 +13,7 @@ export type ProgressBar = {
   title: string
   activeHistory: DateRange[]
   completionMessage: string
+  triggerGroup: TriggerGroup
   goal: number
   image: string
   createdAt: Date
