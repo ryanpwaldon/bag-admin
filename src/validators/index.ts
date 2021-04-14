@@ -1,4 +1,4 @@
-import { Property } from '@/types/internal'
+import { TriggerProperty } from '@/types/internal'
 import { AnySchema, array, boolean, mixed, number, object, string } from 'yup'
 
 export const requiredString = string()
@@ -16,26 +16,24 @@ export const triggerGroup = object({
         condition: string().required(),
         value: mixed().when(
           'property',
-          (property: Property): AnySchema => {
+          (property: TriggerProperty): AnySchema => {
             switch (property) {
-              case 'product':
+              case TriggerProperty.Product:
                 return array()
                   .of(string())
                   .min(1, 'Product trigger requires at least 1 item.')
                   .ensure()
-              case 'productTag':
-                return string().required('Product tag value is empty.')
-              case 'productType':
+              case TriggerProperty.ProductType:
                 return string().required('Product type value is empty.')
-              case 'productVendor':
+              case TriggerProperty.ProductVendor:
                 return string().required('Product vendor value is empty.')
-              case 'subtotal':
+              case TriggerProperty.Subtotal:
                 return number()
                   .required('Subtotal is empty.')
                   .typeError('Subtotal is not a number.')
                   .min(0, 'Subtotal must be larger than 0.')
               default:
-                throw new Error('Property does not exist.')
+                throw new Error('Trigger does not exist.')
             }
           }
         )

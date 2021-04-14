@@ -8,7 +8,6 @@
     <BaseInputSelect class="flex-shrink-0 w-full md:w-18/100" v-model="selectedCondition" :options="conditionOptions" />
     <div class="w-full md:flex-1">
       <BaseInputProductsV2 v-if="selectedProperty === 'product'" v-model="value" />
-      <BaseInputText v-if="selectedProperty === 'productTag'" :placeholder="selectedSchema.placeholder" v-model="value" />
       <BaseInputText v-if="selectedProperty === 'productType'" :placeholder="selectedSchema.placeholder" v-model="value" />
       <BaseInputText v-if="selectedProperty === 'productVendor'" :placeholder="selectedSchema.placeholder" v-model="value" />
       <BaseInputText v-if="selectedProperty === 'subtotal'" :placeholder="selectedSchema.placeholder" v-model="value" />
@@ -28,15 +27,15 @@
 <script lang="ts">
 import Bin from '@/icons/Bin.vue'
 import { computed, defineComponent, PropType } from 'vue'
-import { Condition, Property, Trigger } from '@/types/internal'
+import { TriggerCondition, TriggerProperty, Trigger } from '@/types/internal'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
 import BaseInputSelect from '@/components/BaseInputSelect/BaseInputSelect.vue'
 import BaseInputProductsV2 from '@/components/BaseInputProductsV2/BaseInputProductsV2.vue'
 import useModelWrapper from '@/composables/useModelWrapper'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 
-type PropertyOption = { label: string; value: Property; description: string }
-type ConditionOption = { label: string; value: Condition }
+type PropertyOption = { label: string; value: TriggerProperty; description: string }
+type ConditionOption = { label: string; value: TriggerCondition }
 interface TriggerSchema {
   defaultValue: unknown
   placeholder: string | null
@@ -49,50 +48,41 @@ const matchAllOptions = [
   { label: 'Or', value: false }
 ]
 
-const triggerSchemas: Record<Property, TriggerSchema> = {
+const triggerSchemas: Record<TriggerProperty, TriggerSchema> = {
   product: {
     defaultValue: [],
     placeholder: null,
-    property: { label: 'Products', value: 'product', description: 'Products in the cart' },
+    property: { label: 'Products', value: TriggerProperty.Product, description: 'Products in the cart' },
     conditions: [
-      { value: 'includes', label: 'Include' },
-      { value: 'doesNotInclude', label: 'Do not include' }
-    ]
-  },
-  productTag: {
-    defaultValue: '',
-    placeholder: 'Value',
-    property: { label: 'Product tags', value: 'productTag', description: 'Product tags in the cart' },
-    conditions: [
-      { value: 'includes', label: 'Include' },
-      { value: 'doesNotInclude', label: 'Do not include' }
+      { value: TriggerCondition.Includes, label: 'Include' },
+      { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
     ]
   },
   productType: {
     defaultValue: '',
     placeholder: 'Value',
-    property: { label: 'Product types', value: 'productType', description: 'Product types in the cart' },
+    property: { label: 'Product types', value: TriggerProperty.ProductType, description: 'Product types in the cart' },
     conditions: [
-      { value: 'includes', label: 'Include' },
-      { value: 'doesNotInclude', label: 'Do not include' }
+      { value: TriggerCondition.Includes, label: 'Include' },
+      { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
     ]
   },
   productVendor: {
     defaultValue: '',
     placeholder: 'Value',
-    property: { label: 'Product vendors', value: 'productVendor', description: 'Product vendors in the cart' },
+    property: { label: 'Product vendors', value: TriggerProperty.ProductVendor, description: 'Product vendors in the cart' },
     conditions: [
-      { value: 'includes', label: 'Include' },
-      { value: 'doesNotInclude', label: 'Do not include' }
+      { value: TriggerCondition.Includes, label: 'Include' },
+      { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
     ]
   },
   subtotal: {
     defaultValue: null,
     placeholder: 'Value',
-    property: { label: 'Subtotal', value: 'subtotal', description: 'The current cart subtotal' },
+    property: { label: 'Subtotal', value: TriggerProperty.Subtotal, description: 'The current cart subtotal' },
     conditions: [
-      { label: 'Greater than', value: 'greaterThan' },
-      { label: 'Less than', value: 'lessThan' }
+      { value: TriggerCondition.GreaterThan, label: 'Greater than' },
+      { value: TriggerCondition.LessThan, label: 'Less than' }
     ]
   }
 }
@@ -116,7 +106,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const deleteTrigger = () => emit('delete')
     const updateTrigger = (trigger: Trigger) => emit('update:trigger', trigger)
-    const resetTrigger = (property: Property) => {
+    const resetTrigger = (property: TriggerProperty) => {
       updateTrigger({
         property,
         condition: triggerSchemas[property].conditions[0].value,
@@ -128,11 +118,11 @@ export default defineComponent({
     const conditionOptions = computed(() => selectedSchema.value.conditions)
     const selectedProperty = computed({
       get: () => selectedSchema.value.property.value,
-      set: (property: Property) => resetTrigger(property)
+      set: (property: TriggerProperty) => resetTrigger(property)
     })
     const selectedCondition = computed({
       get: () => props.trigger.condition,
-      set: (condition: Condition) => updateTrigger({ ...props.trigger, condition })
+      set: (condition: TriggerCondition) => updateTrigger({ ...props.trigger, condition })
     })
     const value = computed({
       get: () => props.trigger.value,

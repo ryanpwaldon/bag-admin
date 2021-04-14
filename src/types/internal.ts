@@ -1,27 +1,24 @@
-export interface TriggerGroup {
-  triggers: Array<TriggerGroup | Trigger>
-  matchAll: boolean
+export enum TriggerProperty {
+  Product = 'product',
+  ProductType = 'productType',
+  ProductVendor = 'productVendor',
+  Subtotal = 'subtotal'
 }
 
-export type Property = 'product' | 'productTag' | 'productType' | 'productVendor' | 'subtotal'
-
-export type Condition = 'includes' | 'doesNotInclude' | 'lessThan' | 'greaterThan'
+export enum TriggerCondition {
+  Includes = 'includes',
+  DoesNotInclude = 'doesNotInclude',
+  GreaterThan = 'greaterThan',
+  LessThan = 'lessThan'
+}
 
 export interface Trigger {
-  property: Property
-  condition: Condition
-  value?: unknown
+  property: TriggerProperty
+  condition: TriggerCondition
+  value: unknown
 }
 
-interface SimplifiedLineItem {
-  productId: string
-  variantId: string
-  productType: string
-  productTags: string
-  productVendor: string
-}
-
-export type TriggerData = {
-  subtotal: number
-  lineItems: SimplifiedLineItem[]
+export interface TriggerGroup {
+  matchAll: boolean
+  triggers: Array<TriggerGroup | Trigger>
 }

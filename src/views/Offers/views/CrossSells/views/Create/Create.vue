@@ -50,14 +50,14 @@
 
 <script lang="ts">
 import { object } from 'yup'
-// import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { defineComponent, ref } from 'vue'
 import useForm from '@/composables/useForm'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
 import { triggerGroup, requiredString } from '@/validators'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
-// import crossSellService from '@/services/api/services/crossSellService'
+import crossSellService from '@/services/api/services/crossSellService'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
 import BaseInputProducts from '@/components/BaseInputProducts/BaseInputProducts.vue'
 import BaseInputTriggerGroup from '@/components/BaseInputTriggerGroup/BaseInputTriggerGroup.vue'
@@ -80,14 +80,13 @@ export default defineComponent({
   },
   setup() {
     const loading = ref(false)
-    // const router = useRouter()
+    const router = useRouter()
     const { fields, getValues, handleSubmit } = useForm(schema)
     const onSubmit = async () => {
       const values = getValues()
-      console.log(values)
-      // loading.value = true
-      // const { id } = await crossSellService.create(values)
-      // router.push({ name: 'cross-sells', params: { id } })
+      loading.value = true
+      const { id } = await crossSellService.create(values)
+      router.push({ name: 'cross-sells', params: { id } })
     }
     return {
       loading,
