@@ -62,7 +62,7 @@
 
 <script lang="ts">
 import { useRouter } from 'vue-router'
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import useForm from '@/composables/useForm'
 import { object, string } from 'yup'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
@@ -73,14 +73,6 @@ import BaseInputImage from '@/components/BaseInputImage/BaseInputImage.vue'
 import progressBarService from '@/services/api/services/progressBarService'
 import { requiredNumber, requiredString, triggerGroup } from '@/validators'
 import BaseInputTriggerGroup from '@/components/BaseInputTriggerGroup/BaseInputTriggerGroup.vue'
-
-const schema = object({
-  triggerGroup,
-  goal: requiredNumber,
-  title: requiredString,
-  completionMessage: string(),
-  image: string().required('Please select an image, or upload your own.')
-}).defined()
 
 export default defineComponent({
   components: {
@@ -94,6 +86,15 @@ export default defineComponent({
   setup() {
     const loading = ref(false)
     const router = useRouter()
+    const schema = computed(() =>
+      object({
+        triggerGroup,
+        goal: requiredNumber,
+        title: requiredString,
+        completionMessage: string(),
+        image: string().required('Please select an image, or upload your own.')
+      }).defined()
+    )
     const { fields, getValues, handleSubmit } = useForm(schema)
     const onSubmit = async () => {
       loading.value = true

@@ -51,7 +51,7 @@
 <script lang="ts">
 import { object } from 'yup'
 import { useRouter } from 'vue-router'
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import useForm from '@/composables/useForm'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
 import { triggerGroup, requiredString } from '@/validators'
@@ -61,13 +61,6 @@ import crossSellService from '@/services/api/services/crossSellService'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
 import BaseInputProducts from '@/components/BaseInputProducts/BaseInputProducts.vue'
 import BaseInputTriggerGroup from '@/components/BaseInputTriggerGroup/BaseInputTriggerGroup.vue'
-
-const schema = object({
-  triggerGroup,
-  title: requiredString,
-  subtitle: requiredString,
-  productId: requiredString
-}).defined()
 
 export default defineComponent({
   components: {
@@ -81,6 +74,14 @@ export default defineComponent({
   setup() {
     const loading = ref(false)
     const router = useRouter()
+    const schema = computed(() =>
+      object({
+        triggerGroup,
+        title: requiredString,
+        subtitle: requiredString,
+        productId: requiredString
+      }).defined()
+    )
     const { fields, getValues, handleSubmit } = useForm(schema)
     const onSubmit = async () => {
       const values = getValues()

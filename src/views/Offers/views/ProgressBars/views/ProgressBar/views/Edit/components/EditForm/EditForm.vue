@@ -57,7 +57,7 @@
       </div>
       <template #footer>
         <div class="flex justify-end">
-          <BaseButton text="Save" type="submit" :loading="loading" />
+          <BaseButton text="Save" type="submit" :loading="loading" :disabled="!modified" />
         </div>
       </template>
     </BaseGridCard>
@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
+import { computed, defineComponent, PropType, ref } from 'vue'
 import useForm from '@/composables/useForm'
 import { object, string } from 'yup'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
@@ -92,16 +92,18 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const loading = ref(false)
-    const schema = object({
-      title: requiredString.default(props.progressBar.title),
-      goal: requiredNumber.default(props.progressBar.goal),
-      image: string()
-        .required('Please select an image, or upload your own.')
-        .default(props.progressBar.image),
-      completionMessage: string().default(props.progressBar.completionMessage),
-      triggerGroup: triggerGroup.default(props.progressBar.triggerGroup)
-    }).defined()
-    const { fields, getValues, handleSubmit } = useForm(schema)
+    const schema = computed(() =>
+      object({
+        title: requiredString.default(props.progressBar.title),
+        goal: requiredNumber.default(props.progressBar.goal),
+        image: string()
+          .required('Please select an image, or upload your own.')
+          .default(props.progressBar.image),
+        completionMessage: string().default(props.progressBar.completionMessage),
+        triggerGroup: triggerGroup.default(props.progressBar.triggerGroup)
+      }).defined()
+    )
+    const { fields, getValues, handleSubmit, modified } = useForm(schema)
     const onSubmit = async () => {
       loading.value = true
       const progressBar = await progressBarService.updateOneById(props.progressBar.id, getValues())
@@ -111,6 +113,7 @@ export default defineComponent({
     return {
       loading,
       fields,
+      modified,
       handleSubmit: handleSubmit(onSubmit)
     }
   }

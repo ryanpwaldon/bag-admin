@@ -65,7 +65,8 @@ export default defineComponent({
         subscription
       }))
     )
-    const schema = object({ subscription: string().default(state.user.subscription) }).defined()
+    const subscription = computed(() => state.user.subscription)
+    const schema = computed(() => object({ subscription: string().default(subscription.value) }).defined())
     const { fields, getValues, handleSubmit, modified } = useForm(schema)
     const onSubmit = async () => {
       submitting.value = true

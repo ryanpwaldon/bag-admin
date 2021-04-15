@@ -44,7 +44,7 @@
       </div>
       <template #footer>
         <div class="flex justify-end">
-          <BaseButton text="Save" type="submit" :loading="loading" />
+          <BaseButton text="Save" type="submit" :loading="loading" :disabled="!modified" />
         </div>
       </template>
     </BaseGridCard>
@@ -59,7 +59,7 @@ import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
 import crossSellService, { CrossSell } from '@/services/api/services/crossSellService'
 import BaseInputTriggerGroup from '@/components/BaseInputTriggerGroup/BaseInputTriggerGroup.vue'
-import { defineComponent, PropType, ref } from 'vue'
+import { computed, defineComponent, PropType, ref } from 'vue'
 import { requiredString, triggerGroup } from '@/validators'
 import { object } from 'yup'
 
@@ -79,19 +79,21 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const loading = ref(false)
-    const schema = object({
-      triggerGroup: triggerGroup.default(props.crossSell.triggerGroup),
-      title: requiredString.default(props.crossSell.title),
-      subtitle: requiredString.default(props.crossSell.subtitle)
-    }).defined()
-    const { fields, getValues, handleSubmit } = useForm(schema)
+    const schema = computed(() =>
+      object({
+        triggerGroup: triggerGroup.default(props.crossSell.triggerGroup),
+        title: requiredString.default(props.crossSell.title),
+        subtitle: requiredString.default(props.crossSell.subtitle)
+      }).defined()
+    )
+    const { fields, getValues, handleSubmit, modified } = useForm(schema)
     const onSubmit = async () => {
       loading.value = true
       const crossSell = await crossSellService.updateOneById(props.crossSell.id, getValues())
       emit('update:crossSell', crossSell)
       loading.value = false
     }
-    return { fields, handleSubmit: handleSubmit(onSubmit), loading }
+    return { fields, modified, handleSubmit: handleSubmit(onSubmit), loading }
   }
 })
 </script>

@@ -78,7 +78,7 @@ export default defineComponent({
         red: 'bg-red-600 hover:bg-red-500 focus:border-red-700 focus:shadow-outline-red'
       }
       const themeDisabledClasses: Classes<Themes> = {
-        blue: 'bg-blue-400',
+        blue: 'bg-blue-300',
         lightBlue: 'bg-blue-50',
         white: 'opacity-50',
         black: '',

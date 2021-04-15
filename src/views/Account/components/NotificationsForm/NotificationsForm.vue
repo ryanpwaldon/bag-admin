@@ -18,7 +18,7 @@
       />
       <template #footer>
         <div class="flex justify-end">
-          <BaseButton text="Save" type="submit" :loading="loading" />
+          <BaseButton text="Save" type="submit" :loading="loading" :disabled="!modified" />
         </div>
       </template>
     </BaseGridCard>
@@ -28,7 +28,7 @@
 <script lang="ts">
 import store from '@/store/store'
 import { boolean, object } from 'yup'
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import useForm from '@/composables/useForm'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
@@ -42,11 +42,13 @@ export default defineComponent({
   },
   setup() {
     const loading = ref(false)
-    const unsubscribedNotifications = store.state.user?.unsubscribedNotifications as Notification[]
-    const schema = object({
-      [Notification.Conversion]: boolean().default(!unsubscribedNotifications.includes(Notification.Conversion)),
-      [Notification.ConversionReportWeekly]: boolean().default(!unsubscribedNotifications.includes(Notification.ConversionReportWeekly))
-    }).defined()
+    const unsubscribedNotifications = computed(() => store.state.user?.unsubscribedNotifications as Notification[])
+    const schema = computed(() =>
+      object({
+        [Notification.Conversion]: boolean().default(!unsubscribedNotifications.value.includes(Notification.Conversion)),
+        [Notification.ConversionReportWeekly]: boolean().default(!unsubscribedNotifications.value.includes(Notification.ConversionReportWeekly))
+      }).defined()
+    )
     const { fields, getValues, handleSubmit, modified } = useForm(schema)
     const onSubmit = async () => {
       loading.value = true
