@@ -1,4 +1,3 @@
-import clone from 'lodash/clone'
 import isEqual from 'lodash/isEqual'
 import cloneDeep from 'lodash/cloneDeep'
 import { AnySchema, ObjectSchema } from 'yup'
