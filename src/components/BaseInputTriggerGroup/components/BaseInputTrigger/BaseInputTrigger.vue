@@ -8,6 +8,7 @@
     <BaseInputSelect class="flex-shrink-0 w-full md:w-18/100" v-model="selectedCondition" :options="conditionOptions" />
     <div class="w-full md:flex-1">
       <BaseInputProductsV2 v-if="selectedProperty === 'product'" v-model="value" />
+      <BaseInputText v-if="selectedProperty === 'productTag'" :placeholder="selectedSchema.placeholder" v-model="value" />
       <BaseInputText v-if="selectedProperty === 'productType'" :placeholder="selectedSchema.placeholder" v-model="value" />
       <BaseInputText v-if="selectedProperty === 'productVendor'" :placeholder="selectedSchema.placeholder" v-model="value" />
       <BaseInputText v-if="selectedProperty === 'subtotal'" :placeholder="selectedSchema.placeholder" v-model="value" />
@@ -53,6 +54,15 @@ const triggerSchemas: Record<TriggerProperty, TriggerSchema> = {
     defaultValue: [],
     placeholder: null,
     property: { label: 'Products', value: TriggerProperty.Product, description: 'Products added to cart' },
+    conditions: [
+      { value: TriggerCondition.Includes, label: 'Include' },
+      { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
+    ]
+  },
+  productTag: {
+    defaultValue: '',
+    placeholder: 'Value',
+    property: { label: 'Product tags', value: TriggerProperty.ProductTag, description: 'Tags of products added to cart' },
     conditions: [
       { value: TriggerCondition.Includes, label: 'Include' },
       { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }

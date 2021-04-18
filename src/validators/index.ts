@@ -28,6 +28,8 @@ export const triggerGroup = object({
                   .of(string())
                   .min(1, 'Product trigger requires at least 1 item.')
                   .ensure()
+              case TriggerProperty.ProductTag:
+                return string().required('Product tag value is empty.')
               case TriggerProperty.ProductType:
                 return string().required('Product type value is empty.')
               case TriggerProperty.ProductVendor:

@@ -1,5 +1,6 @@
 export enum TriggerProperty {
   Product = 'product',
+  ProductTag = 'productTag',
   ProductType = 'productType',
   ProductVendor = 'productVendor',
   Subtotal = 'subtotal'
