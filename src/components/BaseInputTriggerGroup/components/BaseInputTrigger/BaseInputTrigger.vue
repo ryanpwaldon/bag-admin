@@ -52,7 +52,7 @@ const triggerSchemas: Record<TriggerProperty, TriggerSchema> = {
   product: {
     defaultValue: [],
     placeholder: null,
-    property: { label: 'Products', value: TriggerProperty.Product, description: 'Products in the cart' },
+    property: { label: 'Products', value: TriggerProperty.Product, description: 'Products added to cart' },
     conditions: [
       { value: TriggerCondition.Includes, label: 'Include' },
       { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
@@ -61,7 +61,7 @@ const triggerSchemas: Record<TriggerProperty, TriggerSchema> = {
   productType: {
     defaultValue: '',
     placeholder: 'Value',
-    property: { label: 'Product types', value: TriggerProperty.ProductType, description: 'Product types in the cart' },
+    property: { label: 'Product types', value: TriggerProperty.ProductType, description: 'Types of products added to cart' },
     conditions: [
       { value: TriggerCondition.Includes, label: 'Include' },
       { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
@@ -70,7 +70,7 @@ const triggerSchemas: Record<TriggerProperty, TriggerSchema> = {
   productVendor: {
     defaultValue: '',
     placeholder: 'Value',
-    property: { label: 'Product vendors', value: TriggerProperty.ProductVendor, description: 'Product vendors in the cart' },
+    property: { label: 'Product vendors', value: TriggerProperty.ProductVendor, description: 'Vendors of products added to cart' },
     conditions: [
       { value: TriggerCondition.Includes, label: 'Include' },
       { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
