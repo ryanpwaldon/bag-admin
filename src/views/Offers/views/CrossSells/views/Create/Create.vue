@@ -3,7 +3,7 @@
   <form @submit="handleSubmit" class="grid gap-4" autocomplete="off">
     <BaseCard>
       <div class="grid grid-cols-12 gap-6">
-        <BaseInputProducts
+        <BaseInputProduct
           label="Product"
           description="The product you would like to cross-sell."
           name="productId"
@@ -59,7 +59,7 @@ import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import crossSellService from '@/services/api/services/crossSellService'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
-import BaseInputProducts from '@/components/BaseInputProducts/BaseInputProducts.vue'
+import BaseInputProduct from '@/components/BaseInputProduct/BaseInputProduct.vue'
 import BaseInputTriggerGroup from '@/components/BaseInputTriggerGroup/BaseInputTriggerGroup.vue'
 
 export default defineComponent({
@@ -67,7 +67,7 @@ export default defineComponent({
     BaseHeader,
     BaseCard,
     BaseInputText,
-    BaseInputProducts,
+    BaseInputProduct,
     BaseButton,
     BaseInputTriggerGroup
   },

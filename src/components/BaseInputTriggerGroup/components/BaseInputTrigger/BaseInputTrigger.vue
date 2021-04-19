@@ -7,7 +7,7 @@
     <BaseInputSelect class="flex-shrink-0 w-full md:w-19/100" v-model="selectedProperty" :options="propertyOptions" />
     <BaseInputSelect class="flex-shrink-0 w-full md:w-18/100" v-model="selectedCondition" :options="conditionOptions" />
     <div class="w-full md:flex-1">
-      <BaseInputProductsV2 v-if="selectedProperty === 'product'" v-model="value" />
+      <BaseInputProducts v-if="selectedProperty === 'product'" v-model="value" />
       <BaseInputText v-if="selectedProperty === 'productTag'" :placeholder="selectedSchema.placeholder" v-model="value" />
       <BaseInputText v-if="selectedProperty === 'productType'" :placeholder="selectedSchema.placeholder" v-model="value" />
       <BaseInputText v-if="selectedProperty === 'productVendor'" :placeholder="selectedSchema.placeholder" v-model="value" />
@@ -31,7 +31,7 @@ import { computed, defineComponent, PropType } from 'vue'
 import { TriggerCondition, TriggerProperty, Trigger } from '@/types/internal'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
 import BaseInputSelect from '@/components/BaseInputSelect/BaseInputSelect.vue'
-import BaseInputProductsV2 from '@/components/BaseInputProductsV2/BaseInputProductsV2.vue'
+import BaseInputProducts from '@/components/BaseInputProducts/BaseInputProducts.vue'
 import useModelWrapper from '@/composables/useModelWrapper'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 
@@ -98,7 +98,7 @@ const triggerSchemas: Record<TriggerProperty, TriggerSchema> = {
 }
 
 export default defineComponent({
-  components: { BaseInputSelect, BaseInputProductsV2, BaseInputText, Bin, BaseButton },
+  components: { BaseInputSelect, BaseInputProducts, BaseInputText, Bin, BaseButton },
   props: {
     trigger: {
       type: Object as PropType<Trigger>,
