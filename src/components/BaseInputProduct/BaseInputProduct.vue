@@ -3,7 +3,7 @@
     <label v-if="label" :for="name" class="block text-base font-medium text-gray-700">{{ label }}</label>
     <p v-if="description" class="max-w-xl mb-4 text-sm text-gray-500">{{ description }}</p>
     <div class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
-      <BaseProductV2 v-if="product || loading" :title="product?.title" :image="product?.featuredImage?.originalSrc" :loading="loading">
+      <BaseProduct v-if="product || loading" :title="product?.title" :image="product?.featuredImage?.originalSrc" :loading="loading">
         <template #button>
           <BaseMenuButton
             class="flex-shrink-0 mr-2"
@@ -13,7 +13,7 @@
             ]"
           />
         </template>
-      </BaseProductV2>
+      </BaseProduct>
       <BaseInputButton @click="openProductPicker" class="h-20" text="Select a product" theme="white" v-if="!modelValue">
         <template #icon>
           <ChevronRight class="w-5 h-5 ml-3 -mr-1 text-gray-400" />
@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import BaseProductV2 from '@/components/BaseProductV2/BaseProductV2.vue'
+import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
 import BaseMenuButton from '../BaseMenuButton/BaseMenuButton.vue'
 import BaseInputButton from '../BaseInputButton/BaseInputButton.vue'
 import productService from '@/services/api/services/productService'
@@ -34,7 +34,7 @@ import { AdminProduct } from '@/types/admin/graphql'
 import ChevronRight from '@/icons/ChevronRight.vue'
 export default defineComponent({
   components: {
-    BaseProductV2,
+    BaseProduct,
     BaseInputButton,
     BaseMenuButton,
     ChevronRight

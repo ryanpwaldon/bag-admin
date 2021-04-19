@@ -20,7 +20,7 @@
       </button>
     </div>
     <template v-if="preview">
-      <BaseProductV2
+      <BaseProduct
         :key="i"
         :loading="!product"
         :title="product?.title"
@@ -36,7 +36,7 @@
             <Bin class="text-gray-400" />
           </button>
         </template>
-      </BaseProductV2>
+      </BaseProduct>
     </template>
   </div>
 </template>
@@ -49,9 +49,9 @@ import { ProductResource } from '@/types/internal'
 import { AdminProduct } from '@/types/admin/graphql'
 import { defineComponent, PropType, ref, watch } from 'vue'
 import productService from '@/services/api/services/productService'
-import BaseProductV2 from '@/components/BaseProductV2/BaseProductV2.vue'
+import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
 export default defineComponent({
-  components: { BaseProductV2, ChevronDown, Bin },
+  components: { BaseProduct, ChevronDown, Bin },
   props: {
     modelValue: {
       type: Array as PropType<ProductResource[]>,
