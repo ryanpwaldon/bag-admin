@@ -6,11 +6,16 @@
         <div class="flex items-center w-full space-x-5">
           <div class="flex flex-col justify-center flex-1 w-full">
             <p class="font-medium text-gray-700">{{ title }}</p>
-            <!-- <p class="text-gray-500" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-              <span>Color: Gray</span>
-              <span> · </span>
-              <span>Size: 10</span>
-            </p> -->
+            <p
+              v-if="options"
+              class="text-gray-500"
+              style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"
+            >
+              <template v-for="(option, i) of options" :key="i">
+                <span>{{ option.name }}: {{ option.value }}</span>
+                <span v-if="options?.length !== i + 1"> · </span>
+              </template>
+            </p>
           </div>
           <slot name="button" />
         </div>
@@ -28,8 +33,14 @@
 </template>
 
 <script lang="ts">
+import { defineComponent, PropType } from 'vue'
 import useFormatter from '@/composables/useFormatter'
-import { defineComponent } from 'vue'
+
+interface Option {
+  name: string
+  value: string
+}
+
 export default defineComponent({
   props: {
     title: {
@@ -38,6 +49,10 @@ export default defineComponent({
     },
     image: {
       type: String,
+      required: false
+    },
+    options: {
+      type: Object as PropType<Option[]>,
       required: false
     },
     loading: {

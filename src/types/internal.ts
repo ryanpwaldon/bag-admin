@@ -4,6 +4,7 @@ export type ProductResource = BaseResource
 
 export enum TriggerProperty {
   Product = 'product',
+  Variant = 'variant',
   ProductTag = 'productTag',
   ProductType = 'productType',
   ProductVendor = 'productVendor',

@@ -25,10 +25,17 @@ export const triggerGroup = object({
             switch (property) {
               case TriggerProperty.Product:
                 return array()
+                  .of(object({ id: string().required() }))
+                  .min(1, 'Product trigger requires at least 1 item.')
+                  .ensure()
+              case TriggerProperty.Variant:
+                return array()
                   .of(
                     object({
                       id: string().required(),
-                      variants: array().of(object({ id: string().required() }))
+                      variants: array()
+                        .of(object({ id: string().required() }))
+                        .required()
                     })
                   )
                   .min(1, 'Product trigger requires at least 1 item.')

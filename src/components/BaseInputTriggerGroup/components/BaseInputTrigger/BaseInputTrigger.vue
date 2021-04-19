@@ -8,6 +8,7 @@
     <BaseInputSelect class="flex-shrink-0 w-full md:w-18/100" v-model="selectedCondition" :options="conditionOptions" />
     <div class="w-full md:flex-1">
       <BaseInputProducts v-if="selectedProperty === 'product'" v-model="value" />
+      <BaseInputVariants v-if="selectedProperty === 'variant'" v-model="value" />
       <BaseInputText v-if="selectedProperty === 'productTag'" :placeholder="selectedSchema.placeholder" v-model="value" />
       <BaseInputText v-if="selectedProperty === 'productType'" :placeholder="selectedSchema.placeholder" v-model="value" />
       <BaseInputText v-if="selectedProperty === 'productVendor'" :placeholder="selectedSchema.placeholder" v-model="value" />
@@ -34,6 +35,7 @@ import BaseInputSelect from '@/components/BaseInputSelect/BaseInputSelect.vue'
 import BaseInputProducts from '@/components/BaseInputProducts/BaseInputProducts.vue'
 import useModelWrapper from '@/composables/useModelWrapper'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import BaseInputVariants from '@/components/BaseInputVariants/BaseInputVariants.vue'
 
 type PropertyOption = { label: string; value: TriggerProperty; description: string }
 type ConditionOption = { label: string; value: TriggerCondition }
@@ -54,6 +56,15 @@ const triggerSchemas: Record<TriggerProperty, TriggerSchema> = {
     defaultValue: [],
     placeholder: null,
     property: { label: 'Products', value: TriggerProperty.Product, description: 'Products added to cart' },
+    conditions: [
+      { value: TriggerCondition.Includes, label: 'Include' },
+      { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
+    ]
+  },
+  variant: {
+    defaultValue: [],
+    placeholder: null,
+    property: { label: 'Variants', value: TriggerProperty.Variant, description: 'Variants added to cart' },
     conditions: [
       { value: TriggerCondition.Includes, label: 'Include' },
       { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
@@ -98,7 +109,7 @@ const triggerSchemas: Record<TriggerProperty, TriggerSchema> = {
 }
 
 export default defineComponent({
-  components: { BaseInputSelect, BaseInputProducts, BaseInputText, Bin, BaseButton },
+  components: { BaseInputSelect, BaseInputProducts, BaseInputText, Bin, BaseButton, BaseInputVariants },
   props: {
     trigger: {
       type: Object as PropType<Trigger>,
