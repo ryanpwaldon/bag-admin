@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { App } from 'vue'
 import isFramed from '@/utils/isFramed'
 import createApp from '@shopify/app-bridge'
@@ -6,6 +7,7 @@ import { getSessionToken } from '@shopify/app-bridge-utils'
 import { ResourcePicker } from '@shopify/app-bridge/actions'
 import getShopOriginFromUrl from '@/utils/getShopOriginFromUrl'
 import { Section } from '@shopify/app-bridge/actions/Navigation/Redirect'
+import { BaseResource, Product, ProductOptions } from '@shopify/app-bridge/actions/ResourcePicker'
 
 const createShopifyPlugin = (shopOrigin: string) => {
   const shopifyAppBridge = createApp({ apiKey: process.env.VUE_APP_SHOPIFY_API_KEY, shopOrigin })
@@ -21,16 +23,27 @@ const createShopifyPlugin = (shopOrigin: string) => {
     redirectToExternalUrl(url: string) {
       shopifyRedirect.dispatch(Redirect.Action.REMOTE, url)
     },
-    async openProductPicker({ selectMultiple = false, showVariants = false }) {
-      shopifyProductPicker.set({ selectMultiple, showVariants })
+    async openProductPicker(options: Partial<ProductOptions> = {}) {
+      let cancelled = false
+      const defaultOptions: Partial<ProductOptions> = { showVariants: false, selectMultiple: false, initialSelectionIds: [] }
+      const combinedOptions = Object.assign(defaultOptions, options)
+      shopifyProductPicker.set(combinedOptions)
       shopifyProductPicker.dispatch(ResourcePicker.Action.OPEN)
-      const selection: { id: string }[] = await new Promise(resolve => {
+      const selection: Product[] = await new Promise(resolve => {
         shopifyProductPicker.subscribe(ResourcePicker.Action.SELECT, ({ selection }) => resolve(selection))
-        shopifyProductPicker.subscribe(ResourcePicker.Action.CANCEL, () => resolve([]))
+        shopifyProductPicker.subscribe(ResourcePicker.Action.CANCEL, () => {
+          cancelled = true
+          resolve([])
+        })
       })
       shopifyProductPicker.unsubscribe()
-      const productIds = selection.map(({ id }) => id)
-      return productIds
+      if (cancelled) return combinedOptions.initialSelectionIds || []
+      const productResources = selection.map(product => {
+        const productResource: BaseResource = { id: product.id }
+        if (options.showVariants) productResource.variants = product.variants.map(variant => ({ id: variant.id as string }))
+        return productResource
+      })
+      return productResources
     }
   }
 }

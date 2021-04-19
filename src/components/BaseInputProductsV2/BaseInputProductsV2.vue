@@ -25,7 +25,7 @@
         :loading="!product"
         :title="product?.title"
         :image="product?.featuredImage?.originalSrc"
-        v-for="(product, i) in modelValue.map(id => products[id])"
+        v-for="(product, i) in modelValue.map(({ id }) => products[id])"
       >
         <template v-if="product" #button>
           <button
@@ -43,7 +43,9 @@
 
 <script lang="ts">
 import Bin from '@/icons/Bin.vue'
+import cloneDeep from 'lodash/cloneDeep'
 import ChevronDown from '@/icons/ChevronDown.vue'
+import { ProductResource } from '@/types/internal'
 import { AdminProduct } from '@/types/admin/graphql'
 import { defineComponent, PropType, ref, watch } from 'vue'
 import productService from '@/services/api/services/productService'
@@ -52,7 +54,7 @@ export default defineComponent({
   components: { BaseProductV2, ChevronDown, Bin },
   props: {
     modelValue: {
-      type: Array as PropType<string[]>,
+      type: Array as PropType<ProductResource[]>,
       required: true
     },
     error: {
@@ -64,8 +66,9 @@ export default defineComponent({
     const preview = ref(false)
     const products = ref({} as Record<string, AdminProduct | null>)
     const diff = (a: string[], b: string[]) => a.filter(i => b.indexOf(i) < 0)
-    const updateProducts = async (allIds: string[]) => {
+    const updateProducts = async (allProductResources: ProductResource[]) => {
       const fetchedIds = Object.keys(products.value)
+      const allIds = allProductResources.map(({ id }) => id)
       const productsToFetchAsIds = diff(allIds, fetchedIds)
       productsToFetchAsIds.forEach(id => (products.value[id] = null))
       const fetchedProducts = await productService.findByIds(productsToFetchAsIds)
@@ -76,15 +79,13 @@ export default defineComponent({
   },
   methods: {
     removeId(idToRemove: string) {
-      const modelValue = this.modelValue.filter((id: string) => id !== idToRemove)
+      const modelValue = this.modelValue.filter(({ id }) => id !== idToRemove)
       this.$emit('update:modelValue', modelValue)
       if (!modelValue.length) this.preview = false
     },
     async openProductPicker() {
-      const selectionIds = await this.$shopify.openProductPicker({ selectMultiple: true })
-      if (!selectionIds.length) return
-      const ids = [...new Set([...this.modelValue, ...selectionIds])]
-      this.$emit('update:modelValue', ids)
+      const productResources = await this.$shopify.openProductPicker({ selectMultiple: true, initialSelectionIds: cloneDeep(this.modelValue) })
+      this.$emit('update:modelValue', productResources)
     }
   }
 })

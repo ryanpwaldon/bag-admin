@@ -1,3 +1,7 @@
+import { BaseResource } from '@shopify/app-bridge/actions/ResourcePicker'
+
+export type ProductResource = BaseResource
+
 export enum TriggerProperty {
   Product = 'product',
   ProductTag = 'productTag',
