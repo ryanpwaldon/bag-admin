@@ -8,6 +8,7 @@ import analytics from 'vue-gtag-next'
 import * as Sentry from '@sentry/vue'
 import shopify from '@/plugins/shopify'
 import { Integrations } from '@sentry/tracing'
+import 'focus-visible/dist/focus-visible.min.js'
 
 Sentry.init({
   tracesSampleRate: 1.0,

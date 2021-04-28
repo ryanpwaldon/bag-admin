@@ -1,16 +1,24 @@
 <template>
-  <div class="max-w-4xl px-4 m-auto mt-8 sm:px-6 lg:px-8">
-    <Logo class="h-5" />
-    <div class="flex flex-col px-6 py-8 mt-8 overflow-hidden rounded-lg shadow bg-gradient-to-tr from-blue-700 to-blue-400">
-      <h1 class="text-2xl font-semibold leading-8 text-white md:text-3xl">Welcome</h1>
-      <p class="mt-2 text-base leading-6 text-blue-100 md:text-lg">We're excited to have you on board!<br />Select a plan to get started.</p>
+  <div class="grid items-center justify-center w-screen h-screen">
+    <div class="flex flex-col items-center max-w-xs py-16 text-center">
+      <Logo class="h-7" />
+      <h3 class="mt-8 text-lg font-medium text-gray-800">Welcome</h3>
+      <p class="mt-1 text-sm text-gray-500">
+        We’ve selected a suitable plan based on the size of your store. Select monthly, or yearly billing to start your free trial.
+      </p>
+      <BaseInputTextToggle class="w-full mt-8" v-model="selectedBillingPeriod" :options="billingPeriods" />
+      <BasePlanCard
+        price="28"
+        interval="month"
+        class="w-full mt-6"
+        title="Medium store"
+        description="For stores processing<br />$10K – $50K sales per month."
+      />
+      <BaseButton class="w-full mt-6" text="Start your 30 day free trial →" theme="black" />
+      <button class="mt-8 text-sm text-gray-500 focus:outline-none" @click="openBeacon">
+        Need help?
+      </button>
     </div>
-    <div class="mt-8">
-      <BaseSubscriptions />
-    </div>
-    <button class="mt-8 text-sm text-gray-500 rounded focus:outline-none focus:ring-2 ring-blue-600" @click="openBeacon">
-      Have any questions?
-    </button>
   </div>
 </template>
 
@@ -18,20 +26,29 @@
 import store from '@/store/store'
 import Logo from '@/icons/Logo.vue'
 import router from '@/router/router'
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import useBeacon from '@/composables/useBeacon'
-import BaseSubscriptions from '@/components/BaseSubscriptions/BaseSubscriptions.vue'
+import BaseInputTextToggle from '@/components/BaseInputTextToggle/BaseInputTextToggle.vue'
+import BasePlanCard from '@/components/BasePlanCard/BasePlanCard.vue'
+import BaseButton from '@/components/BaseButton/BaseButton.vue'
 export default defineComponent({
   components: {
     Logo,
-    BaseSubscriptions
+    BaseButton,
+    BasePlanCard,
+    BaseInputTextToggle
   },
   beforeRouteEnter() {
     if (store.state.user?.subscription) router.push({ name: 'home' })
   },
   setup() {
     const { openBeacon } = useBeacon()
-    return { openBeacon }
+    const billingPeriods = [
+      { label: 'Monthly', value: 'monthly' },
+      { label: 'Yearly', value: 'yearly', badge: 'Save 16%' }
+    ]
+    const selectedBillingPeriod = ref(billingPeriods[0].value)
+    return { openBeacon, billingPeriods, selectedBillingPeriod }
   }
 })
 </script>

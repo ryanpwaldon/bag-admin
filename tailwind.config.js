@@ -117,5 +117,13 @@ module.exports = {
         '99/100': '99%'
       }
     }
+  },
+  variants: {
+    extend: {
+      borderColor: ['focus-visible'],
+      ringOffsetWidth: ['focus-visible'],
+      ringColor: ['focus-visible'],
+      ringWidth: ['focus-visible']
+    }
   }
 }

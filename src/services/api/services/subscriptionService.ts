@@ -27,6 +27,8 @@ export type Subscription = {
   featuresExcluded: string[]
   emphasize: string
   legacy: boolean
+  salesThresholdLower: number
+  salesThresholdUpper: number
 }
 
 export type SubscriptionExtended = Subscription & {

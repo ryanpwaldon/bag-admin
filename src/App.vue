@@ -1,6 +1,6 @@
 <template>
   <BasePageLoader v-if="loading" />
-  <div v-else class="pb-32">
+  <div v-else>
     <component :is="layout">
       <router-view />
     </component>
