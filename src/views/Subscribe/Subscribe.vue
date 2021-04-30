@@ -8,7 +8,7 @@
     leave-to-class="opacity-0"
     mode="out-in"
   >
-    <BaseSpinner class="m-auto" v-if="loading" />
+    <BaseSpinner class="w-6 h-6 m-auto" v-if="loading" />
     <div class="flex flex-col items-center text-center" v-else>
       <Logo class="h-7" />
       <h3 class="mt-8 text-lg font-medium text-gray-800">Welcome</h3>
@@ -27,6 +27,7 @@
         />
       </template>
       <BaseButton
+        size="md"
         theme="black"
         class="w-full mt-6"
         :loading="submitting"

@@ -1,7 +1,5 @@
 <template>
-  <div class="flex items-center justify-center w-screen h-screen bg-gray-100">
-    <BaseSpinner />
-  </div>
+  <BaseSpinner class="w-6 h-6 m-auto" />
 </template>
 
 <script lang="ts">
@@ -34,13 +32,14 @@ export default defineComponent({
   methods: {
     async start() {
       const shopOrigin = getShopOrigin()
-      if (!shopOrigin) return this.displayError('Shop origin missing.')
+      if (!shopOrigin) return this.displayError('Shop origin missing')
       const user = await userService.findMe().catch(() => null)
       if (!user) return this.redirectToInstallationUrl(shopOrigin)
       const accessScopesUpToDate = await accessScopeService.checkStatus().catch(() => null)
       if (!accessScopesUpToDate) return this.redirectToInstallationUrl(shopOrigin)
       this.$store.commit('setUser', user)
-      if (!isFramed) return this.displayError('App must be embedded.')
+      if (!isFramed) return this.displayError('App must be embedded')
+      if (this.continueToRouteName === 'setup') return this.$router.push({ name: 'setup' })
       if (!user.subscription) return this.$router.push({ name: 'subscribe' })
       return this.authSuccess()
     },

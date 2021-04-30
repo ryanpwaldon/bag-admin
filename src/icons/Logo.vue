@@ -1,5 +1,5 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 62 62" style="transform: rotate(-3.5deg)" class="rounded-lg shadow">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 62 62" style="transform: rotate(-3.25deg)">
     <rect width="50" height="50" x="6" y="6" fill="currentColor" class="text-white" rx="12" />
     <path
       fill="currentColor"

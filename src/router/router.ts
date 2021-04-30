@@ -8,6 +8,7 @@ const routes: RouteRecordRaw[] = [
     path: '/auth',
     name: 'auth',
     component: () => import('@/views/Auth/Auth.vue'),
+    meta: { title: 'Auth', layout: BaseLayoutCenter, transition: true },
     props: true
   },
   {
@@ -109,7 +110,7 @@ const routes: RouteRecordRaw[] = [
     path: '/subscribe',
     name: 'subscribe',
     component: () => import('@/views/Subscribe/Subscribe.vue'),
-    meta: { title: 'Subscribe', layout: BaseLayoutCenter }
+    meta: { title: 'Subscribe', layout: BaseLayoutCenter, transition: true }
   },
   {
     path: '/pricing',
@@ -122,7 +123,13 @@ const routes: RouteRecordRaw[] = [
     name: 'error',
     props: true,
     component: () => import('@/views/Error/Error.vue'),
-    meta: { title: 'Error', layout: BaseLayoutCenter }
+    meta: { title: 'Error', layout: BaseLayoutCenter, transition: true }
+  },
+  {
+    path: '/setup',
+    name: 'setup',
+    component: () => import('@/views/Setup/Setup.vue'),
+    meta: { title: 'Setup', layout: BaseLayoutCenter, transition: true }
   },
   {
     path: '/:path(.*)*',

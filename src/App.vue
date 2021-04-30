@@ -10,7 +10,7 @@
       mode="out-in"
       appear
     >
-      <component :is="route.meta.layout || 'div'" :key="route.name">
+      <component :is="route.meta.layout || 'div'" :key="route.meta.transition && route.name">
         <component :is="Component" />
       </component>
     </transition>

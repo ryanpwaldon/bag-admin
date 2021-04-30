@@ -4,7 +4,12 @@
     :class="[containerClasses, (loading || disabled) && 'pointer-events-none']"
   >
     <button :type="type" :class="[buttonClasses]" class="relative w-full transition duration-150 ease-in-out border focus:outline-none">
-      <BaseSpinner v-if="loading" class="absolute w-4 h-4 transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2" />
+      <BaseSpinner
+        v-if="loading"
+        :primary-color="loaderPrimaryColor"
+        :secondary-color="loaderSecondaryColor"
+        class="absolute w-4 h-4 transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2"
+      />
       <span :class="loading && 'opacity-0'">{{ text }}</span>
     </button>
   </span>
@@ -49,6 +54,24 @@ export default defineComponent({
     }
   },
   computed: {
+    loaderPrimaryColor(): string {
+      return {
+        blue: 'text-white',
+        lightBlue: 'text-white',
+        white: 'text-white',
+        black: 'text-gray-600',
+        red: 'text-white'
+      }[this.theme]
+    },
+    loaderSecondaryColor(): string {
+      return {
+        blue: 'text-white',
+        lightBlue: 'text-white',
+        white: 'text-white',
+        black: 'text-white',
+        red: 'text-white'
+      }[this.theme]
+    },
     // prettier-ignore
     containerClasses(): string {
       const sizeClasses: Classes<Sizes> = { xs: '', sm: '', md: '', lg: '', xl: '' }
@@ -81,7 +104,7 @@ export default defineComponent({
         blue: 'bg-blue-300',
         lightBlue: 'bg-blue-50',
         white: 'opacity-50',
-        black: 'opacity-50',
+        black: 'bg-gray-700',
         red: 'bg-red-500'
       }
       return `${sizeClasses[this.size]} ${themeBaseClasses[this.theme]} ${this.loading || this.disabled ? themeDisabledClasses[this.theme] : themeDefaultClasses[this.theme]}`

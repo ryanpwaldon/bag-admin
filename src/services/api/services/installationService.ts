@@ -1,5 +1,7 @@
 import app from '@/main'
 import isFramed from '@/utils/isFramed'
+import { client } from '@/services/api/client'
+import { User } from '@/services/api/services/userService'
 
 export default {
   async install(shopOrigin: string) {
@@ -7,5 +9,9 @@ export default {
     if (isFramed) app.$shopify.redirectToExternalUrl(url)
     else window.location.href = url
     return new Promise(() => ({}))
+  },
+
+  async setup(): Promise<User> {
+    return (await client({ url: `/installation/setup`, method: 'get' })).data
   }
 }

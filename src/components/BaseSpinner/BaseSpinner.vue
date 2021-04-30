@@ -1,21 +1,26 @@
 <template>
-  <div class="w-5 h-5">
-    <svg class="animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5V2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22V19Z"
-        fill="currentColor"
-        fill-opacity="0.2"
-      />
-      <path
-        d="M12 19C8.13401 19 5 15.866 5 12C5 8.13401 8.13401 5 12 5V2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22V19Z"
-        fill="currentColor"
-        fill-opacity="0.8"
-      />
+  <div>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 28 28" class="animate-spin">
+      <g stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+        <path stroke="currentColor" :class="primaryColor" d="M14 2a12 12 0 1012 12" />
+        <path stroke="currentColor" :class="secondaryColor" d="M14 2a12 12 0 0112 12" />
+      </g>
     </svg>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-export default defineComponent({})
+export default defineComponent({
+  props: {
+    primaryColor: {
+      type: String,
+      default: 'text-gray-300'
+    },
+    secondaryColor: {
+      type: String,
+      default: 'text-gray-800'
+    }
+  }
+})
 </script>
