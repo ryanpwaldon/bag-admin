@@ -74,14 +74,14 @@ export default defineComponent({
         blue: 'bg-blue-600 hover:bg-blue-500 focus:ring-2 ring-offset-2 ring-offset ring-blue-500',
         lightBlue: 'bg-blue-50 hover:bg-blue-100 focus:ring-2 ring-offset-2 ring-offset ring-blue-500',
         white: 'bg-white active:text-gray-800 active:bg-gray-50 hover:bg-gray-50 focus:ring-2 ring-offset-2 ring-offset ring-blue-500',
-        black: 'bg-gray-900 focus:shadow-outline-gray hover:bg-gray-800 active:bg-gray-700',
+        black: 'bg-gray-800 hover:bg-gray-700',
         red: 'bg-red-600 hover:bg-red-500 focus:border-red-700 focus:shadow-outline-red'
       }
       const themeDisabledClasses: Classes<Themes> = {
         blue: 'bg-blue-300',
         lightBlue: 'bg-blue-50',
         white: 'opacity-50',
-        black: '',
+        black: 'opacity-50',
         red: 'bg-red-500'
       }
       return `${sizeClasses[this.size]} ${themeBaseClasses[this.theme]} ${this.loading || this.disabled ? themeDisabledClasses[this.theme] : themeDefaultClasses[this.theme]}`

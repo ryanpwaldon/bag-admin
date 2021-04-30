@@ -1,8 +1,15 @@
 import { trackRouter } from 'vue-gtag-next'
 import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
+import BaseLayoutCenter from '@/components/BaseLayoutCenter/BaseLayoutCenter.vue'
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
+  {
+    path: '/auth',
+    name: 'auth',
+    component: () => import('@/views/Auth/Auth.vue'),
+    props: true
+  },
   {
     path: '/',
     name: 'home',
@@ -99,10 +106,10 @@ const routes: RouteRecordRaw[] = [
     meta: { title: 'Account', layout: BaseLayout }
   },
   {
-    path: '/welcome',
-    name: 'welcome',
-    component: () => import('@/views/Welcome/Welcome.vue'),
-    meta: { title: 'Welcome' }
+    path: '/subscribe',
+    name: 'subscribe',
+    component: () => import('@/views/Subscribe/Subscribe.vue'),
+    meta: { title: 'Subscribe', layout: BaseLayoutCenter }
   },
   {
     path: '/pricing',
@@ -115,7 +122,7 @@ const routes: RouteRecordRaw[] = [
     name: 'error',
     props: true,
     component: () => import('@/views/Error/Error.vue'),
-    meta: { title: 'Error' }
+    meta: { title: 'Error', layout: BaseLayoutCenter }
   },
   {
     path: '/:path(.*)*',
@@ -127,6 +134,15 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+let isFirstRoute = true
+router.beforeEach(to => {
+  if (isFirstRoute) {
+    isFirstRoute = false
+    return { name: 'auth', query: to.query, params: { continueToRouteName: to.name as string } }
+  }
+  return true
 })
 
 trackRouter(router)

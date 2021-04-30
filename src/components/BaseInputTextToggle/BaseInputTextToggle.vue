@@ -22,7 +22,7 @@
 import { defineComponent, PropType } from 'vue'
 import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
 
-interface TextToggleOption {
+export interface TextToggleOption {
   value: unknown
   label: string
   badge?: string
@@ -36,7 +36,7 @@ export default defineComponent({
       required: true
     },
     modelValue: {
-      type: String,
+      type: Object,
       required: true
     }
   },

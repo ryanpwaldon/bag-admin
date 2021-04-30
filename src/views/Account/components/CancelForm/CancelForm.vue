@@ -20,7 +20,7 @@ export default defineComponent({
     async handleCancellation() {
       const user = await subscriptionService.cancel()
       this.$store.commit('setUser', user)
-      this.$router.push({ name: 'welcome' })
+      this.$router.push({ name: 'subscribe' })
     }
   }
 })

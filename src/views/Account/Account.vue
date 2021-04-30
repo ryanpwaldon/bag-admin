@@ -28,7 +28,10 @@ export default defineComponent({
     NotificationsForm
   },
   async created() {
-    const [subscriptions, activeSubscription] = await Promise.all([subscriptionService.findAll(), subscriptionService.findActiveSubscription()])
+    const [subscriptions, activeSubscription] = await Promise.all([
+      subscriptionService.findAvailableSubscriptionPair(),
+      subscriptionService.findActiveSubscription()
+    ])
     this.subscriptions = subscriptions
     this.activeSubscription = activeSubscription
     this.loading = false

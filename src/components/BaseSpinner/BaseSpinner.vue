@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-5 h-5">
     <svg class="animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5V2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22V19Z"

@@ -7,15 +7,15 @@
           <div class="flex space-x-3">
             <p class="font-medium">{{ option.subscription.title }}</p>
             <BaseBadge v-if="option.subscription.legacy" text="Legacy" theme="grayOutline" />
-            <BaseBadge
+            <!-- <BaseBadge
               theme="blue"
               :text="`Try it free for ${option.subscription.trialDays} days`"
               v-if="!option.subscription.subscribed && option.subscription.trialAvailable"
-            />
+            /> -->
           </div>
           <p class="flex">
             <span class="font-medium">${{ option.subscription.price }}</span>
-            <span class="text-gray-500">&nbsp;/&nbsp;{{ option.subscription.displayInterval }}</span>
+            <!-- <span class="text-gray-500">&nbsp;/&nbsp;{{ option.subscription.displayInterval }}</span> -->
           </p>
         </div>
       </template>
@@ -37,7 +37,7 @@ import { computed, defineComponent, PropType, ref } from 'vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import useCreateSubscription from '@/composables/useCreateSubscription'
-import { SubscriptionExtended } from '@/services/api/services/subscriptionService'
+import { Subscription } from '@/services/api/services/subscriptionService'
 import BaseInputRadioGroup from '@/components/BaseInputRadioGroup/BaseInputRadioGroup.vue'
 import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
 
@@ -50,7 +50,7 @@ export default defineComponent({
   },
   props: {
     subscriptions: {
-      type: Array as PropType<SubscriptionExtended[]>,
+      type: Array as PropType<Subscription[]>,
       required: true
     }
   },
@@ -71,7 +71,7 @@ export default defineComponent({
     const onSubmit = async () => {
       submitting.value = true
       const values = getValues()
-      const subscription = props.subscriptions.find(item => item.name === values.subscription) as SubscriptionExtended
+      const subscription = props.subscriptions.find(item => item.name === values.subscription) as Subscription
       await createSubscription(subscription)
     }
     return { options, fields, submitting, modified, handleSubmit: handleSubmit(onSubmit) }

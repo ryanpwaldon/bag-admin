@@ -2,10 +2,10 @@
 import { App } from 'vue'
 import isFramed from '@/utils/isFramed'
 import createApp from '@shopify/app-bridge'
+import getShopOrigin from '@/utils/getShopOrigin'
 import { Redirect } from '@shopify/app-bridge/actions'
 import { getSessionToken } from '@shopify/app-bridge-utils'
 import { ResourcePicker } from '@shopify/app-bridge/actions'
-import getShopOriginFromUrl from '@/utils/getShopOriginFromUrl'
 import { Section } from '@shopify/app-bridge/actions/Navigation/Redirect'
 import { BaseResource, Product, ProductOptions } from '@shopify/app-bridge/actions/ResourcePicker'
 
@@ -52,7 +52,7 @@ export type Shopify = ReturnType<typeof createShopifyPlugin>
 
 export default {
   install: (app: App) => {
-    const shopOrigin = getShopOriginFromUrl()
+    const shopOrigin = getShopOrigin()
     if (!shopOrigin || !isFramed) return console.warn('Shopify app bridge could not be created.')
     app.config.globalProperties.$shopify = createShopifyPlugin(shopOrigin)
   }

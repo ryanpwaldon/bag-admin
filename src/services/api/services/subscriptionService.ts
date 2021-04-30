@@ -1,7 +1,5 @@
-import { useStore } from 'vuex'
 import { client } from '@/services/api/client'
 import { User } from '@/services/api/services/userService'
-import convertShopifyInterval from '@/utils/convertShopifyInterval'
 
 export type ActiveSubscription = {
   id: string
@@ -11,59 +9,24 @@ export type ActiveSubscription = {
   currentPeriodEnd: Date
 }
 
+export type Subscription = {
+  name: string
+  price: number
+  title: string
+  legacy: boolean
+  trialDays: number
+  interval: Interval
+  description: string
+}
+
 export enum Interval {
   Monthly = 'EVERY_30_DAYS',
   Annually = 'ANNUAL'
 }
 
-export type Subscription = {
-  name: string
-  price: number
-  trialDays: number
-  interval: Interval
-  title: string
-  description: string
-  featuresIncluded: string[]
-  featuresExcluded: string[]
-  emphasize: string
-  legacy: boolean
-  salesThresholdLower: number
-  salesThresholdUpper: number
-}
-
-export type SubscriptionExtended = Subscription & {
-  subscribed: boolean
-  displayInterval: string
-  trialAvailable: boolean
-  ctaText: string
-  ctaTheme: string
-}
-
 export default {
-  async findAll(): Promise<SubscriptionExtended[]> {
-    const { state } = useStore()
-    const subscriptions: Subscription[] = (await client({ url: `/subscription`, method: 'get' })).data
-    const extendedSubscriptions: SubscriptionExtended[] = subscriptions.map(subscription => {
-      const subscribed = subscription.name === state.user.subscription
-      const displayInterval = convertShopifyInterval(subscription.interval)
-      const prevSubscribed = state.user.prevSubscriptions.includes(subscription.name)
-      const trialAvailable = subscription.trialDays > 0 && !prevSubscribed
-      const ctaText = subscribed ? 'Subscribed' : trialAvailable ? 'Try it free' : 'Get started'
-      const ctaTheme = subscribed ? 'white' : subscription.emphasize ? 'blue' : 'lightBlue'
-      return {
-        ctaText,
-        ctaTheme,
-        subscribed,
-        trialAvailable,
-        displayInterval,
-        ...subscription
-      }
-    })
-    const filteredSubscriptions = extendedSubscriptions.filter(subscription => !subscription.legacy || subscription.subscribed)
-    const sortedSubscriptions = filteredSubscriptions
-      .sort((a, b) => a.price - b.price)
-      .sort((a, b) => (a.legacy === b.legacy ? 0 : a.legacy ? -1 : 1))
-    return sortedSubscriptions
+  async findAvailableSubscriptionPair(): Promise<Subscription[]> {
+    return (await client({ url: `/subscription/available`, method: 'get' })).data
   },
 
   async findActiveSubscription(): Promise<ActiveSubscription | null> {
