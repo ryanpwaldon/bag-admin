@@ -13,7 +13,7 @@
       <Logo class="h-7" />
       <h3 class="mt-8 text-lg font-medium text-gray-800">Welcome</h3>
       <p class="mt-1 text-sm text-gray-500">
-        We’ve selected a suitable plan based on the size of your store. Select monthly, or yearly billing to start your free trial.
+        {{ primaryCopy }}
       </p>
       <BaseInputTextToggle class="w-full mt-8" v-model="selectedSubscription" :options="subscriptionOptions" />
       <template v-for="(subscription, i) in subscriptions" :key="i">
@@ -33,7 +33,7 @@
         :loading="submitting"
         @click="handleSubmit"
         :disabled="!selectedSubscription"
-        text="Start your 30 day free trial →"
+        :text="ctaCopy"
       />
       <button class="mt-8 text-sm text-gray-500 focus:outline-none" @click="openBeacon">
         Need help?
@@ -87,6 +87,16 @@ export default defineComponent({
     subscriptionOptions: [] as TextToggleOption[],
     selectedSubscription: null as Subscription | null
   }),
+  computed: {
+    primaryCopy(): string {
+      return this.$store.state.user?.prevSubscriptions.length
+        ? 'We’ve selected a suitable plan based on the size of your store. Select monthly, or yearly billing to continue.'
+        : 'We’ve selected a suitable plan based on the size of your store. Select monthly, or yearly billing to start your free trial.'
+    },
+    ctaCopy(): string {
+      return this.$store.state.user?.prevSubscriptions.length ? 'Continue →' : 'Start free trial →'
+    }
+  },
   methods: {
     fetchAvailableSubscriptionPair() {
       return subscriptionService.findAvailableSubscriptionPair()
