@@ -17,6 +17,7 @@ export interface User {
   subscription: string
   uninstalled: boolean
   currencyCode: string
+  seenReviewPrompt: boolean
   permissions: Permission[]
   prevSubscriptions: string[]
   unsubscribedNotifications: Notification[]

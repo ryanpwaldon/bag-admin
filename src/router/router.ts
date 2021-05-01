@@ -132,6 +132,12 @@ const routes: RouteRecordRaw[] = [
     meta: { title: 'Setup', layout: BaseLayoutCenter, transition: true }
   },
   {
+    path: '/review',
+    name: 'review',
+    component: () => import('@/views/Review/Review.vue'),
+    meta: { title: 'Review', layout: BaseLayoutCenter, transition: true }
+  },
+  {
     path: '/:path(.*)*',
     name: 'not-found',
     redirect: '/'
