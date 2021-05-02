@@ -4,7 +4,7 @@
     button-text="Cancel plan"
     @terminate="handleCancellation"
     button-confirmation-text="Confirm cancellation"
-    description="If you decide to re-install the app in the future, all your offers will be restored. If you have any questions, please reach out via the messenger."
+    description="If you decide to re-install the app in the future, all your settings will be restored. If you have any questions, please reach out via the messenger."
   />
 </template>
 
