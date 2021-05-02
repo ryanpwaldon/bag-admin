@@ -1,10 +1,5 @@
 <template>
-  <BaseTask
-    :loading="loading"
-    title="Turn on cart 💡"
-    description="Make our cart available to your customers on your online store."
-    :complete="cart?.active"
-  >
+  <BaseTask :loading="loading" title="Turn on Bag" description="Make our cart drawer available on your store." :complete="cart?.active">
     <BaseButton text="Turn on" @click="activateCart" :loading="submitting" />
   </BaseTask>
 </template>

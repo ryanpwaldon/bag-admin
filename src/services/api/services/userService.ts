@@ -12,7 +12,9 @@ export enum Notification {
 export interface User {
   email: string
   appUrl: string
+  daysOld: number
   timezone: string
+  appOpens: number
   shopOrigin: string
   subscription: string
   uninstalled: boolean

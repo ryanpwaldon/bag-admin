@@ -1,6 +1,6 @@
 <template>
   <span
-    class="relative inline-flex rounded-md shadow-sm select-none whitespace-nowrap"
+    class="relative inline-flex rounded-md select-none whitespace-nowrap"
     :class="[containerClasses, (loading || disabled) && 'pointer-events-none']"
   >
     <button :type="type" :class="[buttonClasses]" class="relative w-full transition duration-150 ease-in-out border focus:outline-none">
@@ -75,7 +75,14 @@ export default defineComponent({
     // prettier-ignore
     containerClasses(): string {
       const sizeClasses: Classes<Sizes> = { xs: '', sm: '', md: '', lg: '', xl: '' }
-      return `${sizeClasses[this.size]}`
+      const themeClasses: Classes<Themes> = { 
+        blue: 'shadow-sm',
+        lightBlue: 'shadow-sm',
+        white: 'shadow',
+        black: 'shadow-sm',
+        red: 'shadow-sm',
+       }
+      return `${sizeClasses[this.size]} ${themeClasses[this.theme]}`
     },
     // prettier-ignore
     buttonClasses(): string {
@@ -89,16 +96,16 @@ export default defineComponent({
       const themeBaseClasses: Classes<Themes> = {
         blue: 'text-white border-transparent',
         lightBlue: 'text-blue-700 border-blue-200 ',
-        white: 'text-gray-700 border-gray-300',
+        white: 'text-gray-800 border-transparent',
         black: 'text-white border-transparent',
         red: 'text-white border-transparent'
       }
       const themeDefaultClasses: Classes<Themes> = {
-        blue: 'bg-blue-600 hover:bg-blue-500 focus:ring-2 ring-offset-2 ring-offset ring-blue-500',
-        lightBlue: 'bg-blue-50 hover:bg-blue-100 focus:ring-2 ring-offset-2 ring-offset ring-blue-500',
-        white: 'bg-white active:text-gray-800 active:bg-gray-50 hover:bg-gray-50 focus:ring-2 ring-offset-2 ring-offset ring-blue-500',
+        blue: 'bg-blue-600 hover:bg-blue-500 focus-visible:ring-2 ring-offset-2 ring-offset ring-blue-500',
+        lightBlue: 'bg-blue-50 hover:bg-blue-100 focus-visible:ring-2 ring-offset-2 ring-offset ring-blue-500',
+        white: 'bg-white active:text-gray-800 active:bg-gray-50 hover:bg-gray-50 focus-visible:ring-2 ring-offset-2 ring-offset ring-blue-500',
         black: 'bg-gray-800 hover:bg-gray-700',
-        red: 'bg-red-600 hover:bg-red-500 focus:border-red-700 focus:shadow-outline-red'
+        red: 'bg-red-600 hover:bg-red-500 focus-visible:border-red-700 focus-visible:shadow-outline-red'
       }
       const themeDisabledClasses: Classes<Themes> = {
         blue: 'bg-blue-300',

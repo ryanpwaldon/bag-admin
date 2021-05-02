@@ -7,9 +7,9 @@ import { defineComponent } from 'vue'
 import isFramed from '@/utils/isFramed'
 import getShopOrigin from '@/utils/getShopOrigin'
 import BaseSpinner from '@/components/BaseSpinner/BaseSpinner.vue'
-import installationService from '@/services/api/services/installationService'
-import userService from '@/services/api/services/userService'
+import userService, { User } from '@/services/api/services/userService'
 import accessScopeService from '@/services/api/services/accessScopeService'
+import installationService from '@/services/api/services/installationService'
 export default defineComponent({
   components: {
     BaseSpinner
@@ -39,9 +39,7 @@ export default defineComponent({
       if (!accessScopesUpToDate) return this.redirectToInstallationUrl(shopOrigin)
       this.$store.commit('setUser', user)
       if (!isFramed) return this.displayError('App must be embedded')
-      if (this.continueToRouteName === 'setup') return this.$router.push({ name: 'setup' })
-      if (!user.subscription) return this.$router.push({ name: 'subscribe' })
-      return this.authSuccess()
+      return this.authSuccess(user)
     },
     displayError(message: string) {
       this.$router.push({ name: 'error', params: { message } })
@@ -49,7 +47,10 @@ export default defineComponent({
     redirectToInstallationUrl(shopOrigin: string) {
       installationService.install(shopOrigin)
     },
-    authSuccess() {
+    authSuccess(user: User) {
+      userService.updateMe({ appOpens: user.appOpens + 1 })
+      if (this.continueToRouteName === 'setup') return this.$router.push({ name: 'setup' })
+      if (!user.subscription) return this.$router.push({ name: 'subscribe' })
       this.$router.push({ name: this.continueToRouteName, query: this.$route.query })
     }
   }

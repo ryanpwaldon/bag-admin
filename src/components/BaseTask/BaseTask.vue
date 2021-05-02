@@ -56,7 +56,7 @@ export default defineComponent({
     },
     complete: {
       type: Boolean,
-      required: false
+      default: false
     },
     loading: {
       type: Boolean,
