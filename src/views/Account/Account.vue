@@ -1,9 +1,9 @@
 <template>
   <BaseHeader />
-  <BaseLoader v-if="loading" />
+  <BaseLoader v-if="activeSubscription" />
   <template v-else>
-    <TrialCountdown v-if="activeSubscription" :active-subscription="activeSubscription" />
-    <PlanForm class="mt-8" :subscriptions="subscriptions" />
+    <TrialCountdown :active-subscription="activeSubscription" />
+    <PlanForm class="mt-8" :active-subscription="activeSubscription" />
     <NotificationsForm class="mt-8" />
     <CancelForm class="mt-8" />
   </template>
@@ -16,7 +16,7 @@ import PlanForm from '@/views/Account/components/PlanForm/PlanForm.vue'
 import CancelForm from '@/views/Account/components/CancelForm/CancelForm.vue'
 import TrialCountdown from '@/views/Account/components/TrialCountdown/TrialCountdown.vue'
 import NotificationsForm from '@/views/Account/components/NotificationsForm/NotificationsForm.vue'
-import subscriptionService, { ActiveSubscription, Subscription } from '@/services/api/services/subscriptionService'
+import subscriptionService, { ActiveSubscription } from '@/services/api/services/subscriptionService'
 import { defineComponent } from 'vue'
 export default defineComponent({
   components: {
@@ -28,17 +28,10 @@ export default defineComponent({
     NotificationsForm
   },
   async created() {
-    const [subscriptions, activeSubscription] = await Promise.all([
-      subscriptionService.findAvailableSubscriptionPair(),
-      subscriptionService.findActiveSubscription()
-    ])
-    this.subscriptions = subscriptions
+    const activeSubscription = await subscriptionService.findActiveSubscription()
     this.activeSubscription = activeSubscription
-    this.loading = false
   },
   data: () => ({
-    loading: true,
-    subscriptions: [] as Subscription[],
     activeSubscription: null as ActiveSubscription | null
   })
 })

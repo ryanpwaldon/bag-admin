@@ -4,8 +4,11 @@ import { User } from '@/services/api/services/userService'
 export type ActiveSubscription = {
   id: string
   name: string
+  price: number
+  title?: string
   createdAt: Date
   trialDays: number
+  interval: Interval
   currentPeriodEnd: Date
 }
 
