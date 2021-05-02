@@ -1,12 +1,10 @@
 <template>
   <form @submit="handleSubmit">
     <BaseGridCard>
-      <BaseInputToggleHorizontal
-        label="Status"
-        description="If set to off, our cart will not be available to your customers."
-        v-model="fields.active.value.value"
-        class="w-full"
-      />
+      <template #header>
+        <h3 class="text-lg font-medium text-gray-800">Settings</h3>
+      </template>
+      <BaseInputToggleHorizontal label="Status" description="Turn the cart drawer on or off." v-model="fields.active.value.value" class="w-full" />
       <template #footer>
         <div class="flex justify-end">
           <BaseButton text="Save" type="submit" :loading="loading" :disabled="!modified" />
