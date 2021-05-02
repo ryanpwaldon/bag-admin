@@ -7,7 +7,7 @@
     <p class="mt-1 text-sm text-gray-800">
       {{ activeSubscription.title }}, ${{ activeSubscription.price }} / {{ convertShopifyInterval(activeSubscription.interval) }}
     </p>
-    <router-link :to="{ name: 'pricing' }" class="inline-block mt-6 text-sm font-medium text-blue-600">View all plans →</router-link>
+    <router-link :to="{ name: 'pricing' }" class="inline-block mt-5 text-sm font-medium text-blue-600">View all plans →</router-link>
   </BaseGridCard>
 </template>
 

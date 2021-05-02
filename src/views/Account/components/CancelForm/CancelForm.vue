@@ -1,10 +1,10 @@
 <template>
   <BaseTerminateCard
-    button-text="Cancel"
-    title="Cancel subscription"
-    button-confirmation-text="Confirm cancellation"
-    description="If you have any questions, feel free to get in touch via the messenger."
+    title="Cancel plan"
+    button-text="Cancel plan"
     @terminate="handleCancellation"
+    button-confirmation-text="Confirm cancellation"
+    description="If you decide to re-install the app in the future, all your offers will be restored. If you have any questions, please reach out via the messenger."
   />
 </template>
 
