@@ -28,8 +28,12 @@ export enum Interval {
 }
 
 export default {
-  async findAvailableSubscriptionPair(): Promise<Subscription[]> {
+  async findAllNonLegacy(): Promise<Subscription[]> {
     return (await client({ url: `/subscription/available`, method: 'get' })).data
+  },
+
+  async findSuitableSubscriptionPair(): Promise<Subscription[]> {
+    return (await client({ url: `/subscription/suitable`, method: 'get' })).data
   },
 
   async findActiveSubscription(): Promise<ActiveSubscription | null> {

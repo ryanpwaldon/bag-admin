@@ -99,7 +99,7 @@ export default defineComponent({
   },
   methods: {
     fetchAvailableSubscriptionPair() {
-      return subscriptionService.findAvailableSubscriptionPair()
+      return subscriptionService.findSuitableSubscriptionPair()
     },
     async handleSubmit() {
       if (this.selectedSubscription) {

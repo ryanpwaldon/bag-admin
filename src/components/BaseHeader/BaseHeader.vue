@@ -6,6 +6,7 @@
         <h2 class="text-2xl font-semibold leading-7 text-gray-800 sm:truncate">
           {{ $route.meta.title }}
         </h2>
+        <p class="max-w-md mt-1 text-sm text-gray-500 " v-if="description">{{ description }}</p>
       </div>
       <div v-if="$slots.actions" class="flex flex-shrink-0 ml-4">
         <slot name="actions" />
@@ -20,6 +21,12 @@ import BaseBreadcrumbs from '@/components/BaseBreadcrumbs/BaseBreadcrumbs.vue'
 export default defineComponent({
   components: {
     BaseBreadcrumbs
+  },
+  props: {
+    description: {
+      type: String,
+      required: false
+    }
   }
 })
 </script>

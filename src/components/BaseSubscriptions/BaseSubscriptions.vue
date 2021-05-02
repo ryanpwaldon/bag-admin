@@ -66,7 +66,7 @@ export default defineComponent({
   }),
   methods: {
     async fetchSubscriptions() {
-      this.subscriptions = await subscriptionService.findAvailableSubscriptionPair()
+      this.subscriptions = await subscriptionService.findSuitableSubscriptionPair()
     },
     async handleSubmit(subscription: Subscription) {
       this.selectedSubscription = subscription.name

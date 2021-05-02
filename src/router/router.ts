@@ -113,10 +113,10 @@ const routes: RouteRecordRaw[] = [
     meta: { title: 'Subscribe', layout: BaseLayoutCenter, transition: true }
   },
   {
-    path: '/pricing',
-    name: 'pricing',
-    component: () => import('@/views/Pricing/Pricing.vue'),
-    meta: { title: 'Pricing' }
+    path: '/plans',
+    name: 'plans',
+    component: () => import('@/views/Plans/Plans.vue'),
+    meta: { title: 'Plans', layout: BaseLayout }
   },
   {
     path: '/error',
