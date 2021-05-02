@@ -1,6 +1,6 @@
 <template>
   <BaseHeader />
-  <BaseLoader v-if="activeSubscription" />
+  <BaseLoader v-if="!activeSubscription" />
   <template v-else>
     <TrialCountdown :active-subscription="activeSubscription" />
     <PlanForm class="mt-8" :active-subscription="activeSubscription" />
