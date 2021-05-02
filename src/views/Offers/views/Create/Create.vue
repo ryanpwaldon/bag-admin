@@ -2,7 +2,7 @@
   <BaseHeader />
   <div class="grid gap-4">
     <BaseGridCard>
-      <h3 class="mb-6 text-lg font-medium text-gray-700">Offer type</h3>
+      <h3 class="mb-6 text-lg font-medium text-gray-800">Offer type</h3>
       <BaseInputRadioGroup name="offerType" :options="options" v-model="selected">
         <template v-for="(option, i) in options" v-slot:[option.value] :key="i">
           <div class="flex items-center justify-between">

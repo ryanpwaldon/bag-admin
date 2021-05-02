@@ -2,11 +2,11 @@
   <form @submit="handleSubmit">
     <BaseGridCard>
       <template #header>
-        <h3 class="text-lg font-medium text-gray-700">Details</h3>
+        <h3 class="text-lg font-medium text-gray-800">Details</h3>
       </template>
       <div class="grid grid-cols-12 gap-6">
         <div class="col-span-full">
-          <p class="text-base font-medium leading-6 text-gray-700">Product</p>
+          <p class="text-base font-medium leading-6 text-gray-800">Product</p>
           <p class="max-w-xl text-sm text-gray-500">
             The product being cross-sold.
           </p>
@@ -14,7 +14,7 @@
         <BaseProduct :title="crossSell.product?.title" :image="crossSell.product?.featuredImage?.originalSrc" class="sm:col-span-6 col-span-full" />
         <div class="h-2 -mx-6 border-b border-gray-200 col-span-full" />
         <div class="col-span-full">
-          <p class="text-base font-medium leading-6 text-gray-700">Copy</p>
+          <p class="text-base font-medium leading-6 text-gray-800">Copy</p>
           <p class="max-w-xl text-sm text-gray-500">Use persuasive language to entice the user into to purchasing your product.</p>
         </div>
         <BaseInputText

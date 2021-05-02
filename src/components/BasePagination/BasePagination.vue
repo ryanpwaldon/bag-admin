@@ -1,7 +1,7 @@
 <template>
   <nav class="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6">
     <div class="hidden w-full sm:block">
-      <p v-if="!loading" class="text-sm leading-5 text-gray-700">
+      <p v-if="!loading" class="text-sm leading-5 text-gray-800">
         Showing
         <span class="font-medium">{{ first }}</span>
         to

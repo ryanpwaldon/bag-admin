@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-start">
-    <label :for="name" class="block text-sm font-medium text-gray-700">{{ label }}</label>
+    <label :for="name" class="block text-sm font-medium text-gray-800">{{ label }}</label>
     <div class="relative w-full" :class="label && 'mt-1'">
       <input
         :id="name"

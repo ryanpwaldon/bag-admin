@@ -2,7 +2,7 @@
   <form @submit="handleSubmit">
     <BaseGridCard>
       <template #header>
-        <h3 class="text-lg font-medium text-gray-700">Notifications</h3>
+        <h3 class="text-lg font-medium text-gray-800">Notifications</h3>
       </template>
       <BaseInputToggleHorizontal
         label="Conversions"

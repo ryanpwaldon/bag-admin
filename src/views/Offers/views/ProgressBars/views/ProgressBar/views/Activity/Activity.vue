@@ -10,7 +10,7 @@
     />
     <BaseGridCard :content-padding="false">
       <template #header>
-        <h3 class="text-base font-medium text-gray-700">Conversions</h3>
+        <h3 class="text-base font-medium text-gray-800">Conversions</h3>
       </template>
       <BaseTable :items="conversions" :handle-selection="handleSelection" :props="conversionsTableColumns" v-if="conversions.length">
         <template #order="{ item }">

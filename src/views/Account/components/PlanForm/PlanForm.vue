@@ -1,6 +1,6 @@
 <template>
   <BaseGridCard>
-    <h3 class="mb-5 text-lg font-medium text-gray-700">Plan</h3>
+    <h3 class="mb-5 text-lg font-medium text-gray-800">Plan</h3>
     <BaseInputRadioGroup name="plan" :options="options" v-model="fields.subscription.value.value">
       <template v-for="(option, i) in options" v-slot:[option.value] :key="i">
         <div class="flex justify-between text-sm">

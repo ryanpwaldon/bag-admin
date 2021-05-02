@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label v-if="label" :for="name" class="block text-base font-medium text-gray-700">{{ label }}</label>
+    <label v-if="label" :for="name" class="block text-base font-medium text-gray-800">{{ label }}</label>
     <p v-if="description" class="max-w-xl mb-4 text-sm text-gray-500">{{ description }}</p>
     <div class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
       <BaseProduct v-if="product || loading" :title="product?.title" :image="product?.featuredImage?.originalSrc" :loading="loading">

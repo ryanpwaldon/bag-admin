@@ -14,7 +14,7 @@
       <button
         type="button"
         @click="openProductPicker"
-        class="px-3 py-2 -ml-px font-medium text-gray-700 bg-white border border-gray-300 shadow-sm rounded-r-md focus:outline-none hover:bg-gray-50 whitespace-nowrap"
+        class="px-3 py-2 -ml-px font-medium text-gray-800 bg-white border border-gray-300 shadow-sm rounded-r-md focus:outline-none hover:bg-gray-50 whitespace-nowrap"
       >
         Add products
       </button>

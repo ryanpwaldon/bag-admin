@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="mb-1 text-sm font-medium text-gray-700">{{ label }}</p>
+    <p class="mb-1 text-sm font-medium text-gray-800">{{ label }}</p>
     <div class="flex flex-wrap items-end -m-2">
       <div
         :key="i"
@@ -15,7 +15,7 @@
       </div>
       <label class="m-2">
         <span
-          class="block px-3 py-2 text-sm font-medium text-gray-700 transition border border-gray-300 rounded shadow-sm cursor-pointer hover:text-gray-500"
+          class="block px-3 py-2 text-sm font-medium text-gray-800 transition border border-gray-300 rounded shadow-sm cursor-pointer hover:text-gray-500"
         >
           Select a file
         </span>

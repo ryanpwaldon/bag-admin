@@ -3,7 +3,7 @@
     <nav class="sm:hidden">
       <router-link
         :to="breadcrumbs[breadcrumbs.length - 2].path"
-        class="flex items-center text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700"
+        class="flex items-center text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out hover:text-gray-800"
       >
         <svg class="flex-shrink-0 w-5 h-5 mr-1 -ml-1 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
           <path
@@ -17,7 +17,7 @@
     </nav>
     <nav class="items-center hidden text-sm font-medium leading-5 sm:flex">
       <template v-for="(route, i) in breadcrumbs" :key="i">
-        <router-link :to="{ name: route.name }" class="text-gray-500 transition duration-150 ease-in-out hover:text-gray-700">
+        <router-link :to="{ name: route.name }" class="text-gray-500 transition duration-150 ease-in-out hover:text-gray-800">
           {{ route.meta.title }}
         </router-link>
         <svg v-if="i !== breadcrumbs.length - 1" class="flex-shrink-0 w-5 h-5 mx-2 text-gray-400" viewBox="0 0 20 20" fill="currentColor">

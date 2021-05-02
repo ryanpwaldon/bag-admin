@@ -13,7 +13,7 @@
         />
         <div class="h-px -mx-6 bg-gray-300 col-span-full" />
         <div class="col-span-full">
-          <p class="text-base font-medium leading-6 text-gray-700">Copy</p>
+          <p class="text-base font-medium leading-6 text-gray-800">Copy</p>
           <p class="max-w-xl text-sm text-gray-500">Use persuasive language to entice the user into to purchasing your product.</p>
         </div>
         <BaseInputText

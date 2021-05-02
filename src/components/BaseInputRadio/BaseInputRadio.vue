@@ -17,7 +17,7 @@
             @input="$emit('update:modelValue', $event.target.value)"
           />
           <label :for="option.value" class="ml-3">
-            <span class="block text-sm font-medium leading-5 text-gray-700">{{ option.label }}</span>
+            <span class="block text-sm font-medium leading-5 text-gray-800">{{ option.label }}</span>
           </label>
         </div>
       </div>

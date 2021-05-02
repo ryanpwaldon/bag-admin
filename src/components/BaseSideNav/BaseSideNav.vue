@@ -3,7 +3,7 @@
     <nav class="space-y-1">
       <router-link :key="i" v-slot="{ isActive }" v-for="(link, i) in links" :to="{ name: link.name }" class="block">
         <span
-          :class="isActive ? 'text-blue-700 bg-gray-50' : 'text-gray-700 hover:text-gray-700 focus:text-gray-700 focus:bg-gray-50 hover:bg-gray-50'"
+          :class="isActive ? 'text-blue-700 bg-gray-50' : 'text-gray-800 hover:text-gray-800 focus:text-gray-800 focus:bg-gray-50 hover:bg-gray-50'"
           class="flex items-center px-3 py-2 text-sm font-medium leading-5 transition duration-150 ease-in-out rounded-md group focus:outline-none"
         >
           <component
