@@ -153,8 +153,6 @@ let isFirstRoute = true
 router.beforeEach(to => {
   if (isFirstRoute) {
     isFirstRoute = false
-    console.log('Auth test 1')
-    console.log({ name: 'auth', query: to.query, params: { continueToRouteName: to.name as string } })
     return { name: 'auth', query: to.query, params: { continueToRouteName: to.name as string } }
   }
   return true

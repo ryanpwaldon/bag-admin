@@ -51,8 +51,6 @@ export default defineComponent({
       userService.updateMe({ appOpens: user.appOpens + 1 })
       if (this.continueToRouteName === 'setup') return this.$router.push({ name: 'setup' })
       if (!user.subscription) return this.$router.push({ name: 'subscribe' })
-      console.log('Auth test 2')
-      console.log({ name: this.continueToRouteName, query: this.$route.query })
       this.$router.push({ name: this.continueToRouteName, query: this.$route.query })
     }
   }
