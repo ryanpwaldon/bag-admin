@@ -14,12 +14,6 @@ export default defineComponent({
   components: {
     BaseSpinner
   },
-  props: {
-    continueToRouteName: {
-      type: String,
-      required: true
-    }
-  },
   async created() {
     await this.start()
     this.loading = false
@@ -27,6 +21,11 @@ export default defineComponent({
   data() {
     return {
       loading: true
+    }
+  },
+  computed: {
+    continueToRoute() {
+      return this.$store.state.continueToRoute
     }
   },
   methods: {
@@ -48,10 +47,11 @@ export default defineComponent({
       installationService.install(shopOrigin)
     },
     authSuccess(user: User) {
+      if (!this.continueToRoute) return this.displayError('Continue to route is not defined.')
       userService.updateMe({ appOpens: user.appOpens + 1 })
-      if (this.continueToRouteName === 'setup') return this.$router.push({ name: 'setup' })
+      if (this.continueToRoute.name === 'setup') return this.$router.push({ name: 'setup' })
       if (!user.subscription) return this.$router.push({ name: 'subscribe' })
-      this.$router.push({ name: this.continueToRouteName, query: this.$route.query })
+      this.$router.push(this.continueToRoute)
     }
   }
 })

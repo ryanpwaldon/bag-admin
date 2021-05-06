@@ -1,3 +1,4 @@
+import store from '@/store/store'
 import { trackRouter } from 'vue-gtag-next'
 import BaseLayout from '@/components/BaseLayout/BaseLayout.vue'
 import BaseLayoutCenter from '@/components/BaseLayoutCenter/BaseLayoutCenter.vue'
@@ -153,7 +154,8 @@ let isFirstRoute = true
 router.beforeEach(to => {
   if (isFirstRoute) {
     isFirstRoute = false
-    return { name: 'auth', query: to.query, params: { continueToRouteName: to.name as string } }
+    store.commit('setContinueToRoute', to)
+    return { name: 'auth', query: to.query }
   }
   return true
 })
