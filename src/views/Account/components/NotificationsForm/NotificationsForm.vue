@@ -2,13 +2,19 @@
   <form @submit="handleSubmit">
     <BaseGridCard>
       <template #header>
-        <h3 class="text-lg font-medium text-gray-800">Notifications</h3>
+        <h3 class="text-lg font-medium text-gray-800">Email notifications</h3>
       </template>
       <BaseInputToggleHorizontal
         label="Conversions"
         description="Get notified every time a customer converts."
         v-model="fields.conversion.value.value"
         class="w-full"
+      />
+      <BaseInputToggleHorizontal
+        label="Daily Report"
+        description="Get a summary of your conversions at the end of each day."
+        v-model="fields.conversionReportDaily.value.value"
+        class="w-full mt-5"
       />
       <BaseInputToggleHorizontal
         label="Weekly Report"
@@ -28,12 +34,12 @@
 <script lang="ts">
 import store from '@/store/store'
 import { boolean, object } from 'yup'
-import { computed, defineComponent, ref } from 'vue'
 import useForm from '@/composables/useForm'
+import { computed, defineComponent, ref } from 'vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
-import BaseInputToggleHorizontal from '@/components/BaseInputToggleHorizontal/BaseInputToggleHorizontal.vue'
 import userService, { Notification } from '@/services/api/services/userService'
+import BaseInputToggleHorizontal from '@/components/BaseInputToggleHorizontal/BaseInputToggleHorizontal.vue'
 export default defineComponent({
   components: {
     BaseButton,
@@ -46,6 +52,7 @@ export default defineComponent({
     const schema = computed(() =>
       object({
         [Notification.Conversion]: boolean().default(!unsubscribedNotifications.value.includes(Notification.Conversion)),
+        [Notification.ConversionReportDaily]: boolean().default(!unsubscribedNotifications.value.includes(Notification.ConversionReportDaily)),
         [Notification.ConversionReportWeekly]: boolean().default(!unsubscribedNotifications.value.includes(Notification.ConversionReportWeekly))
       }).defined()
     )

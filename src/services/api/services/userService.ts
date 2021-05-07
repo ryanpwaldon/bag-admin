@@ -6,6 +6,7 @@ export enum Permission {
 
 export enum Notification {
   Conversion = 'conversion',
+  ConversionReportDaily = 'conversionReportDaily',
   ConversionReportWeekly = 'conversionReportWeekly'
 }
 
