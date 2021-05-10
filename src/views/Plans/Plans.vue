@@ -5,7 +5,7 @@
     </template>
   </BaseHeader>
   <BaseLoader v-if="!subscriptions.length" />
-  <div class="grid grid-flow-col grid-cols-4 gap-6" v-else>
+  <div class="grid grid-flow-row grid-cols-1 gap-6 sm:grid-cols-2" v-else>
     <BasePlanCard
       :key="i"
       :price="plan.price"
