@@ -12,8 +12,8 @@
       />
     </div>
     <TurnOnCartPrompt />
-    <CreateProgressBarPrompt />
     <CreateCrossSellPrompt />
+    <CreateProgressBarPrompt />
     <BaseTask
       title="Share your experience"
       description="Please consider leaving a review to share your experience. We appreciate any feedback you have to share!"

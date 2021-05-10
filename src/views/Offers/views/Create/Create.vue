@@ -39,16 +39,16 @@ enum RouteNames {
 
 const options = [
   {
-    value: RouteNames.ProgressBar,
-    disabled: false,
-    title: 'Progress bar',
-    description: 'Display a visual incentive to encourage customers to spend more.'
-  },
-  {
     value: RouteNames.CrossSell,
     disabled: false,
     title: 'Cross sell',
     description: 'Display a related product based on an item already added to cart.'
+  },
+  {
+    value: RouteNames.ProgressBar,
+    disabled: false,
+    title: 'Progress bar',
+    description: 'Display a visual incentive to encourage customers to spend more.'
   }
 ]
 
@@ -62,7 +62,7 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter()
-    const selected = ref(RouteNames.ProgressBar)
+    const selected = ref(RouteNames.CrossSell)
     const handleNext = () => router.push({ name: selected.value })
     return { options, selected, handleNext }
   }

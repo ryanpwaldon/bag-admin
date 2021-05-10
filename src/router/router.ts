@@ -23,7 +23,7 @@ const routes: RouteRecordRaw[] = [
     name: 'offers',
     component: () => import('@/views/Offers/Offers.vue'),
     meta: { title: 'Offers', layout: BaseLayout },
-    redirect: { name: 'progress-bars' },
+    redirect: { name: 'cross-sells' },
     children: [
       {
         path: 'cross-sells',
