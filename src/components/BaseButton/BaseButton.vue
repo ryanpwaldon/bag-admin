@@ -56,7 +56,7 @@ export default defineComponent({
   computed: {
     loaderPrimaryColor(): string {
       return {
-        blue: 'text-white',
+        blue: 'text-white opacity-50',
         lightBlue: 'text-white',
         white: 'text-white',
         black: 'text-gray-600',
