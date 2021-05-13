@@ -52,13 +52,13 @@
 <script lang="ts">
 import { object } from 'yup'
 import useForm from '@/composables/useForm'
-import { requiredString, triggerGroup } from '@/validators'
 import { computed, defineComponent, PropType, ref } from 'vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
 import BaseInputProduct from '@/components/BaseInputProduct/BaseInputProduct.vue'
 import crossSellService, { CrossSell } from '@/services/api/services/crossSellService'
+import { crossSellSubtitle, crossSellTitle, requiredString, triggerGroup } from '@/validators'
 import BaseInputTriggerGroup from '@/components/BaseInputTriggerGroup/BaseInputTriggerGroup.vue'
 
 export default defineComponent({
@@ -81,8 +81,8 @@ export default defineComponent({
       object({
         triggerGroup: triggerGroup.default(props.crossSell.triggerGroup),
         productId: requiredString.default(props.crossSell.productId),
-        title: requiredString.default(props.crossSell.title),
-        subtitle: requiredString.default(props.crossSell.subtitle)
+        title: crossSellTitle.default(props.crossSell.title),
+        subtitle: crossSellSubtitle.default(props.crossSell.subtitle)
       }).defined()
     )
     const { fields, getValues, handleSubmit, modified } = useForm(schema)

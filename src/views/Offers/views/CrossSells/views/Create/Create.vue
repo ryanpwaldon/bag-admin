@@ -50,12 +50,12 @@ import { useRouter } from 'vue-router'
 import useForm from '@/composables/useForm'
 import { computed, defineComponent, ref } from 'vue'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
-import { triggerGroup, requiredString } from '@/validators'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import crossSellService from '@/services/api/services/crossSellService'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
 import BaseInputProduct from '@/components/BaseInputProduct/BaseInputProduct.vue'
+import { triggerGroup, requiredString, crossSellTitle, crossSellSubtitle } from '@/validators'
 import BaseInputTriggerGroup from '@/components/BaseInputTriggerGroup/BaseInputTriggerGroup.vue'
 
 export default defineComponent({
@@ -73,8 +73,8 @@ export default defineComponent({
     const schema = computed(() =>
       object({
         triggerGroup,
-        title: requiredString,
-        subtitle: requiredString,
+        title: crossSellTitle,
+        subtitle: crossSellSubtitle,
         productId: requiredString
       }).defined()
     )

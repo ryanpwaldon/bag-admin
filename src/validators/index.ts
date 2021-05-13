@@ -5,6 +5,10 @@ export const requiredString = string()
   .required('This field is required.')
   .default('')
 
+export const crossSellTitle = requiredString.max(47, 'Must be less than 47 characters.')
+
+export const crossSellSubtitle = requiredString.max(60, 'Must be less than 60 characters.')
+
 export const requiredNumber = number()
   .required('This field is required.')
   .typeError('Please enter a valid number.')
