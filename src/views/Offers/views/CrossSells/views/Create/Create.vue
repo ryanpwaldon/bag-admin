@@ -2,37 +2,33 @@
   <BaseHeader />
   <form @submit="handleSubmit" class="grid gap-4" autocomplete="off">
     <BaseCard>
-      <div class="grid grid-cols-12 gap-6">
-        <BaseInputProduct
-          label="Product"
-          description="The product you would like to cross-sell."
-          name="productId"
-          v-model="fields.productId.value.value"
-          :error="fields.productId.error.value"
-          class="col-span-full"
-        />
-        <div class="h-px -mx-6 bg-gray-300 col-span-full" />
-        <div class="col-span-full">
-          <p class="text-base font-medium leading-6 text-gray-800">Copy</p>
-          <p class="max-w-xl text-sm text-gray-500">Use persuasive language to entice the user into to purchasing your product.</p>
-        </div>
+      <div class="grid grid-cols-12 gap-y-6 gap-x-4">
         <BaseInputText
           name="title"
           label="Title"
           v-model="fields.title.value.value"
           :error="fields.title.error.value"
-          placeholder="Need some tape?"
-          class="col-span-full sm:col-span-6"
+          placeholder="Add some tape"
+          class="max-w-md col-span-full"
+          description="The call to action. Keep it short and simple."
         />
         <BaseInputText
           name="subtitle"
           label="Subtitle"
           v-model="fields.subtitle.value.value"
           :error="fields.subtitle.error.value"
-          placeholder="Add for $8.95"
-          class="col-span-full sm:col-span-6"
+          placeholder="For only $8.95"
+          class="max-w-md col-span-full"
+          description="Add some additional information."
         />
-        <div class="h-px -mx-6 bg-gray-300 col-span-full" />
+        <BaseInputProduct
+          label="Product"
+          description="The product you are cross selling."
+          name="productId"
+          v-model="fields.productId.value.value"
+          :error="fields.productId.error.value"
+          class="col-span-full"
+        />
         <BaseInputTriggerGroup
           name="triggerGroup"
           label="Triggers"
@@ -51,8 +47,8 @@
 <script lang="ts">
 import { object } from 'yup'
 import { useRouter } from 'vue-router'
-import { computed, defineComponent, ref } from 'vue'
 import useForm from '@/composables/useForm'
+import { computed, defineComponent, ref } from 'vue'
 import BaseCard from '@/components/BaseCard/BaseCard.vue'
 import { triggerGroup, requiredString } from '@/validators'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
@@ -64,11 +60,11 @@ import BaseInputTriggerGroup from '@/components/BaseInputTriggerGroup/BaseInputT
 
 export default defineComponent({
   components: {
-    BaseHeader,
     BaseCard,
+    BaseHeader,
+    BaseButton,
     BaseInputText,
     BaseInputProduct,
-    BaseButton,
     BaseInputTriggerGroup
   },
   setup() {

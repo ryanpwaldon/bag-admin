@@ -55,46 +55,46 @@ const triggerSchemas: Record<TriggerProperty, TriggerSchema> = {
   product: {
     defaultValue: [],
     placeholder: null,
-    property: { label: 'Products', value: TriggerProperty.Product, description: 'Products added to cart' },
+    property: { label: 'Product', value: TriggerProperty.Product, description: 'Products added to cart' },
     conditions: [
-      { value: TriggerCondition.Includes, label: 'Include' },
-      { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
+      { value: TriggerCondition.Includes, label: 'Includes' },
+      { value: TriggerCondition.DoesNotInclude, label: 'Does not include' }
     ]
   },
   variant: {
     defaultValue: [],
     placeholder: null,
-    property: { label: 'Variants', value: TriggerProperty.Variant, description: 'Variants added to cart' },
+    property: { label: 'Variant', value: TriggerProperty.Variant, description: 'Variants added to cart' },
     conditions: [
-      { value: TriggerCondition.Includes, label: 'Include' },
-      { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
+      { value: TriggerCondition.Includes, label: 'Includes' },
+      { value: TriggerCondition.DoesNotInclude, label: 'Does not include' }
     ]
   },
   productTag: {
     defaultValue: '',
     placeholder: 'Value',
-    property: { label: 'Product tags', value: TriggerProperty.ProductTag, description: 'Tags of products added to cart' },
+    property: { label: 'Product tag', value: TriggerProperty.ProductTag, description: 'Tags of products added to cart' },
     conditions: [
-      { value: TriggerCondition.Includes, label: 'Include' },
-      { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
+      { value: TriggerCondition.Includes, label: 'Includes' },
+      { value: TriggerCondition.DoesNotInclude, label: 'Does not include' }
     ]
   },
   productType: {
     defaultValue: '',
     placeholder: 'Value',
-    property: { label: 'Product types', value: TriggerProperty.ProductType, description: 'Types of products added to cart' },
+    property: { label: 'Product type', value: TriggerProperty.ProductType, description: 'Types of products added to cart' },
     conditions: [
-      { value: TriggerCondition.Includes, label: 'Include' },
-      { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
+      { value: TriggerCondition.Includes, label: 'Includes' },
+      { value: TriggerCondition.DoesNotInclude, label: 'Does not include' }
     ]
   },
   productVendor: {
     defaultValue: '',
     placeholder: 'Value',
-    property: { label: 'Product vendors', value: TriggerProperty.ProductVendor, description: 'Vendors of products added to cart' },
+    property: { label: 'Product vendor', value: TriggerProperty.ProductVendor, description: 'Vendors of products added to cart' },
     conditions: [
-      { value: TriggerCondition.Includes, label: 'Include' },
-      { value: TriggerCondition.DoesNotInclude, label: 'Do not include' }
+      { value: TriggerCondition.Includes, label: 'Includes' },
+      { value: TriggerCondition.DoesNotInclude, label: 'Does not include' }
     ]
   },
   subtotal: {

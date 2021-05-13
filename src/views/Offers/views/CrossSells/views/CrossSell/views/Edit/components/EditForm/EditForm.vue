@@ -5,25 +5,23 @@
         <h3 class="text-lg font-medium text-gray-800">Details</h3>
       </template>
       <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-full">
-          <p class="text-base font-medium leading-6 text-gray-800">Product</p>
-          <p class="max-w-xl text-sm text-gray-500">
-            The product being cross-sold.
-          </p>
-        </div>
-        <BaseProduct :title="crossSell.product?.title" :image="crossSell.product?.featuredImage?.originalSrc" class="sm:col-span-6 col-span-full" />
-        <div class="h-2 -mx-6 border-b border-gray-200 col-span-full" />
-        <div class="col-span-full">
-          <p class="text-base font-medium leading-6 text-gray-800">Copy</p>
-          <p class="max-w-xl text-sm text-gray-500">Use persuasive language to entice the user into to purchasing your product.</p>
-        </div>
+        <BaseInputProduct
+          label="Product"
+          :disabled="true"
+          description="The product you are cross selling."
+          name="productId"
+          v-model="fields.productId.value.value"
+          :error="fields.productId.error.value"
+          class="max-w-md col-span-full"
+        />
         <BaseInputText
           name="title"
           label="Title"
           v-model="fields.title.value.value"
           :error="fields.title.error.value"
           placeholder="Need some tape?"
-          class="col-span-full sm:col-span-6"
+          class="max-w-md col-span-full"
+          description="The call to action. Keep it short and simple."
         />
         <BaseInputText
           name="subtitle"
@@ -31,9 +29,9 @@
           v-model="fields.subtitle.value.value"
           :error="fields.subtitle.error.value"
           placeholder="Add for $8.95"
-          class="col-span-full sm:col-span-6"
+          class="max-w-md col-span-full"
+          description="Add some additional information."
         />
-        <div class="h-2 -mx-6 border-b border-gray-200 col-span-full" />
         <BaseInputTriggerGroup
           name="triggerGroup"
           label="Triggers"
@@ -52,23 +50,23 @@
 </template>
 
 <script lang="ts">
+import { object } from 'yup'
 import useForm from '@/composables/useForm'
+import { requiredString, triggerGroup } from '@/validators'
+import { computed, defineComponent, PropType, ref } from 'vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
-import BaseProduct from '@/components/BaseProduct/BaseProduct.vue'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import BaseInputText from '@/components/BaseInputText/BaseInputText.vue'
+import BaseInputProduct from '@/components/BaseInputProduct/BaseInputProduct.vue'
 import crossSellService, { CrossSell } from '@/services/api/services/crossSellService'
 import BaseInputTriggerGroup from '@/components/BaseInputTriggerGroup/BaseInputTriggerGroup.vue'
-import { computed, defineComponent, PropType, ref } from 'vue'
-import { requiredString, triggerGroup } from '@/validators'
-import { object } from 'yup'
 
 export default defineComponent({
   components: {
+    BaseButton,
     BaseGridCard,
     BaseInputText,
-    BaseButton,
-    BaseProduct,
+    BaseInputProduct,
     BaseInputTriggerGroup
   },
   props: {
@@ -82,6 +80,7 @@ export default defineComponent({
     const schema = computed(() =>
       object({
         triggerGroup: triggerGroup.default(props.crossSell.triggerGroup),
+        productId: requiredString.default(props.crossSell.productId),
         title: requiredString.default(props.crossSell.title),
         subtitle: requiredString.default(props.crossSell.subtitle)
       }).defined()

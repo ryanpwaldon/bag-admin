@@ -1,26 +1,25 @@
 <template>
   <div>
-    <label v-if="label" :for="name" class="block text-base font-medium text-gray-800">{{ label }}</label>
-    <p v-if="description" class="max-w-xl mb-4 text-sm text-gray-500">{{ description }}</p>
-    <div class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
-      <BaseProduct v-if="product || loading" :title="product?.title" :image="product?.featuredImage?.originalSrc" :loading="loading">
-        <template #button>
-          <BaseMenuButton
-            class="flex-shrink-0 mr-2"
-            :links="[
-              { title: 'Change', action: openProductPicker },
-              { title: 'Remove', action: remove }
-            ]"
-          />
-        </template>
-      </BaseProduct>
-      <BaseInputButton @click="openProductPicker" class="h-20" text="Select a product" theme="white" v-if="!modelValue">
-        <template #icon>
-          <ChevronRight class="w-5 h-5 ml-3 -mr-1 text-gray-400" />
-        </template>
-      </BaseInputButton>
-    </div>
-    <p v-if="error" class="mt-2 text-sm text-red-600">{{ error }}</p>
+    <label v-if="label" :for="name" class="block text-sm font-medium text-gray-800">{{ label }}</label>
+    <BaseProduct v-if="product || loading" :title="product?.title" :image="product?.featuredImage?.originalSrc" :loading="loading" class="mt-1">
+      <template #button v-if="!disabled">
+        <BaseMenuButton
+          class="flex-shrink-0 mr-2"
+          :links="[
+            { title: 'Change', action: openProductPicker },
+            { title: 'Remove', action: remove }
+          ]"
+        />
+      </template>
+    </BaseProduct>
+    <BaseInputButton @click="openProductPicker" class="h-20" text="Select a product" theme="white" v-if="!modelValue">
+      <template #icon>
+        <ChevronRight class="w-5 h-5 ml-3 -mr-1 text-gray-400" />
+      </template>
+    </BaseInputButton>
+    <p class="mt-2 text-sm" :class="[error ? 'text-red-600' : 'text-gray-500']" v-if="error || description">
+      {{ error || description }}
+    </p>
   </div>
 </template>
 
@@ -48,6 +47,10 @@ export default defineComponent({
       type: String,
       required: false
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     name: {
       type: String,
       required: true
@@ -66,13 +69,16 @@ export default defineComponent({
     loading: false
   }),
   watch: {
-    async modelValue() {
-      this.product = null
-      if (!this.modelValue) return
-      this.loading = true
-      const [product] = await productService.findByIds([this.modelValue])
-      this.product = product
-      this.loading = false
+    modelValue: {
+      async handler() {
+        this.product = null
+        if (!this.modelValue) return
+        this.loading = true
+        const [product] = await productService.findByIds([this.modelValue])
+        this.product = product
+        this.loading = false
+      },
+      immediate: true
     }
   },
   methods: {

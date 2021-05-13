@@ -1,7 +1,10 @@
 <template>
   <form @submit="handleSubmit">
     <BaseGridCard>
-      <BaseInputToggleHorizontal label="Status" description="Turn this offer on / off." v-model="fields.active.value.value" class="w-full" />
+      <template #header>
+        <h3 class="text-lg font-medium text-gray-800">Settings</h3>
+      </template>
+      <BaseInputToggleHorizontal label="Status" description="Turn this offer on or off." v-model="fields.active.value.value" class="w-full" />
       <template #footer>
         <div class="flex justify-end">
           <BaseButton text="Save" type="submit" :loading="loading" :disabled="!modified" />
