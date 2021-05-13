@@ -29,5 +29,13 @@ export default {
     limit: number
   }) {
     return (await client({ url: `/conversion/${conversionType}/${offerId}`, method: 'get', params: { sort, page, limit } })).data
+  },
+
+  async getTotalCountByOffer(offerId: string, conversionType: ConversionType) {
+    return (await client({ url: `/conversion/${conversionType}/${offerId}/count`, method: 'get' })).data
+  },
+
+  async getCrossSellIncome(offerId: string) {
+    return (await client({ url: `/conversion/cross-sell/${offerId}/income`, method: 'get' })).data
   }
 }
