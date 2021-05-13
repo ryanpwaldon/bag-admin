@@ -3,6 +3,14 @@
   <form @submit="handleSubmit" class="grid gap-4" autocomplete="off">
     <BaseCard>
       <div class="grid grid-cols-12 gap-y-6 gap-x-4">
+        <BaseInputProduct
+          label="Product"
+          description="The product you are cross selling."
+          name="productId"
+          v-model="fields.productId.value.value"
+          :error="fields.productId.error.value"
+          class="max-w-md col-span-full"
+        />
         <BaseInputText
           name="title"
           label="Title"
@@ -20,14 +28,6 @@
           placeholder="For only $8.95"
           class="max-w-md col-span-full"
           description="Add some additional information."
-        />
-        <BaseInputProduct
-          label="Product"
-          description="The product you are cross selling."
-          name="productId"
-          v-model="fields.productId.value.value"
-          :error="fields.productId.error.value"
-          class="col-span-full"
         />
         <BaseInputTriggerGroup
           name="triggerGroup"

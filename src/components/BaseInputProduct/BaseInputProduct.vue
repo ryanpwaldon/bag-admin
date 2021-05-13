@@ -1,22 +1,24 @@
 <template>
   <div>
     <label v-if="label" :for="name" class="block text-sm font-medium text-gray-800">{{ label }}</label>
-    <BaseProduct v-if="product || loading" :title="product?.title" :image="product?.featuredImage?.originalSrc" :loading="loading" class="mt-1">
-      <template #button v-if="!disabled">
-        <BaseMenuButton
-          class="flex-shrink-0 mr-2"
-          :links="[
-            { title: 'Change', action: openProductPicker },
-            { title: 'Remove', action: remove }
-          ]"
-        />
-      </template>
-    </BaseProduct>
-    <BaseInputButton @click="openProductPicker" class="h-20" text="Select a product" theme="white" v-if="!modelValue">
-      <template #icon>
-        <ChevronRight class="w-5 h-5 ml-3 -mr-1 text-gray-400" />
-      </template>
-    </BaseInputButton>
+    <div class="flex flex-col mt-1">
+      <BaseProduct v-if="product || loading" :title="product?.title" :image="product?.featuredImage?.originalSrc" :loading="loading">
+        <template #button v-if="!disabled">
+          <BaseMenuButton
+            class="flex-shrink-0 mr-2"
+            :links="[
+              { title: 'Change', action: openProductPicker },
+              { title: 'Remove', action: remove }
+            ]"
+          />
+        </template>
+      </BaseProduct>
+      <BaseInputButton @click="openProductPicker" class="h-20" text="Select a product" theme="white" v-if="!modelValue">
+        <template #icon>
+          <ChevronRight class="w-5 h-5 ml-3 -mr-1 text-gray-400" />
+        </template>
+      </BaseInputButton>
+    </div>
     <p class="mt-2 text-sm" :class="[error ? 'text-red-600' : 'text-gray-500']" v-if="error || description">
       {{ error || description }}
     </p>
