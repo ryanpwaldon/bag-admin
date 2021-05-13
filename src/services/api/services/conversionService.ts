@@ -1,21 +1,33 @@
 import { client } from '@/services/api/client'
 import { Order } from '@/services/api/services/orderService'
-import { CrossSell } from '@/services/api/services/crossSellService'
-import { ProgressBar } from '@/services/api/services/progressBarService'
 
 export type Conversion<T> = {
   object: T
   user: string
-  type: string
+  type: ConversionType
   value: number
   order: Order
 }
 
+export enum ConversionType {
+  CrossSell = 'CrossSell',
+  ProgressBar = 'ProgressBar'
+}
+
 export default {
-  async findByCrossSellId(id: string): Promise<Conversion<CrossSell>[]> {
-    return (await client({ url: `/conversion/cross-sell/${id}`, method: 'get' })).data
-  },
-  async findByProgressBarId(id: string): Promise<Conversion<ProgressBar>[]> {
-    return (await client({ url: `/conversion/progress-bar/${id}`, method: 'get' })).data
+  async findByOffer({
+    offerId,
+    conversionType,
+    sort,
+    page,
+    limit
+  }: {
+    offerId: string
+    conversionType: ConversionType
+    sort?: string
+    page: number
+    limit: number
+  }) {
+    return (await client({ url: `/conversion/${conversionType}/${offerId}`, method: 'get', params: { sort, page, limit } })).data
   }
 }
