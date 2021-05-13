@@ -14,7 +14,7 @@
       <div class="text-sm text-gray-500">{{ format.currency(item.goal) }}</div>
     </template>
     <template #status="{ item }">
-      <div class="text-sm text-gray-500">{{ item.active ? 'Live' : 'Paused' }}</div>
+      <BaseBadge :text="item.active ? 'Active' : 'Paused'" :theme="item.active ? 'green' : 'gray'" />
     </template>
     <template #arrow>
       <div class="self-end text-sm font-medium text-blue-600">View →</div>
@@ -34,20 +34,22 @@
 
 <script lang="ts">
 import { useRouter } from 'vue-router'
+import useFormatter from '@/composables/useFormatter'
 import { defineComponent, watchEffect, ref } from 'vue'
 import BaseTable from '@/components/BaseTable/BaseTable.vue'
+import BaseBadge from '@/components/BaseBadge/BaseBadge.vue'
 import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import BasePagination from '@/components/BasePagination/BasePagination.vue'
 import progressBarService, { ProgressBar } from '@/services/api/services/progressBarService'
-import useFormatter from '@/composables/useFormatter'
 export default defineComponent({
   name: 'Offers',
   components: {
+    BaseBadge,
     BaseTable,
-    BasePagination,
+    BaseButton,
     BaseGridCard,
-    BaseButton
+    BasePagination
   },
   setup() {
     const page = ref(1)

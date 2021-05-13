@@ -12,7 +12,7 @@
             <Calendar class="w-5 h-5 text-gray-400" />
             <p>Created {{ $dayjs(progressBar?.createdAt).format('Do MMM YYYY') }}</p>
           </div>
-          <BaseBadge :text="progressBar?.active ? 'Live' : 'Paused'" :theme="progressBar?.active ? 'green' : 'yellow'" />
+          <BaseBadge :text="progressBar?.active ? 'Active' : 'Paused'" :theme="progressBar?.active ? 'green' : 'yellow'" />
         </div>
       </div>
     </div>

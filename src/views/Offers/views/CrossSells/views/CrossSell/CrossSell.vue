@@ -10,7 +10,7 @@
             <Calendar class="w-5 h-5 text-gray-400" />
             <p>Created {{ $dayjs(crossSell?.createdAt).format('Do MMM YYYY') }}</p>
           </div>
-          <BaseBadge :text="crossSell?.active ? 'Live' : 'Paused'" :theme="crossSell?.active ? 'green' : 'yellow'" />
+          <BaseBadge :text="crossSell?.active ? 'Active' : 'Paused'" :theme="crossSell?.active ? 'green' : 'gray'" />
         </div>
       </div>
     </div>
