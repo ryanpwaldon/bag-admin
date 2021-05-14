@@ -8,6 +8,7 @@ import analytics from 'vue-gtag-next'
 import * as Sentry from '@sentry/vue'
 import shopify from '@/plugins/shopify'
 import { Integrations } from '@sentry/tracing'
+import honeybadger from '@/plugins/honeybadger'
 import 'focus-visible/dist/focus-visible.min.js'
 
 Sentry.init({
@@ -25,4 +26,5 @@ export default createApp(App)
   .use(router)
   .use(shopify)
   .use(analytics, { property: { id: process.env.VUE_APP_GA_MEASUREMENT_ID } })
+  .use(honeybadger, { apiKey: process.env.VUE_APP_HONEYBADGER_API_KEY, environment: process.env.VUE_APP_ENV })
   .mount('#app')
