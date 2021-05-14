@@ -5,20 +5,9 @@ import '@/assets/styles/index.css'
 import dayjs from '@/plugins/dayjs'
 import router from '@/router/router'
 import analytics from 'vue-gtag-next'
-import * as Sentry from '@sentry/vue'
 import shopify from '@/plugins/shopify'
-import { Integrations } from '@sentry/tracing'
 import honeybadger from '@/plugins/honeybadger'
 import 'focus-visible/dist/focus-visible.min.js'
-
-Sentry.init({
-  tracesSampleRate: 1.0,
-  autoSessionTracking: true,
-  dsn: process.env.VUE_APP_SENTRY_DSN,
-  environment: process.env.VUE_APP_ENV,
-  integrations: [new Integrations.BrowserTracing()],
-  logErrors: process.env.VUE_APP_ENV !== 'production'
-})
 
 export default createApp(App)
   .use(store)
