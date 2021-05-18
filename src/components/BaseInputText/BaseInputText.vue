@@ -9,11 +9,13 @@
         :placeholder="placeholder"
         @input="$emit('update:modelValue', $event.target.value)"
         class="block w-full text-sm transition duration-150 ease-in-out rounded shadow-sm"
-        :class="
+        :class="[
           error
             ? 'text-red-900 placeholder-red-300 border-red-300 focus:ring-red-500 focus:border-red-500'
-            : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'
-        "
+            : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500',
+          center ? 'text-center' : '',
+          mono ? 'font-mono' : ''
+        ]"
       />
       <div v-if="error" class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
         <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
@@ -25,7 +27,7 @@
         </svg>
       </div>
     </div>
-    <p class="mt-2 text-sm" :class="[error ? 'text-red-600' : 'text-gray-500']" v-if="error || description">
+    <p class="w-full mt-2 text-sm" :class="[error ? 'text-red-600' : 'text-gray-500', center ? 'text-center' : '']" v-if="error || description">
       {{ error || description }}
     </p>
   </div>
@@ -58,6 +60,14 @@ export default defineComponent({
     error: {
       type: String,
       required: false
+    },
+    mono: {
+      type: Boolean,
+      default: false
+    },
+    center: {
+      type: Boolean,
+      default: false
     }
   }
 })

@@ -35,9 +35,11 @@
         :disabled="!selectedSubscription"
         :text="ctaCopy"
       />
-      <button class="mt-8 text-sm text-gray-500 focus:outline-none" @click="openBeacon">
-        Need help?
-      </button>
+      <p class="mt-8 text-sm text-gray-500">
+        <button class="focus:outline-none" @click="openBeacon">Need help?</button>
+        <span> · </span>
+        <router-link class="focus:outline-none" :to="{ name: 'coupon' }">Have a code?</router-link>
+      </p>
     </div>
   </transition>
 </template>
