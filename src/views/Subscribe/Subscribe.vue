@@ -104,7 +104,7 @@ export default defineComponent({
     async handleSubmit() {
       if (this.selectedSubscription) {
         this.submitting = true
-        await this.createSubscription(this.selectedSubscription)
+        await this.createSubscription(this.selectedSubscription.name, false)
       }
     }
   }
