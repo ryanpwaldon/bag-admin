@@ -53,7 +53,7 @@ export default defineComponent({
         await createSubscription('Free (v1)', true)
         router.push({ name: 'home' })
       } catch (err) {
-        error.value = 'Coupon code is not valid'
+        error.value = 'Code is not valid'
       }
       loading.value = false
     }
