@@ -12,23 +12,24 @@
 
 <script lang="ts">
 import Clock from '@/icons/Clock.vue'
-import { ActiveSubscription } from '@/services/api/services/subscriptionService'
-import { defineComponent, PropType } from 'vue'
+import { defineComponent } from 'vue'
 export default defineComponent({
   components: {
     Clock
   },
   props: {
-    activeSubscription: {
-      type: Object as PropType<ActiveSubscription>,
+    trialDays: {
+      type: Number,
+      required: true
+    },
+    subscriptionStart: {
+      type: String,
       required: true
     }
   },
   created() {
-    if (!this.activeSubscription) return
-    const { createdAt, trialDays } = this.activeSubscription
-    const subscribedDays = this.$dayjs().diff(this.$dayjs(createdAt), 'day')
-    this.trialDaysRemaining = trialDays - subscribedDays > 0 ? trialDays - subscribedDays : 0
+    const subscribedDays = this.$dayjs().diff(this.$dayjs(this.subscriptionStart), 'day')
+    this.trialDaysRemaining = this.trialDays - subscribedDays > 0 ? this.trialDays - subscribedDays : 0
   },
   data: () => ({
     trialDaysRemaining: 0

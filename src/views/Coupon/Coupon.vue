@@ -44,7 +44,6 @@ export default defineComponent({
     )
     const { fields, getValues, handleSubmit } = useForm(schema)
     const onSubmit = async () => {
-      console.log(getValues())
       error.value = null
       loading.value = true
       const { code } = getValues()

@@ -1,9 +1,18 @@
 <template>
   <BaseHeader />
-  <BaseLoader v-if="!activeSubscription" />
+  <BaseLoader v-if="loading" />
   <template v-else>
-    <TrialCountdown :active-subscription="activeSubscription" />
-    <PlanForm class="mt-8" :active-subscription="activeSubscription" />
+    <TrialCountdown
+      :trial-days="activeSubscription?.trialDays"
+      :subscription-start="activeSubscription?.createdAt"
+      v-if="activeSubscription?.trialDays && activeSubscription?.createdAt"
+    />
+    <PlanForm
+      class="mt-8"
+      :title="activeSubscription?.title || subscription?.title"
+      :price="activeSubscription?.price || subscription?.price"
+      :interval="activeSubscription?.interval || subscription?.interval"
+    />
     <NotificationsForm class="mt-8" />
     <CancelForm class="mt-8" />
   </template>
@@ -16,7 +25,7 @@ import PlanForm from '@/views/Account/components/PlanForm/PlanForm.vue'
 import CancelForm from '@/views/Account/components/CancelForm/CancelForm.vue'
 import TrialCountdown from '@/views/Account/components/TrialCountdown/TrialCountdown.vue'
 import NotificationsForm from '@/views/Account/components/NotificationsForm/NotificationsForm.vue'
-import subscriptionService, { ActiveSubscription } from '@/services/api/services/subscriptionService'
+import subscriptionService, { ActiveSubscription, Subscription } from '@/services/api/services/subscriptionService'
 import { defineComponent } from 'vue'
 export default defineComponent({
   components: {
@@ -28,10 +37,14 @@ export default defineComponent({
     NotificationsForm
   },
   async created() {
-    const activeSubscription = await subscriptionService.findActiveSubscription()
+    const [subscription, activeSubscription] = await subscriptionService.findMySubscriptionDetails()
+    this.subscription = subscription
     this.activeSubscription = activeSubscription
+    this.loading = false
   },
   data: () => ({
+    loading: true,
+    subscription: null as Subscription | null,
     activeSubscription: null as ActiveSubscription | null
   })
 })

@@ -28,16 +28,16 @@ export enum Interval {
 }
 
 export default {
+  async findMySubscriptionDetails(): Promise<[Subscription | null, ActiveSubscription | null]> {
+    return (await client({ url: `/subscription/my`, method: 'get' })).data
+  },
+
   async findAllAvailable(): Promise<Subscription[]> {
     return (await client({ url: `/subscription/available`, method: 'get' })).data
   },
 
   async findSuitableSubscriptionPair(): Promise<Subscription[]> {
     return (await client({ url: `/subscription/suitable`, method: 'get' })).data
-  },
-
-  async findActiveSubscription(): Promise<ActiveSubscription | null> {
-    return (await client({ url: `/subscription/active`, method: 'get' })).data
   },
 
   async createFreeSubscription(subscriptionName: string): Promise<User> {
