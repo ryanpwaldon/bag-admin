@@ -37,7 +37,7 @@ export default defineComponent({
     return { openBeacon, convertShopifyInterval, intervalOptions }
   },
   async created() {
-    this.subscriptions = await subscriptionService.findAllNonLegacy()
+    this.subscriptions = await subscriptionService.findAllAvailable()
   },
   computed: {
     selectedPlanGroup(): Subscription[] {

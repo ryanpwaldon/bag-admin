@@ -28,7 +28,7 @@ export enum Interval {
 }
 
 export default {
-  async findAllNonLegacy(): Promise<Subscription[]> {
+  async findAllAvailable(): Promise<Subscription[]> {
     return (await client({ url: `/subscription/available`, method: 'get' })).data
   },
 
