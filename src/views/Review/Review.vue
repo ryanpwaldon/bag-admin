@@ -26,12 +26,6 @@ import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import userService from '@/services/api/services/userService'
 export default defineComponent({
   components: { Sparkles, BaseButton },
-  props: {
-    message: {
-      type: String,
-      required: true
-    }
-  },
   beforeRouteEnter() {
     if (store.state.user?.seenReviewPrompt) router.push({ name: 'home' })
   },
