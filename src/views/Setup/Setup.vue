@@ -30,7 +30,7 @@ export default defineComponent({
   async created() {
     const user = await installationService.setup()
     this.$store.commit('setUser', user)
-    this.$router.push({ name: 'subscribe' })
+    this.$router.push({ name: 'home' })
   }
 })
 </script>

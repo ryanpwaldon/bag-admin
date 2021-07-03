@@ -50,7 +50,6 @@ export default defineComponent({
       if (!this.continueToRoute) return this.displayError('Continue to route is not defined.')
       userService.updateMe({ appOpens: user.appOpens + 1 })
       if (this.continueToRoute.name === 'setup') return this.$router.push({ name: 'setup' })
-      if (!user.subscription) return this.$router.push({ name: 'subscribe' })
       this.$router.push(this.continueToRoute)
     }
   }

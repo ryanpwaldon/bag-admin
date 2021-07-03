@@ -8,7 +8,7 @@
         <div
           :class="[
             'relative flex p-4 border',
-            option.disabled && 'pointer-events-none',
+            option.disabled && 'pointer-events-none bg-gray-50',
             i === 0 && 'rounded-tl-md rounded-tr-md',
             i === options.length - 1 && 'rounded-bl-md rounded-br-md',
             modelValue === option.value ? 'bg-blue-50 border-blue-200 z-10' : 'border-gray-200'
@@ -23,6 +23,7 @@
               :checked="modelValue === option.value"
               @input="$emit('update:modelValue', option.value)"
               class="w-4 h-4 text-blue-600 border-gray-300 cursor-pointer focus:ring-blue-500"
+              :class="option.disabled && 'bg-gray-100'"
             />
           </div>
           <label :for="`settings-option-${i}`" class="w-full ml-3 cursor-pointer">

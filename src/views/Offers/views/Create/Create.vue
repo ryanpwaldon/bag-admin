@@ -1,8 +1,10 @@
 <template>
   <BaseHeader />
-  <div class="grid gap-4">
+  <BaseLoader v-if="loading" />
+  <div class="grid gap-6" v-else>
+    <BaseUpgradePrompt v-if="$store.state.user?.subscription === 'Free (v1)' && displayUpgradePrompt" />
     <BaseGridCard>
-      <h3 class="mb-6 text-lg font-medium text-gray-800">Offer type</h3>
+      <h3 class="mb-6 text-lg font-medium text-gray-800">Select offer type</h3>
       <BaseInputRadioGroup name="offerType" :options="options" v-model="selected">
         <template v-for="(option, i) in options" v-slot:[option.value] :key="i">
           <div class="flex items-center justify-between">
@@ -10,7 +12,7 @@
               <p class="font-medium">{{ option.title }}</p>
               <p class="text-gray-500">{{ option.description }}</p>
             </div>
-            <BaseBadge v-if="option.disabled" text="Coming soon" theme="grayOutline" />
+            <BaseBadge v-if="option.disabled" text="Free limit reached" theme="grayOutline" />
           </div>
         </template>
       </BaseInputRadioGroup>
@@ -31,6 +33,10 @@ import BaseButton from '@/components/BaseButton/BaseButton.vue'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseGridCard from '@/components/BaseGridCard/BaseGridCard.vue'
 import BaseInputRadioGroup from '@/components/BaseInputRadioGroup/BaseInputRadioGroup.vue'
+import BaseUpgradePrompt from '@/components/BaseUpgradePrompt/BaseUpgradePrompt.vue'
+import crossSellService from '@/services/api/services/crossSellService'
+import progressBarService from '@/services/api/services/progressBarService'
+import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
 
 enum RouteNames {
   CrossSell = 'create-cross-sell',
@@ -58,13 +64,33 @@ export default defineComponent({
     BaseHeader,
     BaseInputRadioGroup,
     BaseButton,
-    BaseBadge
+    BaseBadge,
+    BaseUpgradePrompt,
+    BaseLoader
   },
   setup() {
+    const selected = ref()
     const router = useRouter()
-    const selected = ref(RouteNames.CrossSell)
+    const loading = ref(true)
+    const displayUpgradePrompt = ref(false)
     const handleNext = () => router.push({ name: selected.value })
-    return { options, selected, handleNext }
+    const totalCrossSells = ref(0 as number)
+    const totalProgressBars = ref(0 as number)
+    const fetchTotals = async () => {
+      totalCrossSells.value = (await crossSellService.findAll({ page: 1, limit: 1 })).total
+      if (totalCrossSells.value >= 1) {
+        options[0].disabled = true
+        displayUpgradePrompt.value = true
+      }
+      totalProgressBars.value = (await progressBarService.findAll({ page: 1, limit: 1 })).total
+      if (totalProgressBars.value >= 1) {
+        options[1].disabled = true
+        displayUpgradePrompt.value = true
+      }
+      loading.value = false
+    }
+    fetchTotals()
+    return { displayUpgradePrompt, loading, options, selected, handleNext }
   }
 })
 </script>
