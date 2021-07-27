@@ -6,10 +6,9 @@
 
 <script lang="ts">
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
-import cartService from '@/services/api/services/cartService'
+import cartService, { Cart } from '@/services/api/services/cartService'
 import StatusForm from '@/views/Cart/components/StatusForm/StatusForm.vue'
 import BaseLoader from '@/components/BaseLoader/BaseLoader.vue'
-import { Cart } from '@shopify/app-bridge/actions/Cart'
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
