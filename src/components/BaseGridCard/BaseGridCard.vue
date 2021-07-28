@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white rounded-lg shadow">
-    <div class="px-4 py-5 border-b border-gray-200 sm:px-6 sm:py-5" v-if="$slots.header">
+    <div class="px-4 py-5 border-b border-gray-200 rounded-t-lg sm:px-6 sm:py-5 bg-gray-50" v-if="$slots.header">
       <slot name="header" />
     </div>
     <div :class="contentPadding && 'px-4 py-5 sm:p-6'">

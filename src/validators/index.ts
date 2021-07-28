@@ -5,6 +5,12 @@ export const requiredString = string()
   .required('This field is required.')
   .default('')
 
+export const requiredHex = () =>
+  string()
+    .required('This field is required.')
+    .matches(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i, 'Not a valid hex code.')
+    .default('')
+
 export const crossSellTitle = requiredString.max(47, 'Must be less than 47 characters.')
 
 export const crossSellSubtitle = requiredString.max(60, 'Must be less than 60 characters.')

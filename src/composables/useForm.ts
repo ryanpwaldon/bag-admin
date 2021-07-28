@@ -3,9 +3,10 @@ import cloneDeep from 'lodash/cloneDeep'
 import { AnySchema, ObjectSchema } from 'yup'
 import { computed, ComputedRef, Ref, ref, watch } from 'vue'
 
+/* eslint-disable */
 type Field = {
-  initial: unknown
-  value: Ref<unknown>
+  initial: any
+  value: Ref<any>
   error: Ref<string | undefined>
   modified: Ref<boolean>
   validate: () => void
