@@ -1,20 +1,22 @@
 import { client } from '@/services/api/client'
 
 interface CartSettings {
-  colorBackdrop: string
-  colorBackground: string
-  colorBorderPrimary: string
-  colorButtonPrimaryBackground: string
-  colorButtonPrimaryText: string
-  colorProgressBarPrimary: string
-  colorTextLink: string
-  colorTextPrimary: string
-  colorTextSecondary: string
-  displayBorders: boolean
-  displayShadows: boolean
-  opacityBackdrop: number
-  paddingCart: number
-  roundedCorners: boolean
+  backdropColor: string
+  backdropOpacity: number
+  borderColor1: string
+  brightness1: number
+  cartPadding: number
+  checkoutButtonColor: string
+  checkoutButtonTextColor: string
+  progressBarColor: string
+  roundCorners: boolean
+  showBorders: boolean
+  showShadows: boolean
+  textColor1: string
+  textColor2: string
+  textColor3: string
+  themeColor1: string
+  themeColor2: string
 }
 
 export type Cart = {
