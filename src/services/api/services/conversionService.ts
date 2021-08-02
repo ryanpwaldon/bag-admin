@@ -14,21 +14,23 @@ export enum ConversionType {
   ProgressBar = 'ProgressBar'
 }
 
+export interface FindByOfferQuery {
+  page: number
+  sort?: string
+  limit: number
+  offerId: string
+  conversionType: ConversionType
+}
+
 export default {
-  async findByOffer({
-    offerId,
-    conversionType,
-    sort,
-    page,
-    limit
-  }: {
-    offerId: string
-    conversionType: ConversionType
-    sort?: string
-    page: number
-    limit: number
-  }) {
-    return (await client({ url: `/conversion/${conversionType}/${offerId}`, method: 'get', params: { sort, page, limit } })).data
+  async findByOffer({ offerId, conversionType, sort, page, limit }: FindByOfferQuery) {
+    return (
+      await client({
+        url: `/conversion/${conversionType}/${offerId}`,
+        method: 'get',
+        params: { sort, page, limit, populate: ['object', 'user', 'order'] }
+      })
+    ).data
   },
 
   async getTotalCountByOffer(offerId: string, conversionType: ConversionType) {
