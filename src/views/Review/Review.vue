@@ -10,7 +10,7 @@
     <a class="w-full mt-6" href="https://apps.shopify.com/bag#modal-show=ReviewListingModal" target="_blank">
       <BaseButton class="w-full" size="md" theme="black" text="Leave a review →" />
     </a>
-    <router-link to="/home" class="w-full mt-3">
+    <router-link :to="{ name: 'home' }" class="w-full mt-3">
       <BaseButton size="md" theme="white" class="w-full" text="Skip" />
     </router-link>
   </div>
