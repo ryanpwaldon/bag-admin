@@ -99,7 +99,25 @@ const routes: RouteRecordRaw[] = [
     path: '/cart',
     name: 'cart',
     component: () => import('@/views/Cart/Cart.vue'),
-    meta: { title: 'Cart', layout: BaseLayout }
+    meta: { title: 'Cart', layout: BaseLayout },
+    redirect: { name: 'cart-theme' },
+    children: [
+      {
+        path: 'theme',
+        name: 'cart-theme',
+        component: () => import('@/views/Cart/views/Theme/Theme.vue')
+      },
+      {
+        path: 'terms-and-conditions',
+        name: 'cart-terms-and-conditions',
+        component: () => import('@/views/Cart/views/TermsAndConditions/TermsAndConditions.vue')
+      },
+      {
+        path: 'settings',
+        name: 'cart-settings',
+        component: () => import('@/views/Cart/views/Settings/Settings.vue')
+      }
+    ]
   },
   {
     path: '/account',

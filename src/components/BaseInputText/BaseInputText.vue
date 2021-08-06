@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-col items-start">
-    <label :for="name" class="block text-sm font-medium text-gray-800">{{ label }}</label>
-    <div class="relative w-full" :class="label && 'mt-1'">
+    <div class="flex">
+      <label :for="name" class="block text-sm font-medium text-gray-800">{{ label }}</label>
+      <span class="ml-2 text-sm text-gray-500" v-if="optional">(Optional)</span>
+    </div>
+    <div class="relative w-full" :class="[label && 'mt-1', maxWidth]">
       <input
         :id="name"
         type="text"
@@ -27,7 +30,11 @@
         </svg>
       </div>
     </div>
-    <p class="w-full mt-2 text-sm" :class="[error ? 'text-red-600' : 'text-gray-500', center ? 'text-center' : '']" v-if="error || description">
+    <p
+      v-if="error || description"
+      class="w-full max-w-2xl mt-2 text-sm"
+      :class="[error ? 'text-red-600' : 'text-gray-500', center ? 'text-center' : '']"
+    >
       {{ error || description }}
     </p>
   </div>
@@ -66,6 +73,14 @@ export default defineComponent({
       default: false
     },
     center: {
+      type: Boolean,
+      default: false
+    },
+    maxWidth: {
+      type: String,
+      default: 'max-w-xs'
+    },
+    optional: {
       type: Boolean,
       default: false
     }

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-start">
     <label :for="name" class="block text-sm font-medium text-gray-800">{{ label }}</label>
-    <div class="relative flex w-full rounded shadow-sm" :class="label && 'mt-1'">
+    <div class="relative flex w-full rounded shadow-sm" :class="[label && 'mt-1', maxWidth]">
       <div
         class="flex-shrink-0 w-10 text-sm border border-r-0 border-gray-300 rounded-l"
         :style="{ backgroundColor: error ? placeholder : modelValue.toString() }"
@@ -31,7 +31,11 @@
         </svg>
       </div>
     </div>
-    <p class="w-full mt-2 text-sm" :class="[error ? 'text-red-600' : 'text-gray-500', center ? 'text-center' : '']" v-if="error || description">
+    <p
+      v-if="error || description"
+      class="w-full max-w-2xl mt-2 text-sm"
+      :class="[error ? 'text-red-600' : 'text-gray-500', center ? 'text-center' : '']"
+    >
       {{ error || description }}
     </p>
   </div>
@@ -72,6 +76,10 @@ export default defineComponent({
     center: {
       type: Boolean,
       default: false
+    },
+    maxWidth: {
+      type: String,
+      default: 'max-w-xs'
     }
   }
 })

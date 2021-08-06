@@ -17,6 +17,11 @@ interface CartSettings {
   textColor3: string
   themeColor1: string
   themeColor2: string
+  termsEnabled: boolean
+  termsTitle: string
+  termsAgreement: string
+  termsLinkText: string
+  termsLinkUrl: string
 }
 
 export type Cart = {
