@@ -22,6 +22,8 @@ interface CartSettings {
   termsAgreement: string
   termsLinkText: string
   termsLinkUrl: string
+  autoCloseEnabled: boolean
+  autoCloseDelay: number
 }
 
 export type Cart = {

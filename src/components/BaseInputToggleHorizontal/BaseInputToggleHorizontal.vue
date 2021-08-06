@@ -2,7 +2,7 @@
   <div class="flex items-center justify-between">
     <span class="flex flex-col flex-grow" id="toggleLabel">
       <span class="text-sm font-medium text-gray-800">{{ label }}</span>
-      <span class="mt-1 text-sm text-gray-500">{{ description }}</span>
+      <span class="max-w-xl mt-1 text-sm text-gray-500">{{ description }}</span>
     </span>
     <span
       role="checkbox"
