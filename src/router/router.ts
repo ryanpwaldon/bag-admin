@@ -19,6 +19,12 @@ const routes: RouteRecordRaw[] = [
     meta: { title: 'Home', layout: BaseLayout }
   },
   {
+    path: '/analytics',
+    name: 'analytics',
+    component: () => import('@/views/Analytics/Analytics.vue'),
+    meta: { title: 'Analytics', layout: BaseLayout }
+  },
+  {
     path: '/offers',
     name: 'offers',
     component: () => import('@/views/Offers/Offers.vue'),

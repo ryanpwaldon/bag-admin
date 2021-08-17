@@ -92,7 +92,7 @@ export default defineComponent({
   },
   computed: {
     primaryRoutes(): RouteLocationNormalized[] {
-      return this.resolveRoutes(['/', '/offers', '/cart'])
+      return this.resolveRoutes(['/', '/analytics', '/offers', '/cart'])
     },
     secondaryRoutes(): RouteLocationNormalized[] {
       return this.resolveRoutes(['/account'])

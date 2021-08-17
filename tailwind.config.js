@@ -3,7 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   purge: ['./public/**/*.html', './src/**/*.vue'],
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/aspect-ratio')],
   theme: {
     extend: {
       fontFamily: {

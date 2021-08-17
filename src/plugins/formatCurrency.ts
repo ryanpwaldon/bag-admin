@@ -1,13 +1,9 @@
+import { App } from 'vue'
 import store from '@/store/store'
 import getLocale from '@/utils/getLocale'
 import { AdminCurrencyCode } from '@/types/admin/graphql'
-import { composeGid } from '@shopify/admin-graphql-api-utilities'
 
-const percent = (num: number) => {
-  return Math.round((num * 100 + Number.EPSILON) * 100) / 100 + '%'
-}
-
-const currency = (amount: number | string) => {
+const formatCurrency = (amount: number | string) => {
   const locale = getLocale()
   amount = typeof amount === 'string' ? parseFloat(amount) : amount
   const currencyCode = store.state.user?.currencyCode || AdminCurrencyCode.Usd
@@ -19,14 +15,10 @@ const currency = (amount: number | string) => {
   }
 }
 
-const gid = (key: string, id: string | number) => {
-  return composeGid(key, id)
+export default {
+  install: (app: App) => {
+    app.config.globalProperties.$formatCurrency = formatCurrency
+  }
 }
 
-export default () => ({
-  format: {
-    currency,
-    percent,
-    gid
-  }
-})
+export type FormatCurrency = typeof formatCurrency

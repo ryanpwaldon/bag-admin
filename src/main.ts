@@ -8,12 +8,14 @@ import analytics from 'vue-gtag-next'
 import shopify from '@/plugins/shopify'
 import honeybadger from '@/plugins/honeybadger'
 import 'focus-visible/dist/focus-visible.min.js'
+import formatCurrency from '@/plugins/formatCurrency'
 
 export default createApp(App)
   .use(store)
   .use(dayjs)
   .use(router)
   .use(shopify)
+  .use(formatCurrency)
   .use(analytics, { property: { id: process.env.VUE_APP_GA_MEASUREMENT_ID } })
   .use(honeybadger, { apiKey: process.env.VUE_APP_HONEYBADGER_API_KEY, environment: process.env.VUE_APP_ENV })
   .mount('#app')
