@@ -9,7 +9,7 @@
     </div>
     <div class="flex space-x-5">
       <BaseIncrement @decrement="updateDate(-1)" @increment="updateDate(1)" :disableIncrement="dateIsPresent" />
-      <BaseMenu v-model="period" :options="periodOptions" :labelOverride="periodLabel" align="right" />
+      <BaseMenu v-model="period" :options="periodOptions" :labelOverride="periodLabel" align="right" @onActiveOptionClick="handleActivePeriodClick" />
     </div>
   </div>
   <div class="grid gap-6">
@@ -97,6 +97,7 @@ export default defineComponent({
     const periodUnit = computed(() => period.value.split('-')[0] as TimeUnit)
     const dateIsPresent = computed(() => dayjs().startOf(periodUnit.value).toString() === dayjs(date.value).startOf(periodUnit.value).toString())
     const updateDate = (direction: -1 | 1) => (date.value = dayjs(date.value).startOf(periodUnit.value).add(periodLength.value * direction, periodUnit.value).format('YYYY-MM-DD'))
+    const handleActivePeriodClick = () => date.value = getToday()
     const handleChartDrillDown = (event: Record<string, string>) => {
       period.value = event.period
       nextTick(() => (date.value = event.date))
@@ -152,6 +153,7 @@ export default defineComponent({
       handleChartDrillDown,
       conversionTypeDisplay,
       conversionTypeOptions,
+      handleActivePeriodClick,
       handleTopConversionDrillDown,
       removeTopConversionDrillDown
     }

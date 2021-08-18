@@ -75,7 +75,10 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const updateModelValue = (value: string) => emit('update:modelValue', value)
+    const updateModelValue = (value: string) => {
+      if (props.modelValue === value) emit('onActiveOptionClick')
+      else emit('update:modelValue', value)
+    }
     const selectedOption = computed(() => props.options.find(option => option.value === props.modelValue))
     return { selectedOption, updateModelValue }
   }
