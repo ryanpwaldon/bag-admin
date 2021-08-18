@@ -13,7 +13,11 @@ interface GetStatisticsQuery {
 export interface TopConversionsData {
   conversionType: ConversionType
   items: {
-    convertedItem: string
+    convertedItem: {
+      id: string
+      title: string
+      path: string
+    }
     conversionCount: number
     conversionRevenue: number
   }[]

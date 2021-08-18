@@ -120,6 +120,7 @@ module.exports = {
   },
   variants: {
     extend: {
+      display: ['group-hover'],
       borderColor: ['focus-visible'],
       ringOffsetWidth: ['focus-visible'],
       ringColor: ['focus-visible'],

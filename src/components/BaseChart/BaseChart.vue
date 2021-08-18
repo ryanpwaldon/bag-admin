@@ -39,7 +39,7 @@ export default defineComponent({
     const { format } = useFormatter()
     const formatLabel = (label: string) => {
       if (props.interval === 'hour') return dayjs(label).format('ha')
-      else if (props.interval === 'day') return dayjs(label).format('DD MMM')
+      else if (props.interval === 'day') return dayjs(label).format('ddd, D MMM')
       else if (props.interval === 'month') return dayjs(label).format('MMMM')
       else throw new Error('Invalid interval.')
     }
