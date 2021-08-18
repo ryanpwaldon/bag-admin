@@ -107,7 +107,6 @@ export default defineComponent({
             x: {
               grid: { display: false, drawBorder: false },
               ticks: {
-                maxRotation: 0,
                 color: '#737373',
                 maxTicksLimit: 8,
                 callback(this: any, value) {

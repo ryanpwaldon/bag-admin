@@ -5,6 +5,7 @@ export type TimeUnit = 'hour' | 'day' | 'week' | 'month' | 'year'
 
 interface GetStatisticsQuery {
   date: string
+  offerId: string
   period: TimeUnit
   periodLength: number
   conversionType: ConversionType
@@ -24,12 +25,12 @@ export interface TopConversionsData {
 }
 
 export default {
-  async getChartData({ date, period, periodLength, conversionType }: GetStatisticsQuery) {
+  async getChartData({ date, offerId, period, periodLength, conversionType }: GetStatisticsQuery) {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    return (await client({ url: `/statistics/chart`, method: 'get', params: { date, period, periodLength, conversionType, timezone } })).data
+    return (await client({ url: `/statistics/chart`, method: 'get', params: { date, offerId, period, periodLength, conversionType, timezone } })).data
   },
-  async getTopConversionsData({ date, period, periodLength, conversionType }: GetStatisticsQuery): Promise<TopConversionsData> {
+  async getTopConversionsData({ date, offerId, period, periodLength, conversionType }: GetStatisticsQuery): Promise<TopConversionsData> {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    return (await client({ url: `/statistics/top-conversions`, method: 'get', params: { date, period, periodLength, conversionType, timezone } })).data // prettier-ignore
+    return (await client({ url: `/statistics/top-conversions`, method: 'get', params: { date, offerId, period, periodLength, conversionType, timezone } })).data // prettier-ignore
   }
 }

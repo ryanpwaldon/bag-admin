@@ -2,7 +2,7 @@
   <Menu as="div" class="relative z-10 inline-block text-left">
     <div>
       <MenuButton
-        class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-800 bg-white rounded shadow hover:bg-gray-50 focus:outline-none"
+        class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-800 bg-white rounded shadow hover:bg-gray-50 focus:outline-none whitespace-nowrap"
       >
         {{ labelOverride || selectedOption?.label }}
         <ChevronDownIcon class="w-5 h-5 ml-2 -mr-1 text-gray-700" />

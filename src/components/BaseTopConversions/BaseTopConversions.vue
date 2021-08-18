@@ -14,7 +14,10 @@
       <div class="flex w-full space-x-6" v-for="(item, i) in topConversionsData.items" :key="i" v-else>
         <div class="relative w-full pl-2 py-1.5 flex items-center group">
           <div class="absolute top-0 left-0 h-full bg-blue-50" :style="{ width: `${(item.conversionCount / topCount) * 100}%` }" />
-          <span class="relative cursor-pointer group-hover:underline" @click="handleTopConversionClick(item.convertedItem.id)">
+          <span
+            class="relative cursor-pointer group-hover:underline"
+            @click="handleTopConversionClick(item.convertedItem.id, item.convertedItem.title)"
+          >
             {{ item.convertedItem.title }}
           </span>
           <router-link :to="item.convertedItem.path" class="hidden group-hover:block">
@@ -59,8 +62,8 @@ export default defineComponent({
     const topCount = props.topConversionsData.items.reduce((topCount, item) => {
       return item.conversionCount > topCount ? item.conversionCount : topCount
     }, 0)
-    const handleTopConversionClick = (id: string) => {
-      emit('onTopConversionIdUpdated', id)
+    const handleTopConversionClick = (id: string, title: string) => {
+      emit('drillDown', { id, title })
     }
     return { title, subtitle, topCount, isCrossSell, handleTopConversionClick }
   }

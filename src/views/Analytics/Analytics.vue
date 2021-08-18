@@ -1,7 +1,12 @@
 <template>
   <BaseHeader />
   <div class="flex justify-between mb-6">
-    <BaseMenu v-model="conversionType" :options="conversionTypeOptions" />
+    <div class="min-w-0 mr-5">
+      <BaseFilterTab @onRemove="removeTopConversionDrillDown" v-if="offerId">
+        <span>{{ conversionTypeDisplay }}:</span> <span class="font-medium">{{ offerTitle }}</span>
+      </BaseFilterTab>
+      <BaseMenu v-model="conversionType" :options="conversionTypeOptions" v-else />
+    </div>
     <div class="flex space-x-5">
       <BaseIncrement @decrement="updateDate(-1)" @increment="updateDate(1)" :disableIncrement="dateIsPresent" />
       <BaseMenu v-model="period" :options="periodOptions" :labelOverride="periodLabel" align="right" />
@@ -24,7 +29,7 @@
         <BaseSpinner class="w-6 h-6" />
       </div>
       <div class="p-6" v-else>
-        <BaseTopConversions :topConversionsData="topConversionsData" />
+        <BaseTopConversions :topConversionsData="topConversionsData" @drillDown="handleTopConversionDrillDown" />
       </div>
     </div>
   </div>
@@ -37,6 +42,7 @@ import BaseChart from '@/components/BaseChart/BaseChart.vue'
 import BaseHeader from '@/components/BaseHeader/BaseHeader.vue'
 import BaseSpinner from '@/components/BaseSpinner/BaseSpinner.vue'
 import BaseMetrics from '@/components/BaseMetrics/BaseMetrics.vue'
+import BaseFilterTab from '@/components/BaseFilterTab/BaseFilterTab.vue'
 import BaseIncrement from '@/components/BaseIncrement/BaseIncrement.vue'
 import BaseMenu, { MenuOption } from '@/components/BaseMenu/BaseMenu.vue'
 import { ConversionType } from '@/services/api/services/conversionService'
@@ -69,9 +75,12 @@ export default defineComponent({
     BaseMetrics,
     BaseSpinner,
     BaseIncrement,
+    BaseFilterTab,
     BaseTopConversions
   },
   setup() {
+    const offerId = ref()
+    const offerTitle = ref()
     const loading = ref(true)
     const chartData = ref()
     const topConversionsData = ref()
@@ -79,6 +88,11 @@ export default defineComponent({
     const date = ref(getToday())
     watch(period, () => date.value = getToday())
     const conversionType = ref(ConversionType.CrossSell)
+    const conversionTypeDisplay = computed(() => {
+      if (conversionType.value === ConversionType.CrossSell) return 'Cross Sell'
+      if (conversionType.value === ConversionType.ProgressBar) return 'Progress Bar'
+      return 'Undefined'
+    })
     const periodLength = computed(() => parseInt(period.value.split('-')[1]))
     const periodUnit = computed(() => period.value.split('-')[0] as TimeUnit)
     const dateIsPresent = computed(() => dayjs().startOf(periodUnit.value).toString() === dayjs(date.value).startOf(periodUnit.value).toString())
@@ -86,6 +100,14 @@ export default defineComponent({
     const handleChartDrillDown = (event: Record<string, string>) => {
       period.value = event.period
       nextTick(() => (date.value = event.date))
+    }
+    const removeTopConversionDrillDown = () => {
+      offerId.value = undefined
+      offerTitle.value = undefined
+    }
+    const handleTopConversionDrillDown = (event: Record<string, string>) => {
+      offerId.value = event.id
+      offerTitle.value = event.title
     }
     const periodLabel = computed(() => {
       if (dateIsPresent.value) return periodOptions.find(({ value }) => value === period.value)?.label
@@ -98,12 +120,12 @@ export default defineComponent({
     })
     const requestToken = ref()
     watch(
-      [date, periodUnit, periodLength, conversionType],
+      [date, offerId, periodUnit, periodLength, conversionType],
       async () => {
         loading.value = true
         const currentRequestToken = nanoid(6)
         requestToken.value = currentRequestToken
-        const requestParams = { date: date.value, period: periodUnit.value, periodLength: periodLength.value, conversionType: conversionType.value }
+        const requestParams = { date: date.value, offerId: offerId.value, period: periodUnit.value, periodLength: periodLength.value, conversionType: conversionType.value }
         const [ getChartDataResponse, getTopConversionsDataResponse ] = await Promise.all([
           statisticsService.getChartData(requestParams),
           statisticsService.getTopConversionsData(requestParams)
@@ -118,15 +140,20 @@ export default defineComponent({
     return {
       loading,
       period,
+      offerId,
       chartData,
       updateDate,
+      offerTitle,
       periodLabel,
       dateIsPresent,
       periodOptions,
       conversionType,
       topConversionsData,
       handleChartDrillDown,
-      conversionTypeOptions
+      conversionTypeDisplay,
+      conversionTypeOptions,
+      handleTopConversionDrillDown,
+      removeTopConversionDrillDown
     }
   }
 })
