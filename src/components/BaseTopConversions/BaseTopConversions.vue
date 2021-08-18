@@ -1,12 +1,17 @@
 <template>
-  <div class="w-full">
+  <div class="flex flex-col w-full h-full">
     <h3 class="text-base font-semibold">{{ title }}</h3>
-    <div class="flex items-center justify-between mt-3 text-xs font-semibold text-gray-500">
+    <div class="flex items-center justify-between mt-3 text-xs font-semibold text-gray-500" v-if="topConversionsData.items.length">
       <span>{{ subtitle }}</span>
       <span>Conversions</span>
     </div>
-    <div class="flex flex-col w-full mt-2 space-y-1">
-      <div class="flex w-full space-x-6" v-for="(item, i) in topConversionsData.items" :key="i">
+    <div class="flex flex-col flex-1 w-full mt-2 space-y-1">
+      <div class="flex items-center justify-center flex-1" v-if="!topConversionsData.items.length">
+        <span class="text-base font-medium text-gray-500">
+          No data yet
+        </span>
+      </div>
+      <div class="flex w-full space-x-6" v-for="(item, i) in topConversionsData.items" :key="i" v-else>
         <div class="relative w-full pl-2 py-1.5 flex items-center group">
           <div class="absolute top-0 left-0 h-full bg-blue-50" :style="{ width: `${(item.conversionCount / topCount) * 100}%` }" />
           <span class="relative cursor-pointer group-hover:underline" @click="handleTopConversionClick(item.convertedItem.id)">

@@ -19,8 +19,13 @@
         </div>
       </div>
     </div>
-    <div class="w-full p-6 bg-white rounded shadow" v-if="!loading">
-      <BaseTopConversions :topConversionsData="topConversionsData" />
+    <div class="w-full bg-white rounded shadow" :class="(loading || !topConversionsData.items.length) && 'aspect-w-10 aspect-h-4'">
+      <div class="flex items-center justify-center" v-if="loading">
+        <BaseSpinner class="w-6 h-6" />
+      </div>
+      <div class="p-6" v-else>
+        <BaseTopConversions :topConversionsData="topConversionsData" />
+      </div>
     </div>
   </div>
 </template>
