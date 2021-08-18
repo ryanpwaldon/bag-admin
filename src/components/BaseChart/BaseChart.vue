@@ -122,7 +122,7 @@ export default defineComponent({
             {
               data: processedPlots[0].data,
               borderColor: '#3B82F6',
-              backgroundColor: 'rgba(36, 99, 235, 0.1)',
+              backgroundColor: 'rgba(223, 237, 255, 0.5)',
               borderCapStyle: 'round',
               borderJoinStyle: 'round',
               fill: true,
